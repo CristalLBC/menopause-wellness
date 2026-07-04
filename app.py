@@ -58,11 +58,16 @@ def register():
             flash('Email already registered.', 'danger')
             return render_template('register.html')
 
-        # Verify Gumroad license key
-        gumroad_resp = gumroad_utils.verify_license(license_key)
-        if not gumroad_resp['success']:
-            flash(f'License key invalid: {gumroad_resp.get("error", "Unknown error")}', 'danger')
-            return render_template('register.html')
+        # Verify Gumroad license key (skip for admin email)
+        admin_emails = os.environ.get('ADMIN_EMAILS', '').lower().split(',')
+        is_admin = email.lower() in [e.strip() for e in admin_emails if e.strip()]
+        if not is_admin:
+            gumroad_resp = gumroad_utils.verify_license(license_key)
+            if not gumroad_resp['success']:
+                flash(f'License key invalid: {gumroad_resp.get("error", "Unknown error")}', 'danger')
+                return render_template('register.html')
+        else:
+            gumroad_resp = {'success': True, 'purchase': {}, 'email': email, 'product_name': 'Admin'}
 
         user = User(username=username, email=email)
         user.set_password(password)
