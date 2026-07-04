@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ article.title }} — Articles{% endblock %}
+
+{% block extra_head %}
+<style>
+  .article-container { max-width: 750px; margin: 0 auto; }
+  .article-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 2.5rem;
+  }
+  .article-header { margin-bottom: 2rem; }
+  .article-header h1 { font-size: 2rem; color: #e0e0f0; margin-bottom: 0.75rem; line-height: 1.3; }
+  .article-meta { color: #606080; font-size: 0.85rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .article-meta .category-badge {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.7rem;
+    border-radius: 0.5rem;
+    background: rgba(255,107,107,0.1);
+    border: 1px solid rgba(255,107,107,0.2);
+    color: #ffa94d;
+    text-transform: uppercase;
+  }
+  .article-body { color: #c0c0d0; font-size: 1rem; line-height: 1.9; }
+  .article-body p { margin-bottom: 1rem; }
+  .back-link { color: #9090a0; text-decoration: none; font-size: 0.9rem; display: inline-block; margin-bottom: 1rem; }
+  .back-link:hover { color: #ff6b6b; }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="/articles" class="back-link">← Back to Articles</a>
+
+<div class="article-container">
+  <div class="article-card">
+    <div class="article-header">
+      <h1>{{ article.title }}</h1>
+      <div class="article-meta">
+        {% if article.author %}<span>✍️ {{ article.author }}</span>{% endif %}
+        <span>📅 {{ article.created_at }}</span>
+        {% if article.category %}<span class="category-badge">{{ article.category }}</span>{% endif %}
+      </div>
+    </div>
+    <div class="article-body">
+      {% for paragraph in article.content_md.split('\n') %}
+        {% if paragraph.strip() %}
+        <p>{{ paragraph.strip() }}</p>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Community — Menopause Wellness{% endblock %}
+
+{% block extra_head %}
+<style>
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .page-header h1 { font-size: 1.8rem; color: #e0e0f0; }
+  .page-header p { color: #9090a0; font-size: 0.95rem; }
+  .post-list { display: flex; flex-direction: column; gap: 1rem; }
+  .post-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+    display: block;
+  }
+  .post-card:hover { border-color: #ff6b6b; transform: translateX(4px); }
+  .pc-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.5rem; }
+  .pc-title { font-size: 1.15rem; font-weight: 600; color: #e0e0f0; }
+  .pc-meta { font-size: 0.8rem; color: #606080; }
+  .pc-excerpt { color: #9090a0; font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.75rem; }
+  .pc-footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #606080; }
+  .pc-comments { display: flex; align-items: center; gap: 0.3rem; color: #ffa94d; }
+  .empty-state { text-align: center; padding: 4rem 2rem; color: #606080; }
+  .empty-state a { color: #ff6b6b; text-decoration: none; }
+  .empty-state a:hover { text-decoration: underline; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>👩‍👩‍👧‍👧 Community</h1>
+    <p>Connect with other women on the same journey</p>
+  </div>
+  <a href="/community/new" class="btn btn-primary" style="padding:0.7rem 1.5rem;">✏️ New Post</a>
+</div>
+
+{% if posts and posts|length > 0 %}
+<div class="post-list">
+  {% for post in posts %}
+  <a href="/community/{{ post.id }}" class="post-card">
+    <div class="pc-header">
+      <span class="pc-title">{{ post.title }}</span>
+      <span class="pc-meta">{{ post.created_at }}</span>
+    </div>
+    <div class="pc-excerpt">
+      {{ post.content[:200] }}{% if post.content|length > 200 %}...{% endif %}
+    </div>
+    <div class="pc-footer">
+      <span>👤 {{ post.author }}</span>
+      <span class="pc-comments">💬 {{ post.comment_count|default(0) }} comments</span>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+  <div style="font-size:3rem;margin-bottom:1rem;">👩‍👩‍👧‍👧</div>
+  <h3>No posts yet</h3>
+  <p>Be the first to start a conversation! <a href="/community/new">Create a post</a></p>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} — Community{% endblock %}
+
+{% block extra_head %}
+<style>
+  .post-container { max-width: 750px; margin: 0 auto; }
+  .post-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .post-header { margin-bottom: 1.5rem; }
+  .post-header h1 { font-size: 1.6rem; color: #e0e0f0; margin-bottom: 0.5rem; }
+  .post-meta { color: #606080; font-size: 0.85rem; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .post-body { color: #c0c0d0; font-size: 1rem; line-height: 1.8; }
+  .post-body p { margin-bottom: 0.75rem; }
+
+  .comments-section { margin-top: 0; }
+  .comments-section h3 { color: #e0e0f0; font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .comment-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid #1a1a2e;
+  }
+  .comment-item:last-child { border-bottom: none; }
+  .comment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; }
+  .comment-author { font-weight: 600; color: #ffa94d; font-size: 0.9rem; }
+  .comment-date { color: #606080; font-size: 0.75rem; }
+  .comment-body { color: #c0c0d0; font-size: 0.9rem; line-height: 1.6; }
+
+  .comment-form-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .comment-form-card h4 { color: #e0e0f0; font-size: 1rem; margin-bottom: 1rem; }
+  .comment-form-card textarea { resize: vertical; min-height: 100px; font-family: inherit; }
+  .back-link { color: #9090a0; text-decoration: none; font-size: 0.9rem; display: inline-block; margin-bottom: 1rem; }
+  .back-link:hover { color: #ff6b6b; }
+  .empty-comments { text-align: center; padding: 2rem; color: #606080; }
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #16213e;
+    border: 1px solid #4caf50;
+    color: #e0e0f0;
+    padding: 0.8rem 2rem;
+    border-radius: 0.8rem;
+    font-size: 0.95rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; }
+  .toast.error { border-color: #f44336; }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="/community" class="back-link">← Back to Community</a>
+
+<div class="post-container">
+  <div class="post-card">
+    <div class="post-header">
+      <h1>{{ post.title }}</h1>
+      <div class="post-meta">
+        <span>👤 {{ post.author }}</span>
+        <span>📅 {{ post.created_at }}</span>
+        {% if post.category %}<span>🏷 {{ post.category }}</span>{% endif %}
+      </div>
+    </div>
+    <div class="post-body">
+      {% for line in post.content.split('\n') %}
+        {% if line.strip() %}
+        <p>{{ line.strip() }}</p>
+        {% else %}
+        <br>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="comments-section">
+    <div class="post-card">
+      <h3>💬 Comments ({{ comments|length if comments else 0 }})</h3>
+      {% if comments and comments|length > 0 %}
+        {% for comment in comments %}
+        <div class="comment-item">
+          <div class="comment-header">
+            <span class="comment-author">{{ comment.author }}</span>
+            <span class="comment-date">{{ comment.created_at }}</span>
+          </div>
+          <div class="comment-body">{{ comment.content }}</div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty-comments">
+          <p>No comments yet. Be the first to respond!</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="comment-form-card">
+    <h4>💭 Add a Comment</h4>
+    <form id="commentForm" onsubmit="return addComment(event)">
+      <div class="form-group">
+        <textarea class="form-input" id="comment_content" name="content" placeholder="Share your thoughts..." required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="padding:0.6rem 1.5rem;">📩 Post Comment</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function showToast(msg, isError) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast show' + (isError ? ' error' : '');
+    setTimeout(() => { el.className = 'toast'; }, 3000);
+  }
+
+  async function addComment(e) {
+    e.preventDefault();
+    const content = document.getElementById('comment_content').value;
+    if (!content.trim()) return false;
+    try {
+      const resp = await fetch('/community/{{ post.id }}/comment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: content })
+      });
+      if (resp.ok) {
+        showToast('✅ Comment posted!');
+        setTimeout(() => location.reload(), 1000);
+      } else {
+        const err = await resp.json();
+        showToast('❌ ' + (err.error || 'Failed to post'), true);
+      }
+    } catch(e) {
+      showToast('❌ Network error', true);
+    }
+    return false;
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block title %}4-Week Program — Menopause Wellness{% endblock %}
+
+{% block extra_head %}
+<style>
+  .page-header { margin-bottom: 2rem; }
+  .page-header h1 { font-size: 1.8rem; color: #e0e0f0; margin-bottom: 0.5rem; }
+  .page-header p { color: #9090a0; font-size: 0.95rem; }
+  .program-header {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .program-header .ph-info h2 { color: #e0e0f0; font-size: 1.2rem; margin-bottom: 0.3rem; }
+  .program-header .ph-info p { color: #9090a0; font-size: 0.9rem; }
+  .week-badge {
+    display: inline-block;
+    background: rgba(255,107,107,0.15);
+    color: #ff6b6b;
+    padding: 0.3rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .progress-table { width: 100%; border-collapse: collapse; }
+  .progress-table th, .progress-table td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #1a1a2e;
+    color: #c0c0d0;
+    font-size: 0.9rem;
+  }
+  .progress-table th { color: #9090a0; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
+  .progress-table tr:hover td { background: rgba(255,107,107,0.04); }
+  .check-yes { color: #4caf50; font-size: 1.1rem; }
+  .check-no { color: #303050; font-size: 1.1rem; }
+  .day-cell { font-weight: 600; color: #e0e0f0; }
+  .workout-type-badge {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    background: rgba(255,107,107,0.1);
+    border: 1px solid rgba(255,107,107,0.2);
+    color: #ffa94d;
+  }
+  .complete-btn-area { text-align: center; margin: 2rem 0; }
+  .week-nav { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .week-nav-btn {
+    padding: 0.4rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #2a2a4a;
+    background: transparent;
+    color: #c0c0d0;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  .week-nav-btn:hover { border-color: #ff6b6b; }
+  .week-nav-btn.active { background: rgba(255,107,107,0.15); border-color: #ff6b6b; color: #ff6b6b; }
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #16213e;
+    border: 1px solid #4caf50;
+    color: #e0e0f0;
+    padding: 0.8rem 2rem;
+    border-radius: 0.8rem;
+    font-size: 0.95rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; }
+  .toast.error { border-color: #f44336; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>📅 4-Week Isometric Program</h1>
+  <p>Follow the structured plan to build strength week by week</p>
+</div>
+
+<div class="program-header">
+  <div class="ph-info">
+    <h2>📆 Week {{ current_week|default(1) }} — Day {{ current_day|default(1) }}</h2>
+    <p>Today's workout: <strong>{{ week_schedule.get(current_day|string, 'Rest / Active Recovery') if week_schedule else 'Check schedule' }}</strong></p>
+  </div>
+  <span class="week-badge">Week {{ current_week|default(1) }} of 4</span>
+</div>
+
+<div class="week-nav">
+  {% for w in range(1, 5) %}
+  <button class="week-nav-btn {% if w == current_week|default(1) %}active{% endif %}" onclick="switchWeek({{ w }})">Week {{ w }}</button>
+  {% endfor %}
+</div>
+
+<div class="card" style="padding:0;overflow:hidden;">
+  <table class="progress-table">
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Workout</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for day_num in range(1, 8) %}
+      {% set day_key = day_num|string %}
+      <tr>
+        <td class="day-cell">Day {{ day_num }}</td>
+        <td>
+          {% if week_schedule and day_key in week_schedule %}
+          <span class="workout-type-badge">{{ week_schedule[day_key] }}</span>
+          {% else %}
+          <span style="color:#606080;">Rest / Recovery</span>
+          {% endif %}
+        </td>
+        <td>
+          {% set completed = program_progress and day_key in program_progress %}
+          {% if completed %}
+          <span class="check-yes">✅ Done</span>
+          {% else %}
+          <span class="check-no">⬜ Pending</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if not completed and week_schedule and day_key in week_schedule %}
+            <button class="btn btn-primary" style="padding:0.4rem 1rem;font-size:0.8rem;" onclick="completeDay({{ current_week|default(1) }}, {{ day_num }}, '{{ week_schedule[day_key] }}')">✅ Complete</button>
+          {% elif not completed %}
+            <span style="color:#606080;font-size:0.8rem;">Rest day</span>
+          {% else %}
+            <span style="color:#4caf50;font-size:0.8rem;">✔ Done</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="complete-btn-area">
+  {% if current_day and current_week and week_schedule and current_day|string in week_schedule %}
+  <button class="btn btn-primary" style="padding:1rem 3rem;font-size:1.1rem;" onclick="completeDay({{ current_week|default(1) }}, {{ current_day|default(1) }}, '{{ week_schedule.get(current_day|string, 'Workout') }}')">
+    ✅ Complete Today's Workout
+  </button>
+  {% endif %}
+</div>
+
+<div class="toast" id="toast"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function showToast(msg, isError) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast show' + (isError ? ' error' : '');
+    setTimeout(() => { el.className = 'toast'; }, 3000);
+  }
+
+  async function completeDay(week, day, workoutType) {
+    try {
+      const resp = await fetch('/api/program/complete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ week: week, day: day, workout_type: workoutType })
+      });
+      if (resp.ok) {
+        showToast('✅ Day ' + day + ' completed!');
+        setTimeout(() => location.reload(), 1000);
+      } else {
+        const data = await resp.json();
+        showToast('❌ ' + (data.error || 'Failed to save'), true);
+      }
+    } catch(e) {
+      showToast('❌ Network error', true);
+    }
+  }
+
+  function switchWeek(week) {
+    // Navigate to same page with week param
+    window.location.href = '/program?week=' + week;
+  }
+</script>
+{% endblock %}

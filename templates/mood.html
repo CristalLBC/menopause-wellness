@@ -1,0 +1,306 @@
+{% extends 'base.html' %}
+
+{% block title %}Mood Tracker — Menopause Wellness{% endblock %}
+
+{% block extra_head %}
+<style>
+  .page-header { margin-bottom: 2rem; }
+  .page-header h1 { font-size: 1.8rem; color: #e0e0f0; margin-bottom: 0.5rem; }
+  .page-header p { color: #9090a0; font-size: 0.95rem; }
+  .mood-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+  .mood-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+  .mood-card h3 { color: #e0e0f0; font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .emoji-slider { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .emoji-row { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+  .emoji-row span { font-size: 1.5rem; }
+  .emoji-row input[type="range"] {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: linear-gradient(to right, #f44336, #ff9800, #ffc107, #8bc34a, #4caf50);
+    border-radius: 3px;
+    outline: none;
+  }
+  .emoji-row input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ff6b6b;
+    border: 2px solid #e0e0f0;
+    cursor: pointer;
+  }
+  .slider-value { font-size: 1rem; color: #e0e0f0; min-width: 2rem; text-align: center; font-weight: 600; }
+  .recent-list { max-height: 400px; overflow-y: auto; }
+  .recent-mood-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #1a1a2e;
+    font-size: 0.9rem;
+    color: #c0c0d0;
+  }
+  .recent-mood-item:last-child { border-bottom: none; }
+  .mood-score-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .mood-high { background: rgba(76,175,80,0.2); color: #4caf50; }
+  .mood-mid { background: rgba(255,193,7,0.2); color: #ffc107; }
+  .mood-low { background: rgba(244,67,54,0.2); color: #f44336; }
+  .chart-container { margin-top: 1rem; }
+  .chart-container canvas { width: 100% !important; max-height: 280px; }
+  .empty-state { text-align: center; padding: 3rem 1rem; color: #606080; }
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #16213e;
+    border: 1px solid #4caf50;
+    color: #e0e0f0;
+    padding: 0.8rem 2rem;
+    border-radius: 0.8rem;
+    font-size: 0.95rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; }
+  .toast.error { border-color: #f44336; }
+  @media (max-width: 768px) {
+    .mood-grid { grid-template-columns: 1fr; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>🧠 Mood Tracker</h1>
+  <p>Track your mood, energy, and sleep quality over time</p>
+</div>
+
+<div class="mood-grid">
+  <div class="mood-card">
+    <h3>😊 Quick Log</h3>
+    <form id="moodForm" onsubmit="return logMood(event)">
+      <div class="emoji-slider">
+        <label style="color:#c0c0d0;font-size:0.9rem;font-weight:600;">Mood Score</label>
+        <div class="emoji-row">
+          <span>😢</span>
+          <input type="range" id="mood_score" name="mood_score" min="1" max="10" value="7" oninput="document.getElementById('moodVal').textContent=this.value">
+          <span>😄</span>
+          <span class="slider-value" id="moodVal">7</span>
+        </div>
+      </div>
+      <div class="emoji-slider">
+        <label style="color:#c0c0d0;font-size:0.9rem;font-weight:600;">Energy Level</label>
+        <div class="emoji-row">
+          <span>🪫</span>
+          <input type="range" id="energy_level" name="energy_level" min="1" max="10" value="6" oninput="document.getElementById('energyVal').textContent=this.value">
+          <span>⚡</span>
+          <span class="slider-value" id="energyVal">6</span>
+        </div>
+      </div>
+      <div class="emoji-slider">
+        <label style="color:#c0c0d0;font-size:0.9rem;font-weight:600;">Sleep Quality</label>
+        <div class="emoji-row">
+          <span>😴</span>
+          <input type="range" id="sleep_quality" name="sleep_quality" min="1" max="10" value="6" oninput="document.getElementById('sleepVal').textContent=this.value">
+          <span>💤</span>
+          <span class="slider-value" id="sleepVal">6</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="notes">📓 Notes (optional)</label>
+        <textarea class="form-input" id="notes" name="notes" rows="2" placeholder="How are you feeling today?"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;padding:0.7rem;">💾 Log Mood</button>
+    </form>
+  </div>
+
+  <div class="mood-card">
+    <h3>📋 Recent Entries</h3>
+    {% if recent_moods and recent_moods|length > 0 %}
+    <div class="recent-list">
+      {% for m in recent_moods %}
+      <div class="recent-mood-item">
+        <div>
+          {% set mood_class = 'mood-high' if m.mood_score >= 7 else ('mood-mid' if m.mood_score >= 4 else 'mood-low') %}
+          <span class="mood-score-display {{ mood_class }}">{{ m.mood_score }}/10</span>
+          {% if m.notes %}<br><span style="font-size:0.8rem;color:#606080;">{{ m.notes[:60] }}{% if m.notes|length > 60 %}...{% endif %}</span>{% endif %}
+        </div>
+        <div style="text-align:right;">
+          <span style="font-size:0.75rem;color:#606080;">
+            ⚡{{ m.energy_level }} 💤{{ m.sleep_quality }}
+          </span>
+          <br><span style="font-size:0.7rem;color:#606080;">{{ m.entry_date }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div style="font-size:2rem;margin-bottom:0.5rem;">📋</div>
+      <p>No moods logged yet.</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% if chart_labels and chart_labels|length > 0 %}
+<div class="mood-card">
+  <h3>📈 Mood Trends</h3>
+  <div class="chart-container">
+    <canvas id="moodChart" width="600" height="280"></canvas>
+  </div>
+</div>
+{% endif %}
+
+<div class="toast" id="toast"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function showToast(msg, isError) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast show' + (isError ? ' error' : '');
+    setTimeout(() => { el.className = 'toast'; }, 3000);
+  }
+
+  async function logMood(e) {
+    e.preventDefault();
+    const data = {
+      mood_score: parseInt(document.getElementById('mood_score').value),
+      energy_level: parseInt(document.getElementById('energy_level').value),
+      sleep_quality: parseInt(document.getElementById('sleep_quality').value),
+      notes: document.getElementById('notes').value
+    };
+    try {
+      const resp = await fetch('/api/mood/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (resp.ok) {
+        showToast('✅ Mood logged!');
+        setTimeout(() => location.reload(), 1000);
+      } else {
+        const err = await resp.json();
+        showToast('❌ ' + (err.error || 'Failed'), true);
+      }
+    } catch(e) {
+      showToast('❌ Network error', true);
+    }
+    return false;
+  }
+
+  {% if chart_labels and chart_labels|length > 0 %}
+  const labels = {{ chart_labels|safe }};
+  const scores = {{ chart_scores|safe }};
+  const energy = {{ chart_energy|safe }};
+  const sleep = {{ chart_sleep|safe }};
+
+  const canvas = document.getElementById('moodChart');
+  const W = canvas.width;
+  const H = canvas.height;
+  const pad = { top: 20, bottom: 30, left: 40, right: 20 };
+  const plotW = W - pad.left - pad.right;
+  const plotH = H - pad.top - pad.bottom;
+
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, W, H);
+
+  // Grid
+  ctx.strokeStyle = '#1a1a2e';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 10; i++) {
+    const y = pad.top + (plotH / 10) * i;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(W - pad.right, y);
+    ctx.stroke();
+    if (i % 2 === 0) {
+      ctx.fillStyle = '#606080';
+      ctx.font = '9px sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(10 - i, pad.left - 5, y + 3);
+    }
+  }
+
+  function drawLine(data, color, label) {
+    const stepX = plotW / (data.length - 1 || 1);
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    data.forEach((val, i) => {
+      const x = pad.left + i * stepX;
+      const y = pad.top + plotH - (val / 10) * plotH;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    // Dots
+    data.forEach((val, i) => {
+      const x = pad.left + i * stepX;
+      const y = pad.top + plotH - (val / 10) * plotH;
+      ctx.beginPath();
+      ctx.arc(x, y, 3, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+    });
+    // Legend
+    ctx.fillStyle = color;
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'left';
+    // find a spot for legend
+  }
+
+  drawLine(scores, '#ff6b6b', 'Mood');
+  drawLine(energy, '#ffa94d', 'Energy');
+  drawLine(sleep, '#64b5f6', 'Sleep');
+
+  // Legend
+  const legend = [
+    { label: 'Mood', color: '#ff6b6b' },
+    { label: 'Energy', color: '#ffa94d' },
+    { label: 'Sleep', color: '#64b5f6' }
+  ];
+  let lx = pad.left + 10;
+  legend.forEach(l => {
+    ctx.fillStyle = l.color;
+    ctx.fillRect(lx, 10, 12, 12);
+    ctx.fillStyle = '#c0c0d0';
+    ctx.font = '10px sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(l.label, lx + 16, 20);
+    lx += 70;
+  });
+
+  // X labels
+  ctx.fillStyle = '#606080';
+  ctx.font = '9px sans-serif';
+  ctx.textAlign = 'center';
+  const stepX = plotW / (labels.length - 1 || 1);
+  labels.forEach((l, i) => {
+    if (i % Math.ceil(labels.length / 7) === 0 || i === labels.length - 1) {
+      const x = pad.left + i * stepX;
+      ctx.fillText(l, x, H - 5);
+    }
+  });
+  {% endif %}
+</script>
+{% endblock %}

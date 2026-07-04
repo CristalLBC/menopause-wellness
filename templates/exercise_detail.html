@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ exercise.name }} — Menopause Wellness{% endblock %}
+
+{% block extra_head %}
+<style>
+  .detail-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .detail-icon { font-size: 3.5rem; }
+  .detail-header-text h1 { font-size: 1.8rem; color: #e0e0f0; margin-bottom: 0.3rem; }
+  .detail-targets { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .detail-target {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    background: rgba(255,107,107,0.1);
+    border: 1px solid rgba(255,107,107,0.2);
+    color: #ffa94d;
+  }
+  .detail-section {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .detail-section h3 { color: #e0e0f0; font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .detail-section ol, .detail-section ul { padding-left: 1.5rem; color: #c0c0d0; line-height: 1.8; }
+  .detail-section li { margin-bottom: 0.4rem; }
+  .mod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .mod-box {
+    background: rgba(13,17,23,0.5);
+    border-radius: 0.8rem;
+    padding: 1rem;
+  }
+  .mod-box h4 { color: #ffa94d; font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .mod-box ul { margin: 0; color: #c0c0d0; font-size: 0.9rem; }
+  .times-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+  .times-table th, .times-table td {
+    padding: 0.6rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #1a1a2e;
+    color: #c0c0d0;
+    font-size: 0.9rem;
+  }
+  .times-table th { color: #9090a0; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
+  .mistakes-list { color: #c0c0d0; line-height: 1.8; }
+  .mistakes-list li { margin-bottom: 0.3rem; }
+  .workout-logs { margin-top: 1rem; }
+  .workout-log-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #1a1a2e;
+    font-size: 0.9rem;
+    color: #c0c0d0;
+  }
+  .workout-log-item:last-child { border-bottom: none; }
+  .back-link { color: #9090a0; text-decoration: none; font-size: 0.9rem; display: inline-block; margin-bottom: 1rem; }
+  .back-link:hover { color: #ff6b6b; }
+  @media (max-width: 768px) {
+    .mod-grid { grid-template-columns: 1fr; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="/exercises" class="back-link">← Back to Exercises</a>
+
+<div class="detail-header">
+  <div class="detail-icon">{{ exercise.icon|default('💪') }}</div>
+  <div class="detail-header-text">
+    <h1>{{ exercise.name }}</h1>
+    {% if exercise.target_muscles %}
+    <div class="detail-targets">
+      {% for muscle in exercise.target_muscles.split(',') %}
+      <span class="detail-target">{{ muscle.strip() }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="detail-section">
+  <h3>💡 Why It Works</h3>
+  <p style="color:#c0c0d0;line-height:1.7;">{{ exercise.why_it_works or 'This isometric exercise engages deep stabilizing muscles, improving core strength and posture without stressing your joints — perfect for building functional fitness at any age.' }}</p>
+</div>
+
+<div class="detail-section">
+  <h3>📋 Instructions</h3>
+  <ol>
+    {% if exercise.instructions %}
+      {% for line in exercise.instructions.split('\n') %}
+        {% if line.strip() %}
+        <li>{{ line.strip() }}</li>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <li>Stand or sit in a comfortable position with good posture.</li>
+      <li>Engage your core by drawing your navel toward your spine.</li>
+      <li>Hold the position as instructed, breathing steadily.</li>
+      <li>Relax and repeat for the recommended sets.</li>
+    {% endif %}
+  </ol>
+</div>
+
+<div class="detail-section">
+  <h3>🔄 Modifications</h3>
+  <div class="mod-grid">
+    <div class="mod-box">
+      <h4>🟢 Easier Options</h4>
+      <ul>
+        {% if exercise.easier_options %}
+          {% for opt in exercise.easier_options.split('\n') %}
+            {% if opt.strip() %}<li>{{ opt.strip() }}</li>{% endif %}
+          {% endfor %}
+        {% else %}
+          <li>Reduce hold time</li>
+          <li>Use a wall for support</li>
+          <li>Decrease range of motion</li>
+        {% endif %}
+      </ul>
+    </div>
+    <div class="mod-box">
+      <h4>🔴 Harder Options</h4>
+      <ul>
+        {% if exercise.harder_options %}
+          {% for opt in exercise.harder_options.split('\n') %}
+            {% if opt.strip() %}<li>{{ opt.strip() }}</li>{% endif %}
+          {% endfor %}
+        {% else %}
+          <li>Increase hold time</li>
+          <li>Add ankle weights</li>
+          <li>Perform on unstable surface</li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section">
+  <h3>⏱ Target Times</h3>
+  <table class="times-table">
+    <thead>
+      <tr><th>Level</th><th>Hold Time</th><th>Sets</th><th>Rest</th></tr>
+    </thead>
+    <tbody>
+      {% if exercise.target_times %}
+        {% set times = exercise.target_times|replace('{','')|replace('}','')|replace('"','') %}
+        {% for item in times.split(',') %}
+          {% set parts = item.split(':') %}
+          {% if parts|length == 2 %}
+          <tr><td>{{ parts[0].strip() }}</td><td>{{ parts[1].strip() }}</td><td>3</td><td>45s</td></tr>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <tr><td>Beginner</td><td>15s</td><td>2</td><td>30s</td></tr>
+        <tr><td>Intermediate</td><td>30s</td><td>3</td><td>45s</td></tr>
+        <tr><td>Advanced</td><td>45s</td><td>4</td><td>60s</td></tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+<div class="detail-section">
+  <h3>⚠️ Common Mistakes</h3>
+  <ul class="mistakes-list">
+    {% if exercise.common_mistakes %}
+      {% for m in exercise.common_mistakes.split('\n') %}
+        {% if m.strip() %}<li>❌ {{ m.strip() }}</li>{% endif %}
+      {% endfor %}
+    {% else %}
+      <li>❌ Holding your breath during the hold</li>
+      <li>❌ Rounding your lower back</li>
+      <li>❌ Tensing your shoulders up toward your ears</li>
+    {% endif %}
+  </ul>
+</div>
+
+<div style="text-align:center;margin:2rem 0;">
+  <a href="/workout/{{ exercise.id }}" class="btn btn-primary" style="padding:1rem 3rem;font-size:1.1rem;">▶ Start This Exercise</a>
+</div>
+
+{% if logs and logs|length > 0 %}
+<div class="detail-section">
+  <h3>📊 Past Workout Logs</h3>
+  <table class="table">
+    <thead>
+      <tr><th>Date</th><th>Hold Time</th><th>Sets</th></tr>
+    </thead>
+    <tbody>
+      {% for log in logs %}
+      <tr>
+        <td>{{ log.workout_date }}</td>
+        <td>{{ log.hold_time }}s</td>
+        <td>{{ log.sets }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+{% endblock %}

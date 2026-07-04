@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Login — Menopause Wellness{% endblock %}
+
+{% block extra_head %}
+<style>
+  .auth-container {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .auth-card {
+    width: 100%;
+    max-width: 420px;
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1.2rem;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .auth-header { text-align: center; margin-bottom: 2rem; }
+  .auth-header h1 { font-size: 1.8rem; color: #e0e0f0; margin-bottom: 0.5rem; }
+  .auth-header p { color: #9090a0; font-size: 0.95rem; }
+  .auth-footer { text-align: center; margin-top: 1.5rem; color: #9090a0; font-size: 0.9rem; }
+  .auth-footer a { color: #ff6b6b; text-decoration: none; }
+  .auth-footer a:hover { text-decoration: underline; }
+  .flash-messages { margin-bottom: 1rem; }
+  .flash-msg {
+    padding: 0.7rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    background: rgba(255,107,107,0.15);
+    border: 1px solid rgba(255,107,107,0.3);
+    color: #ff6b6b;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div style="font-size:2.5rem;margin-bottom:0.5rem;">🔐</div>
+      <h1>Welcome Back</h1>
+      <p>Sign in to continue your wellness journey</p>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for msg in messages %}
+            <div class="flash-msg">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/login">
+      <div class="form-group">
+        <label class="form-label" for="username">👤 Username</label>
+        <input class="form-input" type="text" id="username" name="username" placeholder="Enter your username" required autofocus>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="password">🔑 Password</label>
+        <input class="form-input" type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;padding:0.8rem;font-size:1rem;margin-top:0.5rem;">Sign In</button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Don't have an account? <a href="/register">Create one 🚀</a></p>
+      <p style="margin-top:0.5rem;">No license yet? <a href="/purchase" style="color:#ffa94d;">Buy access on Gumroad 💳</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}

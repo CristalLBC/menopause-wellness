@@ -1,0 +1,290 @@
+{% extends 'base.html' %}
+
+{% block title %}Symptom Tracker — Menopause Wellness{% endblock %}
+
+{% block extra_head %}
+<style>
+  .page-header { margin-bottom: 2rem; }
+  .page-header h1 { font-size: 1.8rem; color: #e0e0f0; margin-bottom: 0.5rem; }
+  .page-header p { color: #9090a0; font-size: 0.95rem; }
+  .symp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+  .symp-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+  .symp-card h3 { color: #e0e0f0; font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .severity-group { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+  .severity-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    background: #0d1117;
+    border: 1px solid #2a2a4a;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #c0c0d0;
+    transition: all 0.2s;
+  }
+  .severity-group input { display: none; }
+  .severity-group input:checked + label { border-color: #ff6b6b; background: rgba(255,107,107,0.1); color: #ff6b6b; }
+  .recent-list { max-height: 400px; overflow-y: auto; }
+  .recent-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #1a1a2e;
+    font-size: 0.9rem;
+    color: #c0c0d0;
+  }
+  .recent-item:last-child { border-bottom: none; }
+  .sev-badge {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 1rem;
+    font-weight: 600;
+  }
+  .sev-1 { background: rgba(76,175,80,0.2); color: #4caf50; }
+  .sev-2 { background: rgba(139,195,74,0.2); color: #8bc34a; }
+  .sev-3 { background: rgba(255,193,7,0.2); color: #ffc107; }
+  .sev-4 { background: rgba(255,152,0,0.2); color: #ff9800; }
+  .sev-5 { background: rgba(244,67,54,0.2); color: #f44336; }
+  .chart-container { margin-top: 1.5rem; }
+  .chart-container canvas { width: 100% !important; max-height: 300px; }
+  .empty-state { text-align: center; padding: 3rem 1rem; color: #606080; }
+  @media (max-width: 768px) {
+    .symp-grid { grid-template-columns: 1fr; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>🩺 Symptom Tracker</h1>
+  <p>Log and monitor your menopause symptoms over time</p>
+</div>
+
+<div class="symp-grid">
+  <div class="symp-card">
+    <h3>📝 Log a Symptom</h3>
+    <form id="symptomForm" onsubmit="return logSymptom(event)">
+      <div class="form-group">
+        <label class="form-label" for="symptom_type">Symptom</label>
+        <select class="form-input" id="symptom_type" name="symptom_type" required>
+          <option value="">Select a symptom...</option>
+          {% for st in symptom_types %}
+          <option value="{{ st }}">{{ st }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Severity (1 = Mild, 5 = Severe)</label>
+        <div class="severity-group">
+          {% for i in range(1, 6) %}
+          <input type="radio" name="severity" id="sev{{ i }}" value="{{ i }}" {% if i==3 %}checked{% endif %}>
+          <label for="sev{{ i }}">{{ i }}</label>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="notes">📓 Notes (optional)</label>
+        <textarea class="form-input" id="notes" name="notes" rows="2" placeholder="Any additional details..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="entry_date">Date</label>
+        <input class="form-input" type="date" id="entry_date" name="entry_date" value="{{ today.strftime('%Y-%m-%d') }}">
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;padding:0.7rem;">💾 Log Symptom</button>
+    </form>
+  </div>
+
+  <div class="symp-card">
+    <h3>📋 Recent Entries</h3>
+    {% if recent_symptoms and recent_symptoms|length > 0 %}
+    <div class="recent-list">
+      {% for s in recent_symptoms %}
+      <div class="recent-item">
+        <div>
+          <strong>{{ s.symptom_type }}</strong>
+          {% if s.notes %}<br><span style="font-size:0.8rem;color:#606080;">{{ s.notes[:60] }}{% if s.notes|length > 60 %}...{% endif %}</span>{% endif %}
+        </div>
+        <div style="text-align:right;">
+          <span class="sev-badge sev-{{ s.severity }}">{{ s.severity }}/5</span>
+          <br><span style="font-size:0.7rem;color:#606080;">{{ s.entry_date }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <div style="font-size:2rem;margin-bottom:0.5rem;">📋</div>
+      <p>No symptoms logged yet.</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% if chart_data and chart_data|length > 0 %}
+<div class="symp-card">
+  <h3>📈 Symptom Trends</h3>
+  <div class="chart-container">
+    <canvas id="symptomChart"></canvas>
+  </div>
+</div>
+{% endif %}
+
+<div class="toast" id="toast"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function showToast(msg, isError) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast show' + (isError ? ' error' : '');
+    setTimeout(() => { el.className = 'toast'; }, 3000);
+  }
+
+  async function logSymptom(e) {
+    e.preventDefault();
+    const form = document.getElementById('symptomForm');
+    const data = {
+      symptom_type: form.symptom_type.value,
+      severity: parseInt(form.querySelector('input[name="severity"]:checked').value),
+      notes: form.notes.value,
+      entry_date: form.entry_date.value
+    };
+    try {
+      const resp = await fetch('/api/symptoms/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (resp.ok) {
+        showToast('✅ Symptom logged!');
+        setTimeout(() => location.reload(), 1000);
+      } else {
+        const err = await resp.json();
+        showToast('❌ ' + (err.error || 'Failed'), true);
+      }
+    } catch(e) {
+      showToast('❌ Network error', true);
+    }
+    return false;
+  }
+
+  {% if chart_data and chart_data|length > 0 %}
+  const ctx = document.getElementById('symptomChart').getContext('2d');
+  const chartData = {{ chart_data|safe }};
+
+  // Group by symptom type
+  const groups = {};
+  chartData.forEach(d => {
+    if (!groups[d.symptom_type]) groups[d.symptom_type] = [];
+    groups[d.symptom_type].push(d);
+  });
+
+  const colors = ['#ff6b6b', '#ffa94d', '#ffc107', '#4caf50', '#64b5f6', '#ce93d8', '#f06292'];
+  let colorIdx = 0;
+  const maxPoints = Math.max(...Object.values(groups).map(g => g.length));
+  const labels = Object.values(groups)[0]?.map(d => d.entry_date?.slice(-5) || '') || [];
+
+  const canvas = document.getElementById('symptomChart');
+  canvas.width = canvas.parentElement.clientWidth;
+  canvas.height = 280;
+
+  const W = canvas.width;
+  const H = canvas.height;
+  const pad = { top: 20, bottom: 30, left: 40, right: 20 };
+  const plotW = W - pad.left - pad.right;
+  const plotH = H - pad.top - pad.bottom;
+
+  const gctx = canvas.getContext('2d');
+  gctx.clearRect(0, 0, W, H);
+
+  // Grid lines
+  gctx.strokeStyle = '#1a1a2e';
+  gctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = pad.top + (plotH / 5) * i;
+    gctx.beginPath();
+    gctx.moveTo(pad.left, y);
+    gctx.lineTo(W - pad.right, y);
+    gctx.stroke();
+    gctx.fillStyle = '#606080';
+    gctx.font = '10px sans-serif';
+    gctx.textAlign = 'right';
+    gctx.fillText(5 - i, pad.left - 5, y + 3);
+  }
+
+  Object.entries(groups).forEach(([type, points]) => {
+    const color = colors[colorIdx % colors.length];
+    colorIdx++;
+    const sorted = points.sort((a, b) => a.entry_date?.localeCompare(b.entry_date));
+    const stepX = plotW / (sorted.length - 1 || 1);
+
+    gctx.beginPath();
+    gctx.strokeStyle = color;
+    gctx.lineWidth = 2;
+    sorted.forEach((p, i) => {
+      const x = pad.left + i * stepX;
+      const y = pad.top + plotH - (p.severity / 5) * plotH;
+      if (i === 0) gctx.moveTo(x, y);
+      else gctx.lineTo(x, y);
+    });
+    gctx.stroke();
+
+    // Dots
+    sorted.forEach((p, i) => {
+      const x = pad.left + i * stepX;
+      const y = pad.top + plotH - (p.severity / 5) * plotH;
+      gctx.beginPath();
+      gctx.arc(x, y, 3, 0, Math.PI * 2);
+      gctx.fillStyle = color;
+      gctx.fill();
+    });
+
+    // Label
+    gctx.fillStyle = color;
+    gctx.font = '11px sans-serif';
+    gctx.textAlign = 'left';
+    gctx.fillText(type, pad.left + 5, pad.top + 15 * colorIdx);
+  });
+
+  // X labels
+  if (labels.length > 0) {
+    gctx.fillStyle = '#606080';
+    gctx.font = '9px sans-serif';
+    gctx.textAlign = 'center';
+    const stepX = plotW / (labels.length - 1 || 1);
+    labels.forEach((l, i) => {
+      const x = pad.left + i * stepX;
+      gctx.fillText(l, x, H - 5);
+    });
+  }
+  {% endif %}
+</script>
+<style>
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #16213e;
+    border: 1px solid #4caf50;
+    color: #e0e0f0;
+    padding: 0.8rem 2rem;
+    border-radius: 0.8rem;
+    font-size: 0.95rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; }
+  .toast.error { border-color: #f44336; }
+</style>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ entry.title }} — Journal{% endblock %}
+
+{% block extra_head %}
+<style>
+  .entry-container { max-width: 750px; margin: 0 auto; }
+  .entry-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 2.5rem;
+  }
+  .entry-header { margin-bottom: 1.5rem; }
+  .entry-header h1 { font-size: 1.8rem; color: #e0e0f0; margin-bottom: 0.5rem; }
+  .entry-meta { color: #606080; font-size: 0.85rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .entry-meta .private-badge {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.5rem;
+    background: rgba(255,169,77,0.15);
+    border: 1px solid rgba(255,169,77,0.3);
+    color: #ffa94d;
+  }
+  .entry-content {
+    color: #c0c0d0;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+  .back-link { color: #9090a0; text-decoration: none; font-size: 0.9rem; display: inline-block; margin-bottom: 1rem; }
+  .back-link:hover { color: #ff6b6b; }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="/journal" class="back-link">← Back to Journal</a>
+
+<div class="entry-container">
+  <div class="entry-card">
+    <div class="entry-header">
+      <h1>{{ entry.title }}</h1>
+      <div class="entry-meta">
+        <span>📅 {{ entry.created_at }}</span>
+        {% if entry.is_private %}<span class="private-badge">🔒 Private</span>{% endif %}
+      </div>
+    </div>
+    <div class="entry-content">
+      {% for line in entry.content.split('\n') %}
+        {% if line.strip() %}
+          {{ line.strip() }}<br>
+        {% else %}
+          <br>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

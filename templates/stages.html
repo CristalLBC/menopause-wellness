@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block title %}Menopause Stages — Menopause Wellness{% endblock %}
+
+{% block extra_head %}
+<style>
+  .page-header { margin-bottom: 2rem; }
+  .page-header h1 { font-size: 1.8rem; color: #e0e0f0; margin-bottom: 0.5rem; }
+  .page-header p { color: #9090a0; font-size: 0.95rem; }
+  .stages-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+  .stage-form-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+  .stage-form-card h3 { color: #e0e0f0; font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .info-cards { display: flex; flex-direction: column; gap: 1rem; }
+  .info-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .info-card:hover { border-color: #ff6b6b; }
+  .info-card h4 { color: #e0e0f0; font-size: 1.1rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+  .info-card p { color: #c0c0d0; font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.5rem; }
+  .info-card ul { color: #9090a0; font-size: 0.85rem; line-height: 1.7; padding-left: 1.2rem; }
+  .info-card li { margin-bottom: 0.2rem; }
+  .current-stage-badge {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: rgba(255,107,107,0.15);
+    color: #ff6b6b;
+    margin-top: 0.5rem;
+  }
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #16213e;
+    border: 1px solid #4caf50;
+    color: #e0e0f0;
+    padding: 0.8rem 2rem;
+    border-radius: 0.8rem;
+    font-size: 0.95rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; }
+  .toast.error { border-color: #f44336; }
+  @media (max-width: 768px) {
+    .stages-grid { grid-template-columns: 1fr; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>🌸 Menopause Stage Tracker</h1>
+  <p>Understand where you are in your menopause journey</p>
+</div>
+
+<div class="stages-grid">
+  <div class="stage-form-card">
+    <h3>📋 Your Profile</h3>
+    <form id="stageForm" onsubmit="return saveStage(event)">
+      <div class="form-group">
+        <label class="form-label" for="birth_year">🎂 Birth Year</label>
+        <input class="form-input" type="number" id="birth_year" name="birth_year" min="1940" max="2010" value="{{ user_profile.birth_year if user_profile else '' }}" placeholder="e.g. 1970">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="current_stage">📍 Current Stage</label>
+        <select class="form-input" id="current_stage" name="current_stage">
+          <option value="">Select...</option>
+          <option value="perimenopause" {% if user_profile and user_profile.current_stage == 'perimenopause' %}selected{% endif %}>Perimenopause</option>
+          <option value="menopause" {% if user_profile and user_profile.current_stage == 'menopause' %}selected{% endif %}>Menopause</option>
+          <option value="post_menopause" {% if user_profile and user_profile.current_stage == 'post_menopause' %}selected{% endif %}>Post-Menopause</option>
+          <option value="not_sure" {% if user_profile and user_profile.current_stage == 'not_sure' %}selected{% endif %}>Not Sure</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="last_period_year">📅 Last Period Year (optional)</label>
+        <input class="form-input" type="number" id="last_period_year" name="last_period_year" min="1950" max="2026" value="{{ user_profile.last_period_year if user_profile else '' }}" placeholder="e.g. 2022">
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;padding:0.7rem;margin-top:0.5rem;">💾 Save</button>
+    </form>
+
+    {% if user_profile and user_profile.current_stage %}
+    <div class="current-stage-badge">
+      {{ user_profile.current_stage|replace('_', ' ')|title }}
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="stage-form-card">
+    <h3>📖 About Each Stage</h3>
+    <div class="info-cards">
+      <div class="info-card">
+        <h4>🔄 Perimenopause</h4>
+        <p><strong>Typical age:</strong> 40s to early 50s</p>
+        <p>Hormone levels begin to fluctuate. Periods may become irregular. This phase can last 4–10 years.</p>
+        <ul>
+          <li>🔸 Hot flashes & night sweats</li>
+          <li>🔸 Mood swings & irritability</li>
+          <li>🔸 Sleep disturbances</li>
+          <li>🔸 Weight gain, especially around the belly</li>
+          <li><strong>Recommendation:</strong> Start isometric exercises, track symptoms, prioritize sleep</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>⏸ Menopause</h4>
+        <p><strong>Defined as:</strong> 12 consecutive months without a period</p>
+        <p>Estrogen levels drop significantly. Symptoms may intensify before gradually improving.</p>
+        <ul>
+          <li>🔸 Increased belly fat storage</li>
+          <li>🔸 Vaginal dryness</li>
+          <li>🔸 Decreased muscle mass</li>
+          <li>🔸 Brain fog & memory lapses</li>
+          <li><strong>Recommendation:</strong> Consistent exercise routine, strength training, hydration</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>🌺 Post-Menopause</h4>
+        <p><strong>Timing:</strong> After 12+ months without a period, for the rest of life</p>
+        <p>Hormone levels stabilize at a new low. Many symptoms ease, but health risks change.</p>
+        <ul>
+          <li>🔸 Higher risk of osteoporosis</li>
+          <li>🔸 Increased cardiovascular risk</li>
+          <li>🔸 Slower metabolism</li>
+          <li>🔸 Joint pain & stiffness</li>
+          <li><strong>Recommendation:</strong> Weight-bearing exercise, calcium & vitamin D, regular check-ups</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function showToast(msg, isError) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast show' + (isError ? ' error' : '');
+    setTimeout(() => { el.className = 'toast'; }, 3000);
+  }
+
+  async function saveStage(e) {
+    e.preventDefault();
+    const data = {
+      birth_year: document.getElementById('birth_year').value ? parseInt(document.getElementById('birth_year').value) : null,
+      current_stage: document.getElementById('current_stage').value,
+      last_period_year: document.getElementById('last_period_year').value ? parseInt(document.getElementById('last_period_year').value) : null
+    };
+    try {
+      const resp = await fetch('/api/stages/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (resp.ok) {
+        showToast('✅ Stage information saved!');
+      } else {
+        const err = await resp.json();
+        showToast('❌ ' + (err.error || 'Failed to save'), true);
+      }
+    } catch(e) {
+      showToast('❌ Network error', true);
+    }
+    return false;
+  }
+</script>
+{% endblock %}

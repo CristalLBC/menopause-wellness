@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Exercises — Menopause Wellness{% endblock %}
+
+{% block extra_head %}
+<style>
+  .page-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+  .page-header h1 { font-size: 1.8rem; color: #e0e0f0; }
+  .page-header p { color: #9090a0; font-size: 0.95rem; }
+  .exercise-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+  .exercise-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s, box-shadow 0.25s;
+    display: flex;
+    flex-direction: column;
+  }
+  .exercise-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(255,107,107,0.12); border-color: #ff6b6b; }
+  .ex-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .ex-name { font-size: 1.15rem; font-weight: 600; color: #e0e0f0; margin-bottom: 0.5rem; }
+  .ex-targets { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
+  .ex-target {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 1rem;
+    background: rgba(255,107,107,0.1);
+    border: 1px solid rgba(255,107,107,0.2);
+    color: #ffa94d;
+  }
+  .ex-times { color: #9090a0; font-size: 0.85rem; margin-top: auto; }
+  .empty-state { text-align: center; padding: 4rem 2rem; color: #606080; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>🏋️ Isometric Exercises</h1>
+    <p>Zero-impact strength holds designed for women over 50</p>
+  </div>
+</div>
+
+{% if exercises and exercises|length > 0 %}
+<div class="exercise-grid">
+  {% for ex in exercises %}
+  <a href="/exercises/{{ ex.id }}" class="exercise-card">
+    <div class="ex-icon">{{ ex.icon|default('💪') }}</div>
+    <div class="ex-name">{{ ex.name }}</div>
+    {% if ex.target_muscles %}
+    <div class="ex-targets">
+      {% for muscle in ex.target_muscles.split(',') %}
+      <span class="ex-target">{{ muscle.strip() }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div class="ex-times">
+      {% if ex.first_target %}
+        ⏱ Target: {{ ex.first_target }}
+      {% else %}
+        ⏱ See details
+      {% endif %}
+    </div>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+  <div style="font-size:3rem;margin-bottom:1rem;">🏋️</div>
+  <h3>No exercises loaded yet</h3>
+  <p>Check back soon for our curated isometric exercise library.</p>
+</div>
+{% endif %}
+{% endblock %}

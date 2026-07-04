@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}Activate License — Menopause Wellness{% endblock %}
+
+{% block extra_head %}
+<style>
+  .auth-container {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .auth-card {
+    width: 100%;
+    max-width: 460px;
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1.2rem;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .auth-header { text-align: center; margin-bottom: 2rem; }
+  .auth-header h1 { font-size: 1.8rem; color: #e0e0f0; margin-bottom: 0.5rem; }
+  .auth-header p { color: #9090a0; font-size: 0.95rem; }
+  .flash-msg {
+    padding: 0.7rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    background: rgba(255,107,107,0.15);
+    border: 1px solid rgba(255,107,107,0.3);
+    color: #ff6b6b;
+  }
+  .license-info { margin-top: 1.5rem; padding: 1rem; background: #0d1117; border-radius: 0.5rem; border: 1px solid #2a2a4a; font-size: 0.85rem; color: #9090a0; line-height: 1.6; }
+  .renew-link { color: #ff6b6b; text-decoration: none; font-weight: 600; }
+  .renew-link:hover { text-decoration: underline; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div style="font-size:2.5rem;margin-bottom:0.5rem;">🔑</div>
+      <h1>Activate Your License</h1>
+      <p>Enter your Gumroad license key to access the app</p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="flash-msg">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/activate">
+      <div class="form-group">
+        <label class="form-label" for="license_key">🔑 License Key</label>
+        <input class="form-input" type="text" id="license_key" name="license_key" placeholder="Paste your Gumroad license key" required autofocus>
+        <div class="password-hint">Find this in your Gumroad purchase email</div>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;padding:0.8rem;font-size:1rem;margin-top:0.5rem;">Activate 🚀</button>
+    </form>
+
+    <div class="license-info">
+      <strong>No license yet?</strong><br>
+      Subscribe on Gumroad to get your key, then return here to activate.
+    </div>
+  </div>
+</div>
+{% endblock %}

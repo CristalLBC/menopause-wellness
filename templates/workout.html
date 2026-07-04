@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Workout — Menopause Wellness{% endblock %}
+
+{% block extra_head %}
+<style>
+  .page-header { margin-bottom: 2rem; }
+  .page-header h1 { font-size: 1.8rem; color: #e0e0f0; margin-bottom: 0.5rem; }
+  .page-header p { color: #9090a0; font-size: 0.95rem; }
+  .timer-info {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .timer-info h3 { color: #e0e0f0; margin-bottom: 0.75rem; font-size: 1.1rem; }
+  .timer-info ul { color: #c0c0d0; line-height: 1.8; padding-left: 1.5rem; }
+  .workout-select-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.25rem; }
+  .workout-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .workout-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(255,107,107,0.12); border-color: #ff6b6b; }
+  .wc-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .wc-name { font-size: 1.1rem; font-weight: 600; color: #e0e0f0; margin-bottom: 0.5rem; }
+  .wc-targets { font-size: 0.8rem; color: #9090a0; margin-bottom: 1rem; }
+  .empty-state { text-align: center; padding: 4rem 2rem; color: #606080; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>🏋️ Start a Workout</h1>
+  <p>Choose an exercise and use the built-in timer to track your holds</p>
+</div>
+
+<div class="timer-info">
+  <h3>⏱ How the Timer Works</h3>
+  <ul>
+    <li>Select an exercise below and click <strong>Start Timer</strong></li>
+    <li>Choose your <strong>Hold Time</strong> (how long to hold each rep)</li>
+    <li>Set your <strong>Rest Time</strong> between sets</li>
+    <li>Pick your <strong>Number of Sets</strong></li>
+    <li>Press <strong>Start</strong> — a beep signals when to hold and when to rest</li>
+    <li>After finishing, click <strong>Log Workout</strong> to save your progress</li>
+  </ul>
+</div>
+
+{% if exercises and exercises|length > 0 %}
+<div class="workout-select-grid">
+  {% for ex in exercises %}
+  <div class="workout-card">
+    <div class="wc-icon">{{ ex.icon|default('💪') }}</div>
+    <div class="wc-name">{{ ex.name }}</div>
+    <div class="wc-targets">{{ ex.target_muscles|default('Full body') }}</div>
+    <a href="/workout/{{ ex.id }}" class="btn btn-primary" style="padding:0.6rem 1.5rem;">▶ Start Timer</a>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+  <div style="font-size:3rem;margin-bottom:1rem;">🏋️</div>
+  <h3>No exercises available</h3>
+  <p>Exercise library coming soon. Check back shortly!</p>
+</div>
+{% endif %}
+{% endblock %}

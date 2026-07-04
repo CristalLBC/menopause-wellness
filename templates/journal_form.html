@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}New Journal Entry — Menopause Wellness{% endblock %}
+
+{% block extra_head %}
+<style>
+  .form-container { max-width: 700px; margin: 0 auto; }
+  .form-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 2rem;
+  }
+  .form-card h1 { font-size: 1.6rem; color: #e0e0f0; margin-bottom: 0.5rem; }
+  .form-card .subtitle { color: #9090a0; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .form-card textarea { min-height: 300px; resize: vertical; font-family: inherit; }
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  .checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #ff6b6b;
+  }
+  .checkbox-group label { color: #c0c0d0; font-size: 0.9rem; cursor: pointer; }
+  .back-link { color: #9090a0; text-decoration: none; font-size: 0.9rem; display: inline-block; margin-bottom: 1rem; }
+  .back-link:hover { color: #ff6b6b; }
+  .flash-messages { margin-bottom: 1rem; }
+  .flash-msg {
+    padding: 0.7rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    background: rgba(255,107,107,0.15);
+    border: 1px solid rgba(255,107,107,0.3);
+    color: #ff6b6b;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="/journal" class="back-link">← Back to Journal</a>
+
+<div class="form-container">
+  <div class="form-card">
+    <h1>✏️ New Journal Entry</h1>
+    <p class="subtitle">Write down your thoughts, reflections, or anything on your mind</p>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for msg in messages %}
+            <div class="flash-msg">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/journal/new">
+      <div class="form-group">
+        <label class="form-label" for="title">📌 Title</label>
+        <input class="form-input" type="text" id="title" name="title" placeholder="Give your entry a title..." required autofocus>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="content">📝 Content</label>
+        <textarea class="form-input" id="content" name="content" placeholder="Write whatever comes to mind..." required></textarea>
+      </div>
+      <div class="checkbox-group">
+        <input type="checkbox" id="is_private" name="is_private" value="1">
+        <label for="is_private">🔒 Make this entry private (only visible to you)</label>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;padding:0.8rem;font-size:1rem;margin-top:0.5rem;">💾 Save Entry</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

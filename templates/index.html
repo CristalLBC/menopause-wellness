@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}Menopause Wellness - Isometric Exercise Guide{% endblock %}
+
+{% block extra_head %}
+<style>
+  .hero-section {
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #1a0a2e 0%, #16213e 50%, #0f3460 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,107,107,0.08) 0%, transparent 60%);
+    animation: pulse-glow 8s ease-in-out infinite;
+  }
+  @keyframes pulse-glow {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 800px; }
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ff6b6b, #ffa94d, #ff6b6b);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s ease-in-out infinite;
+    margin-bottom: 1rem;
+  }
+  @keyframes shimmer { 0%,100% { background-position: 0% center; } 50% { background-position: 200% center; } }
+  .hero-subtitle { font-size: 1.3rem; color: #c0c0d0; margin-bottom: 2.5rem; line-height: 1.6; }
+  .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .features-section { padding: 4rem 2rem; background: #0d1117; }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+  .feature-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .feature-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(255,107,107,0.15); }
+  .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .feature-title { font-size: 1.2rem; font-weight: 600; color: #e0e0f0; margin-bottom: 0.5rem; }
+  .feature-desc { color: #9090a0; font-size: 0.95rem; line-height: 1.5; }
+  .footer { text-align: center; padding: 2rem; color: #606070; font-size: 0.9rem; border-top: 1px solid #1a1a2e; }
+  @media (max-width: 768px) {
+    .hero-title { font-size: 2rem; }
+    .hero-subtitle { font-size: 1.1rem; }
+    .features-grid { grid-template-columns: 1fr; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+  <div class="hero-content">
+    <div class="hero-icon" style="font-size:4rem;margin-bottom:1.5rem;">💪</div>
+    <h1 class="hero-title">The Post-Menopausal Belly Fat Solution</h1>
+    <p class="hero-subtitle">A Complete Isometric Exercise Guide for Women Over 50 — rebuild strength, boost metabolism, and feel your best at any age.</p>
+    <div class="hero-cta">
+      {% if not current_user.is_authenticated %}
+        <a href="/register" class="btn btn-primary" style="padding:0.9rem 2.5rem;font-size:1.1rem;">🚀 Get Started</a>
+      {% else %}
+        <a href="/dashboard" class="btn btn-primary" style="padding:0.9rem 2.5rem;font-size:1.1rem;">📊 Go to Dashboard</a>
+      {% endif %}
+      <a href="#features" class="btn btn-secondary" style="padding:0.9rem 2.5rem;font-size:1.1rem;">📖 Learn More</a>
+    </div>
+  </div>
+</div>
+
+<div id="features" class="features-section">
+  <h2 style="text-align:center;font-size:2rem;font-weight:700;color:#e0e0f0;margin-bottom:3rem;">Everything You Need in One Place ✨</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🏋️</div>
+      <h3 class="feature-title">10 Isometric Exercises</h3>
+      <p class="feature-desc">Targeted core, glute, and full-body holds designed for women over 50 — zero joint impact.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📅</div>
+      <h3 class="feature-title">4-Week Program</h3>
+      <p class="feature-desc">Structured progressive plan that builds strength week by week with clear daily goals.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3 class="feature-title">Symptom Tracker</h3>
+      <p class="feature-desc">Log hot flashes, night sweats, mood shifts and more. Spot patterns over time.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🧠</div>
+      <h3 class="feature-title">Mood &amp; Journal</h3>
+      <p class="feature-desc">Track your emotional wellbeing and jot down thoughts in a private journal.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👩‍👩‍👧‍👧</div>
+      <h3 class="feature-title">Community Support</h3>
+      <p class="feature-desc">Connect with other women on the same journey. Share tips, wins, and encouragement.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📖</div>
+      <h3 class="feature-title">Educational Articles</h3>
+      <p class="feature-desc">Evidence-based guides on menopause, fitness, nutrition, and holistic wellness.</p>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>&copy; {{ now.year }} Menopause Wellness. All rights reserved. 💜 Empowering women over 50.</p>
+</footer>
+{% endblock %}
