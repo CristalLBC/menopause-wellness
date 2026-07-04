@@ -148,9 +148,15 @@ def purchase():
     """Redirect users to Gumroad to buy a license."""
     product_id = gumroad_utils.get_product_id()
     if product_id:
-        return redirect(f'https://gumroad.com/l/{product_id}')
+        return redirect(f'https://gumroad.com/l/{product_id}?offer_code=MENO3')
     flash('Purchase link not configured.', 'danger')
     return redirect(url_for('index'))
+
+
+@app.route('/start')
+def start():
+    """Landing page for the $3 first month offer."""
+    return render_template('start.html')
 
 
 @app.route('/free-guide', methods=['GET', 'POST'])
@@ -184,7 +190,7 @@ def check_license():
     """Check that authenticated users have an active license on every page."""
     if current_user.is_authenticated:
         # Skip check for these pages
-        exempt_endpoints = ['activate', 'purchase', 'free_guide', 'printable_exercises', 'logout', 'login', 'register', 'static']
+        exempt_endpoints = ['activate', 'purchase', 'start', 'free_guide', 'printable_exercises', 'logout', 'login', 'register', 'static']
         if request.endpoint in exempt_endpoints:
             return
         if not check_user_has_active_license(current_user):
