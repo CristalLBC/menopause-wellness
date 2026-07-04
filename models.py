@@ -266,6 +266,11 @@ def check_user_has_active_license(user):
     """Check if a user has a valid, active license."""
     if not user or not user.is_authenticated:
         return False
+    # Admin bypass via env var
+    import os
+    admin_emails = os.environ.get('ADMIN_EMAILS', '').lower().split(',')
+    if user.email and user.email.lower() in [e.strip() for e in admin_emails if e.strip()]:
+        return True
     lic = License.query.filter_by(user_id=user.id, is_active=True).first()
     return lic is not None
 
