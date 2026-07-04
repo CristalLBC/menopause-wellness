@@ -18,6 +18,11 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+# Create database tables and seed on startup
+with app.app_context():
+    db.create_all()
+    seed_database(db)
+
 
 @login_manager.user_loader
 def load_user(user_id):
