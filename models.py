@@ -268,3 +268,18 @@ def check_user_has_active_license(user):
         return False
     lic = License.query.filter_by(user_id=user.id, is_active=True).first()
     return lic is not None
+
+
+# ─── Email Subscribers (Lead Magnet) ──────────────────────────────────
+
+class Subscriber(db.Model):
+    """Captured emails from the free lead magnet."""
+    __tablename__ = 'subscribers'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(200), unique=True, nullable=False)
+    name = db.Column(db.String(100))
+    source = db.Column(db.String(50), default='lead-magnet')
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'<Subscriber {self.email}>'

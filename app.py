@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from models import db, User, Exercise, WorkoutLog, MoodEntry, JournalEntry, SymptomEntry, \
     ProgramProgress, Article, CommunityPost, CommunityComment, SYMPTOM_TYPES, SYMPTOM_LABELS, \
-    IsochronicTone, ToneSession, License, check_user_has_active_license
+    IsochronicTone, ToneSession, License, check_user_has_active_license, Subscriber
 from seed_data import seed_database
 import gumroad_utils
 
@@ -143,12 +143,38 @@ def purchase():
     return redirect(url_for('index'))
 
 
+@app.route('/free-guide', methods=['GET', 'POST'])
+def free_guide():
+    """Lead magnet landing page — 5 exercises for menopause belly."""
+    if request.method == 'POST':
+        email = request.form.get('email', '').strip().lower()
+        name = request.form.get('name', '').strip()
+        if not email or '@' not in email:
+            flash('Please enter a valid email address.', 'danger')
+            return render_template('free_guide.html')
+        existing = Subscriber.query.filter_by(email=email).first()
+        if not existing:
+            sub = Subscriber(email=email, name=name or None, source='lead-magnet')
+            db.session.add(sub)
+            db.session.commit()
+        flash('Your free guide is ready below! 📖', 'success')
+        return render_template('free_guide.html', show_guide=True, email=email, name=name)
+    return render_template('free_guide.html', show_guide=False)
+
+
+@app.route('/printable-exercises')
+def printable_exercises():
+    """Printable 5-exercise guide — no email required, linked from free guide."""
+    exercises = Exercise.query.order_by(Exercise.order).limit(5).all()
+    return render_template('printable_exercises.html', exercises=exercises)
+
+
 @app.before_request
 def check_license():
     """Check that authenticated users have an active license on every page."""
     if current_user.is_authenticated:
         # Skip check for these pages
-        exempt_endpoints = ['activate', 'purchase', 'logout', 'login', 'register', 'static']
+        exempt_endpoints = ['activate', 'purchase', 'free_guide', 'printable_exercises', 'logout', 'login', 'register', 'static']
         if request.endpoint in exempt_endpoints:
             return
         if not check_user_has_active_license(current_user):

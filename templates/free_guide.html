@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 Isometric Exercises for Menopause Belly Fat — Free Guide</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: #0a0e17;
+  color: #e8edf5;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.hero {
+  background: linear-gradient(135deg, #0a0e17 0%, #1a2235 50%, #121827 100%);
+  padding: 4rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid #2a3450;
+}
+.hero h1 {
+  font-size: 2.5rem;
+  max-width: 700px;
+  margin: 0 auto 1rem;
+  background: linear-gradient(135deg, #d4436b, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero p {
+  color: #8892a8;
+  font-size: 1.15rem;
+  max-width: 550px;
+  margin: 0 auto 2rem;
+}
+.form-card {
+  background: #1a2235;
+  border: 1px solid #2a3450;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 440px;
+  margin: 0 auto;
+}
+.form-card h3 { margin-bottom: 1.5rem; color: #e8edf5; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-size: 0.85rem; color: #8892a8; margin-bottom: 0.4rem; }
+.form-group input {
+  width: 100%; padding: 0.75rem 1rem;
+  background: #121827; border: 1px solid #2a3450;
+  border-radius: 8px; color: #e8edf5; font-size: 0.95rem;
+}
+.form-group input:focus { outline: none; border-color: #d4436b; }
+.btn-primary {
+  width: 100%; padding: 0.8rem;
+  background: #d4436b; color: white; border: none;
+  border-radius: 8px; font-size: 1rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+.btn-primary:hover { background: #e0557a; box-shadow: 0 0 20px rgba(212,67,107,0.3); }
+.guide-content {
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+.exercise-card {
+  background: #1a2235;
+  border: 1px solid #2a3450;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.exercise-card h3 { color: #d4436b; margin-bottom: 0.5rem; font-size: 1.2rem; }
+.exercise-card .muscles { font-size: 0.85rem; color: #a78bfa; margin-bottom: 0.75rem; }
+.exercise-card p { color: #c0c8d8; font-size: 0.95rem; margin-bottom: 0.5rem; }
+.exercise-card ol { color: #8892a8; font-size: 0.9rem; padding-left: 1.25rem; }
+.exercise-card ol li { margin-bottom: 0.3rem; }
+.cta-bar {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 1px solid #2a3450;
+  margin-top: 3rem;
+}
+.cta-bar h2 { margin-bottom: 1rem; }
+.cta-bar .price { font-size: 1.5rem; color: #d4436b; font-weight: 700; margin-bottom: 1.5rem; }
+.flash { padding: 0.8rem; margin-bottom: 1rem; border-radius: 8px; background: rgba(46,204,113,0.15); border: 1px solid rgba(46,204,113,0.3); color: #2ecc71; text-align: center; }
+.benefits { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 2rem auto; max-width: 720px; padding: 0 2rem; }
+.benefit { text-align: center; padding: 1rem; background: #1a2235; border-radius: 12px; border: 1px solid #2a3450; }
+.benefit .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.benefit strong { display: block; font-size: 0.9rem; color: #e8edf5; }
+.benefit span { font-size: 0.8rem; color: #8892a8; }
+.footer { text-align: center; padding: 2rem; color: #606880; font-size: 0.8rem; }
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.8rem; }
+  .hero { padding: 2.5rem 1rem; }
+}
+</style>
+</head>
+<body>
+
+{% if not show_guide %}
+<!-- ─── Lead Capture ─── -->
+<div class="hero">
+  <h1>5 Isometric Exercises That Melt Menopause Belly Fat</h1>
+  <p>Zero-impact strength holds designed for women over 50 — no gym required, results in 10 minutes a day</p>
+  <div class="form-card">
+    <h3>Get Your Free Guide ✨</h3>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="flash">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <form method="POST" action="/free-guide">
+      <div class="form-group">
+        <label for="name">First Name</label>
+        <input type="text" id="name" name="name" placeholder="Your first name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+      </div>
+      <button type="submit" class="btn-primary">Send Me the Free Guide 📖</button>
+    </form>
+    <p style="margin-top:1rem;font-size:0.8rem;color:#606880;">No spam. Unsubscribe anytime.</p>
+  </div>
+</div>
+
+<div class="benefits">
+  <div class="benefit"><div class="icon">⏱️</div><strong>10 Minutes</strong><span>Per day, no gym needed</span></div>
+  <div class="benefit"><div class="icon">🦵</div><strong>Zero Impact</strong><span>Joint-friendly, any fitness level</span></div>
+  <div class="benefit"><div class="icon">🔥</div><strong>Belly Focus</strong><span>Targets the deep core</span></div>
+  <div class="benefit"><div class="icon">📋</div><strong>Printable</strong><span>Follow along anywhere</span></div>
+</div>
+
+<div class="cta-bar">
+  <h2>Want the full experience?</h2>
+  <p style="color:#8892a8;margin-bottom:0.5rem;">Get the complete app with exercise timer, brainwave therapy, symptom tracking and more</p>
+  <div class="price">$9<span style="font-size:1rem;color:#8892a8;">/month</span></div>
+  <a href="/purchase" class="btn-primary" style="display:inline-block;width:auto;padding:1rem 3rem;text-decoration:none;">Subscribe Now 🚀</a>
+  <p style="margin-top:0.8rem;font-size:0.8rem;color:#606880;">Use code <strong style="color:#d4436b;">MENO3</strong> for $3 first month</p>
+</div>
+
+{% else %}
+<!-- ─── Guide Revealed ─── -->
+<div class="hero" style="padding:2rem;">
+  <h1>📖 Your Free Guide is Ready!</h1>
+  <p style="margin-bottom:0;">5 isometric exercises to target menopause belly fat — zero impact, big results.</p>
+  <p style="margin-top:0.5rem;font-size:0.8rem;color:#606880;">Sent to <strong style="color:#d4436b;">{{ email }}</strong></p>
+</div>
+
+<div class="guide-content">
+  <div class="exercise-card">
+    <h3>1. The Front Plank</h3>
+    <div class="muscles">Transverse abdominis, shoulders, glutes</div>
+    <p><strong>Why it works:</strong> The foundational isometric. Forces your entire core to engage continuously. No crunch compares.</p>
+    <ol>
+      <li>Start on forearms, elbows under shoulders</li>
+      <li>Step feet back, body in straight line from heels to head</li>
+      <li>Squeeze glutes, pull belly button toward spine</li>
+      <li>Hold 20-30 seconds. Breathe.</li>
+    </ol>
+  </div>
+
+  <div class="exercise-card">
+    <h3>2. The Dead Bug Hold</h3>
+    <div class="muscles">Transverse abdominis, pelvic floor, deep spinal stabilizers</div>
+    <p><strong>Why it works:</strong> Directly trains the deep core and pelvic floor — areas weakened by menopause. Teaches your core to stabilize your spine.</p>
+    <ol>
+      <li>Lie on back, arms toward ceiling, legs in tabletop position</li>
+      <li>Press lower back firmly into the floor</li>
+      <li>Hold and breathe deeply</li>
+      <li>Start with 20 seconds</li>
+    </ol>
+  </div>
+
+  <div class="exercise-card">
+    <h3>3. The Glute Bridge Hold</h3>
+    <div class="muscles">Glutes, hamstrings, lower back, transverse abdominis</div>
+    <p><strong>Why it works:</strong> Activates the largest muscle in your body — the glutes — which boosts metabolism and improves posture instantly.</p>
+    <ol>
+      <li>Lie on back, knees bent, feet flat on floor hip-width apart</li>
+      <li>Lift hips until body forms a straight line from shoulders to knees</li>
+      <li>Squeeze glutes at the top, hold 30-45 seconds</li>
+    </ol>
+  </div>
+
+  <div class="exercise-card">
+    <h3>4. The Wall Sit</h3>
+    <div class="muscles">Quadriceps, glutes, core stabilizers</div>
+    <p><strong>Why it works:</strong> Builds leg strength and core stability simultaneously. The longer you hold, the more your deep core fires.</p>
+    <ol>
+      <li>Stand with back against a wall, feet 2 feet from wall</li>
+      <li>Slide down until thighs are parallel to floor</li>
+      <li>Hold 20-30 seconds. Build up to 60 seconds.</li>
+    </ol>
+  </div>
+
+  <div class="exercise-card">
+    <h3>5. The Bird Dog Hold</h3>
+    <div class="muscles">Erector spinae, transverse abdominis, glutes, shoulders</div>
+    <p><strong>Why it works:</strong> Trains your deep core to stabilize against movement — exactly what flattens the belly in daily life.</p>
+    <ol>
+      <li>Start on hands and knees, neutral spine</li>
+      <li>Extend right arm forward and left leg back simultaneously</li>
+      <li>Hold 15-20 seconds. Switch sides.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="cta-bar">
+  <h2>Ready to Go Further?</h2>
+  <p style="color:#8892a8;margin-bottom:0.5rem;">The full app has all 10 exercises, a 4-week program, brainwave therapy tones, and symptom tracking</p>
+  <div class="price">$9<span style="font-size:1rem;color:#8892a8;">/month</span></div>
+  <a href="/purchase" class="btn-primary" style="display:inline-block;width:auto;padding:1rem 3rem;text-decoration:none;">Try the Full App 🚀</a>
+  <p style="margin-top:0.8rem;font-size:0.8rem;color:#606880;">Use code <strong style="color:#d4436b;">MENO3</strong> for $3 first month</p>
+</div>
+{% endif %}
+
+<div class="footer">
+  <p>Menopause Wellness App &bull; https://menopause-wellness.onrender.com</p>
+</div>
+</body>
+</html>
