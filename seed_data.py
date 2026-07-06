@@ -1702,8 +1702,10 @@ def seed_database(db):
     # Seed isochronic tones if empty
     if IsochronicTone.query.count() == 0:
         colors = ['#7c6ff7', '#d4436b', '#2ecc71', '#f1c40f',
-                  '#e67e22', '#9b59b6', '#1abc9c', '#3498db']
-        icons = ['💤', '🧘', '🌊', '🧠', '⚡', '🌤️', '🕯️', '🌅']
+                  '#e67e22', '#9b59b6', '#1abc9c', '#3498db',
+                  '#2ecc71', '#e91e63', '#ff6f61', '#00bcd4', '#ffd54f']
+        icons = ['💤', '🧘', '🌊', '🧠', '⚡', '🌤️', '🕯️', '🌅',
+                 '🌿', '☕', '🌸', '🩹', '✨']
         for i, preset_id in enumerate(TONES_PRESETS):
             freq = TONES_FREQUENCIES[preset_id]
             tone = IsochronicTone(

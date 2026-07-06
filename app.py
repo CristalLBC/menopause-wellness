@@ -55,9 +55,39 @@ def migrate_missing_exercises():
         db.session.commit()
         print(f'Migrated {added} missing exercise(s) into the database.')
 
+def migrate_missing_tones():
+    """Check each tone preset — insert any that are not in the DB yet."""
+    from models import TONES_PRESETS, TONES_LABELS, TONES_FREQUENCIES
+    added = 0
+    colors = ['#7c6ff7', '#d4436b', '#2ecc71', '#f1c40f',
+              '#e67e22', '#9b59b6', '#1abc9c', '#3498db',
+              '#2ecc71', '#e91e63', '#ff6f61', '#00bcd4', '#ffd54f']
+    icons = ['💤', '🧘', '🌊', '🧠', '⚡', '🌤️', '🕯️', '🌅',
+             '🌿', '☕', '🌸', '🩹', '✨']
+    for i, preset_id in enumerate(TONES_PRESETS):
+        if not IsochronicTone.query.filter_by(preset_id=preset_id).first():
+            freq = TONES_FREQUENCIES[preset_id]
+            tone = IsochronicTone(
+                preset_id=preset_id,
+                name=TONES_LABELS[preset_id],
+                description=freq['description'],
+                carrier_freq=freq['carrier'],
+                beat_freq=freq['beat'],
+                brainwave_label=freq['brainwave'],
+                icon=icons[i] if i < len(icons) else '🎵',
+                color=colors[i] if i < len(colors) else '#d4436b',
+                duration_min=15
+            )
+            db.session.add(tone)
+            added += 1
+    if added:
+        db.session.commit()
+        print(f'Migrated {added} missing tone(s) into the database.')
+
 with app.app_context():
     migrate_missing_articles()
     migrate_missing_exercises()
+    migrate_missing_tones()
 
 
 @login_manager.user_loader

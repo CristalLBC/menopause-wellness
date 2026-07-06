@@ -176,7 +176,9 @@ class CommunityComment(db.Model):
 
 TONES_PRESETS = [
     'sleep', 'anxiety_relief', 'hot_flash_calm', 'brain_focus',
-    'energy_boost', 'mood_lift', 'deep_relaxation', 'morning_wakeup'
+    'energy_boost', 'mood_lift', 'deep_relaxation', 'morning_wakeup',
+    'stress_resilience', 'afternoon_recharge', 'libido_sensuality',
+    'pain_comfort', 'confidence_clarity'
 ]
 
 TONES_LABELS = {
@@ -187,7 +189,12 @@ TONES_LABELS = {
     'energy_boost': '⚡ Energy Boost',
     'mood_lift': '🌤️ Mood Lift',
     'deep_relaxation': '🕯️ Deep Relaxation',
-    'morning_wakeup': '🌅 Morning Wake Up'
+    'morning_wakeup': '🌅 Morning Wake Up',
+    'stress_resilience': '🌿 Stress Resilience',
+    'afternoon_recharge': '☕ Afternoon Recharge',
+    'libido_sensuality': '🌸 Libido & Sensuality',
+    'pain_comfort': '🩹 Pain & Comfort',
+    'confidence_clarity': '✨ Confidence & Clarity'
 }
 
 TONES_FREQUENCIES = {
@@ -200,7 +207,12 @@ TONES_FREQUENCIES = {
     'energy_boost':   {'carrier': 400, 'beat': 15.0,  'brainwave': 'Low Beta (15.0 Hz)',    'description': 'Energising beta rhythm to replace that second cup of coffee. Use mid-morning or early afternoon.'},
     'mood_lift':      {'carrier': 250, 'beat': 7.83,  'brainwave': 'Theta/Alpha (7.83 Hz — Schumann resonance)', 'description': 'The Earth\'s natural resonance frequency — 7.83 Hz — known to promote emotional balance and wellbeing.'},
     'deep_relaxation':{'carrier': 200, 'beat': 4.0,   'brainwave': 'Theta/Delta (4.0 Hz)',   'description': 'Borderline theta-delta pulsing for profound relaxation without drowsiness. Perfect after a workout.'},
-    'morning_wakeup': {'carrier': 350, 'beat': 12.0,  'brainwave': 'Alpha/Low Beta (12.0 Hz)', 'description': 'A gentle alpha-to-beta transition to wake up your brain naturally, without caffeine jitters.'}
+    'morning_wakeup': {'carrier': 350, 'beat': 12.0,  'brainwave': 'Alpha/Low Beta (12.0 Hz)', 'description': 'A gentle alpha-to-beta transition to wake up your brain naturally, without caffeine jitters.'},
+    'stress_resilience':  {'carrier': 280, 'beat': 8.0,   'brainwave': 'Alpha (8.0 Hz)',             'description': 'Steady alpha pulsing to build your daily stress buffer. Lowers baseline cortisol and creates a centred, grounded mental state. Use during work hours or before stressful situations.'},
+    'afternoon_recharge': {'carrier': 210, 'beat': 4.5,   'brainwave': 'Theta (4.5 Hz)',            'description': 'A quick afternoon reset that replaces the 3pm slump without caffeine. Theta pulsing at 4.5 Hz mimics the brain state of a power nap — refreshing without grogginess. 10–15 minutes is all you need.'},
+    'libido_sensuality':  {'carrier': 190, 'beat': 7.0,   'brainwave': 'Theta (7.0 Hz)',            'description': 'Warm theta rhythm to reconnect with your body and sensual self. Helps release tension stored in the pelvic region and quiets mental chatter. Best used in a relaxed, private setting.'},
+    'pain_comfort':       {'carrier': 170, 'beat': 2.5,   'brainwave': 'Delta (2.5 Hz)',            'description': 'Deep delta pulsing to activate your body\'s natural pain-gating mechanisms. Particularly effective for joint pain and menopausal aches. Use during flare-ups or as a daily preventative.'},
+    'confidence_clarity': {'carrier': 380, 'beat': 14.0,  'brainwave': 'Low Beta (14.0 Hz)',         'description': 'Focused low-beta rhythm to sharpen self-expression and decision-making. Counteracts the self-doubt that can accompany menopause. Use before meetings, presentations, or important conversations.'}
 }
 
 
