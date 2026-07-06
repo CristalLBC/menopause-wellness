@@ -145,6 +145,76 @@ EXERCISES = [
         "common_mistakes": "• Back sagging or rounding (keep it flat like a table)\n• Knees touching the floor\n• Looking up (strains neck)",
         "icon": "🐻",
         "category": "full_body"
+    },
+    {
+        "order": 11,
+        "name": "The Heel Raise Hold",
+        "target_muscles": "Calves (gastrocnemius, soleus), spinal stabilizers, core",
+        "why_it_works": "Weight-bearing isometric exercise is one of the best ways to stimulate bone density in the hips and spine — critical after menopause when oestrogen drops and osteoporosis risk climbs. The heel raise hold also strengthens the calves and ankles, improving balance and reducing fall risk. It can be done anywhere, no equipment needed.",
+        "instructions": "1. Stand tall with feet hip-width apart, holding a wall or chair back for balance if needed.\n2. Rise up onto the balls of both feet as high as you can.\n3. Keep your ankles straight — don't let them roll inward or outward.\n4. Pull your belly button toward your spine and keep your shoulders relaxed.\n5. Gaze straight ahead, not down at your feet.\n6. Hold the raised position.\n7. Lower slowly and rest 15 seconds between holds.",
+        "modifications": "**Easier:** Rise only halfway, or use both hands on a wall for support.\n**Harder:** Perform on one leg at a time (single-leg heel raise hold).",
+        "easier_options": "Half heel raise, two-hand support",
+        "harder_options": "Single-leg heel raise hold",
+        "target_times": json.dumps({"Week 1": "15–25s", "Week 2": "25–35s", "Week 3": "35–45s", "Week 4": "45+s"}, ensure_ascii=False),
+        "common_mistakes": "• Ankles rolling outward (losing alignment)\n• Gripping the floor with toes instead of rising evenly\n• Holding your breath\n• Leaning forward from the hips",
+        "icon": "🦶",
+        "category": "full_body"
+    },
+    {
+        "order": 12,
+        "name": "The Single-Leg Balance Hold",
+        "target_muscles": "Hip stabilizers (glute medius, piriformis), ankle stabilizers, core",
+        "why_it_works": "Balance declines rapidly after age 50 due to sarcopenia and sensory changes — and falls are the #1 cause of injury in post-menopausal women. This exercise retrains your proprioception and strengthens the small stabilizer muscles around your hip and ankle. It also directly engages your deep core, which must fire continuously to keep you upright.",
+        "instructions": "1. Stand tall with feet together, arms at your sides or on your hips.\n2. Shift your weight onto your left foot.\n3. Lift your right foot 2–3 inches off the floor, toes pointing forward.\n4. Fix your gaze on a stationary point about 10 feet ahead.\n5. Keep your hips level — don't let the lifted hip hike up or the standing hip sag out.\n6. Engage your core by pulling your belly button in.\n7. Hold. Switch legs.",
+        "modifications": "**Easier:** Keep the toes of your lifted foot lightly touching the floor for balance, or stand near a wall.\n**Harder:** Close your eyes, or stand on a folded towel (unstable surface).",
+        "easier_options": "Toe-touch balance, wall support",
+        "harder_options": "Eyes-closed balance, towel balance",
+        "target_times": json.dumps({"Week 1": "15–20s per leg", "Week 2": "20–30s", "Week 3": "30–40s", "Week 4": "40+s"}, ensure_ascii=False),
+        "common_mistakes": "• Staring at your feet (takes you off balance)\n• Letting the standing knee lock\n• Hip hiking on the lifted side\n• Holding your breath",
+        "icon": "🦩",
+        "category": "full_body"
+    },
+    {
+        "order": 13,
+        "name": "The Wall Angel Hold",
+        "target_muscles": "Upper back (rhomboids, trapezius), rear deltoids, thoracic extensors, core",
+        "why_it_works": "Menopause accelerates postural changes — especially thoracic kyphosis (forward rounding of the upper back) — due to bone density loss and connective tissue changes. The wall angel hold opens the chest, strengthens the upper back, and retrains proper shoulder alignment. It's the single best exercise to reverse 'text neck' and 'menopause posture.'",
+        "instructions": "1. Stand with your back against a wall, feet 6 inches from the wall.\n2. Press your entire spine — lower back, upper back, and head — against the wall.\n3. Raise both arms to a 'W' position: elbows bent at 90°, upper arms at shoulder height, backs of hands against the wall.\n4. Press your elbows, forearms, and hands into the wall.\n5. Without letting anything peel off the wall, slowly slide your arms upward into a 'Y' position.\n6. Return to 'W' and repeat the slide 3–5 times, then hold in the 'W' position.\n7. Breathe deeply — expand your ribcage into the wall on each inhale.",
+        "modifications": "**Easier:** Stand closer to the wall, or hold only the 'W' position without sliding.\n**Harder:** Hold the 'Y' position (arms overhead, against wall) for the full hold time.",
+        "easier_options": "Static W hold only",
+        "harder_options": "Static Y hold overhead",
+        "target_times": json.dumps({"Week 1": "20–30s", "Week 2": "30–45s", "Week 3": "45–60s", "Week 4": "60+s"}, ensure_ascii=False),
+        "common_mistakes": "• Lower back peeling off the wall\n• Head not touching the wall (chin poking forward)\n• Shoulders hunching up toward ears\n• Arms not maintaining wall contact",
+        "icon": "👼",
+        "category": "full_body"
+    },
+    {
+        "order": 14,
+        "name": "The Clamshell Hold",
+        "target_muscles": "Glute medius, glute minimus, hip external rotators, pelvic stabilizers",
+        "why_it_works": "The glute medius is the most important muscle you've never heard of — it stabilises your pelvis every time you stand, walk, or climb stairs. After menopause, this muscle weakens rapidly, leading to hip pain, knee tracking problems, and the 'waddling' gait that makes women feel older. The clamshell hold isolates it directly, with zero knee strain.",
+        "instructions": "1. Lie on your left side with legs stacked, knees bent at a 45-degree angle.\n2. Rest your head on your extended left arm or a small pillow.\n3. Keep your feet touching each other throughout the exercise — don't let them separate.\n4. Keeping your feet together, lift your right knee as high as you can without rotating your hips.\n5. Your hips should stay stacked vertically — don't roll backward.\n6. Hold at the top. You should feel this in your upper glute/hip area, not your lower back.\n7. Lower slowly. Repeat on the right side.",
+        "modifications": "**Easier:** Reduce the range of motion — lift the knee only halfway. Place a small pillow between your knees for feedback.\n**Harder:** Loop a resistance band just above your knees for added resistance.",
+        "easier_options": "Half-range clamshell, pillow between knees",
+        "harder_options": "Resistance band clamshell hold",
+        "target_times": json.dumps({"Week 1": "15–20s per side", "Week 2": "20–30s", "Week 3": "30–35s", "Week 4": "35+s"}, ensure_ascii=False),
+        "common_mistakes": "• Hips rolling backward (opening toward the ceiling)\n• Lifting the knee using lower back instead of glute\n• Feet separating (knee can't move as high)\n• Neck strained from poor head support",
+        "icon": "🐚",
+        "category": "full_body"
+    },
+    {
+        "order": 15,
+        "name": "The Prone Back Extension Hold",
+        "target_muscles": "Spinal erectors, glutes, rhomboids, posterior core chain",
+        "why_it_works": "The muscles along your spine are your body's natural back brace — and they weaken with age and sitting. The prone back extension hold strengthens the entire posterior chain, supports spinal bone density (critical for osteoporosis prevention), and counteracts the forward slump that makes belly fat more visible. A strong back also pulls your shoulders back, making your waist look smaller instantly.",
+        "instructions": "1. Lie face down on a mat with legs straight and arms extended overhead (palms down).\n2. Place your forehead on the floor or a small towel.\n3. Squeeze your glutes and engage your lower back muscles.\n4. Simultaneously lift your chest, arms, and legs 2–4 inches off the floor.\n5. Keep your arms straight and parallel to each other, palms facing down.\n6. Gaze at the floor 2 feet ahead — don't crank your neck back.\n7. Hold the lifted position.\n8. Lower slowly and rest.",
+        "modifications": "**Easier:** Lift only your chest and arms (legs stay on floor), or lift arms only.\n**Harder:** Hold a light object (water bottle) in each hand, or lift legs only (arms stay on floor).",
+        "easier_options": "Upper-body-only extension, arms-only lift",
+        "harder_options": "Weighted extension hold, legs-only extension",
+        "target_times": json.dumps({"Week 1": "10–15s", "Week 2": "15–25s", "Week 3": "25–35s", "Week 4": "35+s"}, ensure_ascii=False),
+        "common_mistakes": "• Neck craned backward (look at the floor, not the ceiling)\n• Using momentum to jerk the body up\n• Holding your breath\n• Legs splaying apart",
+        "icon": "🔙",
+        "category": "full_body"
     }
 ]
 
