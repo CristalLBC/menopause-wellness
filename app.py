@@ -23,7 +23,7 @@ with app.app_context():
     db.create_all()
     seed_database(db)
 
-# ─── Article Migration (add missing articles without clearing DB) ─────
+# ─── Article & Exercise Migration (add missing items without clearing DB) ─
 def migrate_missing_articles():
     """Check each article in seed data by slug — insert any that are missing.
     This handles the case where new articles were added to seed_data.py
@@ -40,8 +40,24 @@ def migrate_missing_articles():
         db.session.commit()
         print(f'Migrated {added} missing article(s) into the database.')
 
+def migrate_missing_exercises():
+    """Check each exercise in seed data by order — insert any that are missing.
+    Same logic as articles: keeps old data, only adds new exercises."""
+    from seed_data import EXERCISES
+    added = 0
+    for ex_data in EXERCISES:
+        order = ex_data.get('order')
+        if order and not Exercise.query.filter_by(order=order).first():
+            exercise = Exercise(**ex_data)
+            db.session.add(exercise)
+            added += 1
+    if added:
+        db.session.commit()
+        print(f'Migrated {added} missing exercise(s) into the database.')
+
 with app.app_context():
     migrate_missing_articles()
+    migrate_missing_exercises()
 
 
 @login_manager.user_loader
