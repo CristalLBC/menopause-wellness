@@ -49,12 +49,12 @@
 {% if articles and articles|length > 0 %}
 <div class="article-grid">
   {% for article in articles %}
-  <a href="/articles/{{ article.id }}" class="article-card">
+  <a href="/articles/{{ article.slug }}" class="article-card">
     {% if article.category %}<span class="ac-category">{{ article.category }}</span>{% endif %}
     <div class="ac-title">{{ article.title }}</div>
     <div class="ac-summary">{{ article.summary[:200] }}{% if article.summary|length > 200 %}...{% endif %}</div>
     <div class="ac-footer">
-      <span>📅 {{ article.created_at }}</span>
+      <span>📅 {{ article.created_at.strftime('%b %d, %Y') }}</span>
       {% if article.author %}<span>✍️ {{ article.author }}</span>{% endif %}
     </div>
   </a>

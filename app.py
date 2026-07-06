@@ -1,4 +1,4 @@
-import os, json
+import os, json, markdown
 from datetime import date, datetime, timedelta
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -22,6 +22,26 @@ login_manager.login_view = 'login'
 with app.app_context():
     db.create_all()
     seed_database(db)
+
+# ─── Article Migration (add missing articles without clearing DB) ─────
+def migrate_missing_articles():
+    """Check each article in seed data by slug — insert any that are missing.
+    This handles the case where new articles were added to seed_data.py
+    after the database was already seeded (seed_database skips if count > 0)."""
+    from seed_data import ARTICLES
+    added = 0
+    for art_data in ARTICLES:
+        slug = art_data.get('slug')
+        if slug and not Article.query.filter_by(slug=slug).first():
+            article = Article(**art_data)
+            db.session.add(article)
+            added += 1
+    if added:
+        db.session.commit()
+        print(f'Migrated {added} missing article(s) into the database.')
+
+with app.app_context():
+    migrate_missing_articles()
 
 
 @login_manager.user_loader
@@ -578,6 +598,11 @@ def articles():
 @login_required
 def article_view(slug):
     article = Article.query.filter_by(slug=slug).first_or_404()
+    # Render markdown to HTML with code blocks and tables
+    article.rendered_content = markdown.markdown(
+        article.content_md,
+        extensions=['extra', 'codehilite', 'tables', 'sane_lists']
+    )
     return render_template('article_view.html', article=article)
 
 
@@ -716,4 +741,4 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
         seed_database(db)
-    app.run(host='0.0.0.0', port=5052, debug=True)
+    app.run(host='0.0.0.0', port=5053, debug=True)
