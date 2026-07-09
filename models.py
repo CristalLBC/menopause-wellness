@@ -254,6 +254,39 @@ class ToneSession(db.Model):
 
 # ─── License Keys ─────────────────────────────────────────────────────
 
+class SleepLog(db.Model):
+    """Tracks a user's nightly sleep — bedtime, quality, interruptions, and lifestyle factors."""
+    __tablename__ = 'sleep_logs'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    log_date = db.Column(db.Date, default=date.today, nullable=False)
+
+    # Core sleep data
+    bedtime = db.Column(db.Time, nullable=False)           # When they went to bed
+    wake_time = db.Column(db.Time, nullable=False)          # When they woke up
+    sleep_quality = db.Column(db.Integer, default=3)        # 1-5 scale
+    hot_flash_interruptions = db.Column(db.Integer, default=0)  # Number of wake-ups
+    total_minutes_asleep = db.Column(db.Integer)            # Computed estimate
+
+    # Lifestyle factors
+    had_alcohol = db.Column(db.Boolean, default=False)
+    caffeine_after_4pm = db.Column(db.Boolean, default=False)
+    exercised = db.Column(db.Boolean, default=False)
+    used_sleep_tone = db.Column(db.Boolean, default=False)
+    tone_id = db.Column(db.Integer, db.ForeignKey('isochronic_tones.id'), nullable=True)
+
+    # Notes
+    notes = db.Column(db.Text, default='')
+
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    user = db.relationship('User', backref=db.backref('sleep_logs', lazy='dynamic'))
+    tone = db.relationship('IsochronicTone', backref='sleep_logs')
+
+    def __repr__(self):
+        return f'<SleepLog {self.log_date} by user {self.user_id}>'
+
+
 class License(db.Model):
     """Stores a user's Gumroad license key for access control."""
     __tablename__ = 'licenses'

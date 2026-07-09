@@ -39,6 +39,9 @@
             <li><a href="{{ url_for('mood') }}" class="nav-item {% if 'mood' in request.endpoint %}active{% endif %}">
                 <span class="nav-icon">&#9786;</span> Mood Tracker
             </a></li>
+            <li><a href="{{ url_for('sleep_log') }}" class="nav-item {% if 'sleep' in request.endpoint %}active{% endif %}">
+                <span class="nav-icon">&#127772;</span> Sleep Log
+            </a></li>
             <li><a href="{{ url_for('journal') }}" class="nav-item {% if 'journal' in request.endpoint %}active{% endif %}">
                 <span class="nav-icon">&#9998;</span> Journal
             </a></li>

@@ -1,10 +1,10 @@
 import os, json, markdown
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, time
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from models import db, User, Exercise, WorkoutLog, MoodEntry, JournalEntry, SymptomEntry, \
     ProgramProgress, Article, CommunityPost, CommunityComment, SYMPTOM_TYPES, SYMPTOM_LABELS, \
-    IsochronicTone, ToneSession, License, check_user_has_active_license, Subscriber
+    IsochronicTone, ToneSession, License, check_user_has_active_license, Subscriber, SleepLog
 from seed_data import seed_database
 import gumroad_utils
 import decoder_data
@@ -709,6 +709,121 @@ def perimenopause():
         exercises=peri_exercises,
         tones=peri_tones,
         articles=peri_articles
+    )
+
+
+# ─── Sleep Log ────────────────────────────────────────────────────────
+@app.route('/sleep', methods=['GET', 'POST'])
+@login_required
+def sleep_log():
+    """Sleep tracking with pattern insights."""
+    sleep_tones = IsochronicTone.query.filter(
+        IsochronicTone.preset_id.in_(['sleep', 'deep_relaxation', 'anxiety_relief'])
+    ).all()
+
+    if request.method == 'POST':
+        try:
+            log_date = date.fromisoformat(request.form.get('log_date', str(date.today())))
+        except:
+            log_date = date.today()
+
+        bed_str = request.form.get('bedtime', '23:00')
+        wake_str = request.form.get('wake_time', '07:00')
+
+        def parse_time(t_str):
+            parts = t_str.split(':')
+            return time(int(parts[0]) % 24, int(parts[1]) % 60)
+
+        # Calculate sleep duration
+        bed_h, bed_m = int(bed_str.split(':')[0]) % 24, int(bed_str.split(':')[1]) % 60
+        wake_h, wake_m = int(wake_str.split(':')[0]) % 24, int(wake_str.split(':')[1]) % 60
+        total_minutes = (wake_h * 60 + wake_m - bed_h * 60 - bed_m) % (24 * 60)
+        if total_minutes < 60:
+            total_minutes += 24 * 60  # crossed midnight
+
+        quality = int(request.form.get('sleep_quality', 3))
+        interruptions = int(request.form.get('hot_flash_interruptions', 0))
+
+        entry = SleepLog(
+            user_id=current_user.id,
+            log_date=log_date,
+            bedtime=parse_time(bed_str),
+            wake_time=parse_time(wake_str),
+            sleep_quality=quality,
+            hot_flash_interruptions=interruptions,
+            total_minutes_asleep=total_minutes,
+            had_alcohol=bool(request.form.get('had_alcohol')),
+            caffeine_after_4pm=bool(request.form.get('caffeine_after_4pm')),
+            exercised=bool(request.form.get('exercised')),
+            used_sleep_tone=bool(request.form.get('used_sleep_tone')),
+            tone_id=request.form.get('tone_id', type=int) or None,
+            notes=request.form.get('notes', '')
+        )
+        db.session.add(entry)
+        db.session.commit()
+        flash('Sleep logged!', 'success')
+        return redirect(url_for('sleep_log'))
+
+    # Get history (last 30 days)
+    history = SleepLog.query.filter_by(user_id=current_user.id).order_by(
+        SleepLog.log_date.desc()
+    ).limit(30).all()
+
+    # Generate insights if 5+ entries exist
+    insights = []
+    if len(history) >= 5:
+        entries = list(history)
+        avg_quality = sum(e.sleep_quality for e in entries) / len(entries)
+        avg_hours = sum(e.total_minutes_asleep or 0 for e in entries) / len(entries) / 60
+        avg_interruptions = sum(e.hot_flash_interruptions for e in entries) / len(entries)
+
+        insights.append({
+            'icon': '📊',
+            'title': 'Your Sleep Average',
+            'text': f'{avg_hours:.1f} hours, {avg_quality:.1f}/5 quality, {avg_interruptions:.1f} hot flash wake-ups per night'
+        })
+
+        # Alcohol correlation
+        alc_entries = [e for e in entries if e.had_alcohol]
+        no_alc = [e for e in entries if not e.had_alcohol]
+        if alc_entries and no_alc:
+            alc_q = sum(e.sleep_quality for e in alc_entries) / len(alc_entries)
+            no_alc_q = sum(e.sleep_quality for e in no_alc) / len(no_alc)
+            if no_alc_q > alc_q:
+                insights.append({
+                    'icon': '🍷',
+                    'title': 'Alcohol & Sleep Quality',
+                    'text': f'Nights without alcohol: {no_alc_q:.1f}/5 vs with alcohol: {alc_q:.1f}/5. A difference of {no_alc_q - alc_q:.1f} points.'
+                })
+
+        # Exercise correlation
+        ex_entries = [e for e in entries if e.exercised]
+        no_ex = [e for e in entries if not e.exercised]
+        if ex_entries and no_ex:
+            ex_q = sum(e.sleep_quality for e in ex_entries) / len(ex_entries)
+            no_ex_q = sum(e.sleep_quality for e in no_ex) / len(no_ex)
+            if ex_q > no_ex_q:
+                insights.append({
+                    'icon': '🏋️',
+                    'title': 'Exercise Helps You Sleep Better',
+                    'text': f'Sleep quality on exercise days: {ex_q:.1f}/5 vs rest days: {no_ex_q:.1f}/5.'
+                })
+
+        # Tone correlation
+        tone_entries = [e for e in entries if e.used_sleep_tone]
+        if tone_entries:
+            tone_q = sum(e.sleep_quality for e in tone_entries) / len(tone_entries)
+            insights.append({
+                'icon': '🎵',
+                'title': 'Brainwave Tones & Sleep',
+                'text': f'Sleep quality on nights you used a tone: {tone_q:.1f}/5. Keep it up!'
+            })
+
+    return render_template('sleep.html',
+        history=history,
+        insights=insights,
+        sleep_tones=sleep_tones,
+        today=date.today()
     )
 
 
