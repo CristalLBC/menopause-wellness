@@ -33,6 +33,9 @@
             <li><a href="{{ url_for('symptoms') }}" class="nav-item {% if request.endpoint == 'symptoms' %}active{% endif %}">
                 <span class="nav-icon">&#9632;</span> Symptoms
             </a></li>
+            <li><a href="{{ url_for('decoder') }}" class="nav-item {% if request.endpoint == 'decoder' %}active{% endif %}">
+                <span class="nav-icon">&#128270;</span> Decoder
+            </a></li>
             <li><a href="{{ url_for('mood') }}" class="nav-item {% if 'mood' in request.endpoint %}active{% endif %}">
                 <span class="nav-icon">&#9786;</span> Mood Tracker
             </a></li>

@@ -7,6 +7,7 @@ from models import db, User, Exercise, WorkoutLog, MoodEntry, JournalEntry, Symp
     IsochronicTone, ToneSession, License, check_user_has_active_license, Subscriber
 from seed_data import seed_database
 import gumroad_utils
+import decoder_data
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'menopause-wellness-secret-key-2025')
@@ -657,6 +658,25 @@ def article_view(slug):
 @login_required
 def infographic():
     return render_template('infographic.html')
+
+
+# ─── Symptom Decoder ───────────────────────────────────────────────────
+@app.route('/decoder')
+@login_required
+def decoder():
+    # Query all exercises, tones, and articles for the template
+    exercises_list = Exercise.query.order_by(Exercise.order).all()
+    tones_list = IsochronicTone.query.all()
+    articles_list = Article.query.filter_by(published=True).order_by(Article.created_at.desc()).all()
+
+    return render_template('decoder.html',
+        decoder_data=decoder_data,
+        exercises=exercises_list,
+        tones=tones_list,
+        articles=articles_list,
+        symptoms_types=SYMPTOM_TYPES,
+        symptoms_labels=SYMPTOM_LABELS
+    )
 
 
 # ─── Community ────────────────────────────────────────────────────────

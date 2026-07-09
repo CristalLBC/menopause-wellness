@@ -1,0 +1,546 @@
+{% extends 'base.html' %}
+
+{% block title %}Symptom Decoder — Menopause Wellness{% endblock %}
+
+{% block extra_head %}
+<style>
+  .dc-hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #16213e 100%);
+    border: 1px solid #3a2a5e;
+    border-radius: 1.2rem;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .dc-hero h1 { font-size: 2rem; color: #e0e0f0; margin-bottom: 0.5rem; }
+  .dc-hero p { color: #a0a0c0; max-width: 600px; margin: 0 auto 1rem; font-size: 0.95rem; line-height: 1.6; }
+  .dc-hero .badge {
+    display: inline-block;
+    background: rgba(212,67,107,0.15);
+    border: 1px solid rgba(212,67,107,0.3);
+    color: #f0a0b0;
+    padding: 0.3rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+
+  .dc-section-title {
+    font-size: 1.1rem;
+    color: #c0c0d0;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .symptom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .symptom-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 0.9rem;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    user-select: none;
+    text-align: center;
+  }
+  .symptom-card:hover {
+    border-color: #4a4a7a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(100,100,200,0.08);
+  }
+  .symptom-card.selected {
+    border-color: #d4436b;
+    background: linear-gradient(145deg, #2a1a2e, #1e1a3e);
+    box-shadow: 0 0 20px rgba(212,67,107,0.15);
+  }
+  .symptom-card .emoji { font-size: 1.6rem; display: block; margin-bottom: 0.3rem; }
+  .symptom-card .name { font-size: 0.85rem; color: #c0c0d0; font-weight: 600; }
+  .symptom-card .check { display: none; font-size: 0.7rem; color: #d4436b; margin-top: 0.3rem; }
+  .symptom-card.selected .check { display: block; }
+
+  .btn-decode {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2.5rem;
+    background: linear-gradient(135deg, #d4436b, #b8305a);
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-bottom: 2rem;
+  }
+  .btn-decode:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212,67,107,0.3);
+  }
+  .btn-decode:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .btn-decode .count-badge {
+    background: rgba(255,255,255,0.2);
+    padding: 0.1rem 0.5rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+  }
+
+  /* Results Panel */
+  .results-panel {
+    display: none;
+  }
+  .results-panel.visible {
+    display: block;
+    animation: fadeSlideUp 0.4s ease;
+  }
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .result-card h3 {
+    font-size: 1rem;
+    color: #e0e0f0;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Stage result */
+  .stage-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .stage-desc { color: #a0a0b0; font-size: 0.85rem; line-height: 1.6; }
+  .stage-confidence {
+    margin-top: 0.75rem;
+    height: 6px;
+    background: #2a2a4a;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .stage-confidence-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s ease;
+  }
+
+  /* Recommendation chips */
+  .rec-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .rec-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.8rem;
+    background: #2a2a4a;
+    border: 1px solid #3a3a5a;
+    border-radius: 2rem;
+    font-size: 0.78rem;
+    color: #c0c0d0;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .rec-chip:hover {
+    border-color: #d4436b;
+    color: white;
+    background: #3a2a4a;
+  }
+  .rec-chip .icon { font-size: 0.9rem; }
+  .rec-chip.exercise { border-color: #3a5a4a; }
+  .rec-chip.exercise:hover { border-color: #2ecc71; }
+  .rec-chip.tone { border-color: #4a3a6a; }
+  .rec-chip.tone:hover { border-color: #a78bfa; }
+  .rec-chip.article { border-color: #5a4a3a; }
+  .rec-chip.article:hover { border-color: #f59e0b; }
+
+  /* Why explanation */
+  .why-section { margin-top: 1.5rem; }
+  .why-toggle {
+    background: none;
+    border: 1px solid #2a2a4a;
+    color: #9090a0;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 1rem;
+  }
+  .why-toggle:hover { border-color: #4a4a7a; color: #c0c0d0; }
+  .why-item {
+    display: none;
+    padding: 0.75rem;
+    background: #121827;
+    border: 1px solid #2a2a4a;
+    border-radius: 0.8rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.82rem;
+    color: #a0a0b0;
+    line-height: 1.6;
+  }
+  .why-item.visible { display: block; }
+  .why-item strong { color: #e0e0f0; display: block; margin-bottom: 0.2rem; }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #606080;
+  }
+  .empty-state .big { font-size: 3rem; margin-bottom: 1rem; }
+  @media (max-width: 600px) {
+    .symptom-grid { grid-template-columns: repeat(2, 1fr); }
+    .dc-hero { padding: 1.5rem; }
+    .dc-hero h1 { font-size: 1.4rem; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dc-hero">
+  <div class="badge">🔬 Smart Symptom Analyzer</div>
+  <h1>🧬 What's Your Body Telling You?</h1>
+  <p>
+    Select the symptoms you're experiencing right now and the Decoder will tell you what stage you're likely in,
+    which <strong>isometric exercises</strong> target those exact symptoms, which <strong>brainwave tones</strong>
+    help rebalance your nervous system, and what <strong>articles</strong> explain it all.
+  </p>
+</div>
+
+<!-- Symptom Cards -->
+<div class="dc-section-title">✨ Tap your symptoms:</div>
+<div class="symptom-grid" id="symptomGrid">
+  {% for sym in symptoms_types %}
+  <div class="symptom-card" data-symptom="{{ sym }}" onclick="toggleSymptom('{{ sym }}')">
+    <span class="emoji">{{ decoder_data.SYMPTOM_EXPLANATIONS[sym].split(' ')[0] }}</span>
+    <span class="name">{{ symptoms_labels[sym] }}</span>
+    <span class="check">✓ Selected</span>
+  </div>
+  {% endfor %}
+</div>
+
+<div style="text-align:center;">
+  <button class="btn-decode" id="btnDecode" disabled onclick="decodeSymptoms()">
+    🔍 Decode My Symptoms <span class="count-badge" id="countBadge">0</span>
+  </button>
+</div>
+
+<!-- Results -->
+<div class="results-panel" id="resultsPanel">
+  <div class="dc-section-title">📋 Your Personal Results</div>
+
+  <!-- Stage -->
+  <div class="result-card" id="stageCard">
+    <h3>📍 Your Likely Menopause Stage</h3>
+    <div class="stage-badge" id="stageBadge"></div>
+    <div class="stage-desc" id="stageDesc"></div>
+    <div class="stage-confidence">
+      <div class="stage-confidence-bar" id="stageConfidence"></div>
+    </div>
+  </div>
+
+  <!-- Recommended Exercises -->
+  <div class="result-card">
+    <h3>🏋️ Recommended Isometric Exercises</h3>
+    <div class="rec-list" id="recExercises"></div>
+    <div style="margin-top:0.75rem;font-size:0.75rem;color:#606080;">
+      These exercises target the muscles and systems affected by your symptoms
+    </div>
+  </div>
+
+  <!-- Recommended Tones -->
+  <div class="result-card">
+    <h3>🎵 Recommended Brainwave Tones</h3>
+    <div class="rec-list" id="recTones"></div>
+    <div style="margin-top:0.75rem;font-size:0.75rem;color:#606080;">
+      Use with headphones for best effect. 10–15 minutes daily.
+    </div>
+  </div>
+
+  <!-- Recommended Articles -->
+  <div class="result-card">
+    <h3>📖 Recommended Reading</h3>
+    <div class="rec-list" id="recArticles"></div>
+  </div>
+
+  <!-- Why Section -->
+  <div class="result-card">
+    <h3>🧪 Why Is This Happening?</h3>
+    <button class="why-toggle" onclick="toggleAllWhy()">Show Explanations</button>
+    <div id="whyContainer">
+      {% for sym in symptoms_types %}
+      <div class="why-item" id="why-{{ sym }}">
+        <strong>{{ symptoms_labels[sym] }}</strong>
+        {{ decoder_data.SYMPTOM_EXPLANATIONS[sym] }}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Empty state (shown initially) -->
+<div class="empty-state" id="emptyState">
+  <div class="big">🔬</div>
+  <h3>Select your symptoms above</h3>
+  <p>Choose 2 or more symptoms to get started</p>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- Embed data as JSON for client-side use -->
+<script>
+// ─── Embedded Data ──────────────────────────────────────────────────────
+const EXERCISES = {{ exercises|tojson|safe }};
+const TONES = {{ tones|tojson|safe }};
+const ARTICLES = {{ articles|tojson|safe }};
+
+const SYMPTOM_TYPES = {{ symptoms_types|tojson|safe }};
+const SYMPTOM_LABELS = {{ symptoms_labels|tojson|safe }};
+
+const SYMPTOM_EXPLANATIONS = {{ decoder_data.SYMPTOM_EXPLANATIONS|tojson|safe }};
+const SYMPTOM_EXERCISES = {{ decoder_data.SYMPTOM_EXERCISES|tojson|safe }};
+const SYMPTOM_TONES = {{ decoder_data.SYMPTOM_TONES|tojson|safe }};
+const SYMPTOM_ARTICLES = {{ decoder_data.SYMPTOM_ARTICLES|tojson|safe }};
+const SYMPTOM_STAGE_WEIGHTS = {{ decoder_data.SYMPTOM_STAGE_WEIGHTS|tojson|safe }};
+const STAGES = {{ decoder_data.STAGES|tojson|safe }};
+
+// Build lookup maps
+const exerciseById = {};
+EXERCISES.forEach(function(ex) { exerciseById[ex.order] = ex; });
+
+const toneByPresetId = {};
+TONES.forEach(function(t) { toneByPresetId[t.preset_id] = t; });
+
+const articleBySlug = {};
+ARTICLES.forEach(function(a) { articleBySlug[a.slug] = a; });
+
+// ─── State ──────────────────────────────────────────────────────────────
+const selectedSymptoms = new Set();
+
+// ─── Emoji lookup for symptoms (since they don't have hardcoded emojis) ──
+const SYMPTOM_EMOJIS = {
+  hot_flashes: '🌡️', night_sweats: '💧', mood_swings: '🎭', fatigue: '😴',
+  brain_fog: '🧠', sleep_issues: '🌙', joint_pain: '🦴', headaches: '🤕',
+  anxiety: '😰', bloating: '🫃', weight_gain: '⚖️', low_libido: '💕'
+};
+
+// ─── Toggle symptom selection ───────────────────────────────────────────
+function toggleSymptom(sym) {
+  const card = document.querySelector(`.symptom-card[data-symptom="${sym}"]`);
+  if (selectedSymptoms.has(sym)) {
+    selectedSymptoms.delete(sym);
+    card.classList.remove('selected');
+  } else {
+    selectedSymptoms.add(sym);
+    card.classList.add('selected');
+  }
+  updateUI();
+}
+
+function updateUI() {
+  const count = selectedSymptoms.size;
+  document.getElementById('countBadge').textContent = count;
+  document.getElementById('btnDecode').disabled = count < 2;
+  document.getElementById('emptyState').style.display = count > 0 ? 'none' : 'block';
+  if (count === 0) {
+    document.getElementById('resultsPanel').classList.remove('visible');
+  }
+}
+
+// ─── Main Decode ────────────────────────────────────────────────────────
+function decodeSymptoms() {
+  if (selectedSymptoms.size < 2) return;
+
+  const selected = Array.from(selectedSymptoms);
+
+  // 1. Infer stage
+  const stageScores = {};
+  Object.keys(STAGES).forEach(function(s) { stageScores[s] = 0; });
+
+  let totalWeight = 0;
+  selected.forEach(function(sym) {
+    const weights = SYMPTOM_STAGE_WEIGHTS[sym];
+    if (weights) {
+      Object.keys(weights).forEach(function(stage) {
+        stageScores[stage] += weights[stage];
+        totalWeight += weights[stage];
+      });
+    }
+  });
+
+  // Find best stage
+  let bestStage = Object.keys(stageScores)[0];
+  let bestScore = stageScores[bestStage];
+  Object.keys(stageScores).forEach(function(s) {
+    if (stageScores[s] > bestScore) {
+      bestScore = stageScores[s];
+      bestStage = s;
+    }
+  });
+
+  const confidence = totalWeight > 0 ? Math.round((bestScore / totalWeight) * 100) : 0;
+  const stage = STAGES[bestStage];
+
+  // Render stage
+  const stageBadge = document.getElementById('stageBadge');
+  stageBadge.textContent = stage.emoji + ' ' + stage.label;
+  stageBadge.style.background = 'rgba(212,67,107,0.15)';
+  stageBadge.style.border = '1px solid rgba(212,67,107,0.3)';
+  stageBadge.style.color = '#f0a0b0';
+
+  document.getElementById('stageDesc').textContent = stage.description;
+
+  const confBar = document.getElementById('stageConfidence');
+  confBar.style.width = confidence + '%';
+  confBar.style.background = confidence > 70 ? '#2ecc71' : confidence > 40 ? '#f59e0b' : '#d4436b';
+
+  // 2. Aggregate exercise recommendations (deduped, ordered by frequency)
+  const exerciseCounts = {};
+  selected.forEach(function(sym) {
+    const ids = SYMPTOM_EXERCISES[sym];
+    if (ids) {
+      ids.forEach(function(id) {
+        exerciseCounts[id] = (exerciseCounts[id] || 0) + 1;
+      });
+    }
+  });
+
+  const sortedExercises = Object.keys(exerciseCounts)
+    .map(Number)
+    .sort(function(a, b) { return exerciseCounts[b] - exerciseCounts[a]; })
+    .slice(0, 5);
+
+  const recEx = document.getElementById('recExercises');
+  recEx.innerHTML = '';
+  sortedExercises.forEach(function(id) {
+    const ex = exerciseById[id];
+    if (ex) {
+      const chip = document.createElement('a');
+      chip.href = '/exercises/' + ex.id;
+      chip.className = 'rec-chip exercise';
+      chip.innerHTML = '<span class="icon">' + ex.icon + '</span> ' + ex.name;
+      recEx.appendChild(chip);
+    }
+  });
+  if (sortedExercises.length === 0) {
+    recEx.innerHTML = '<span style="color:#606080;font-size:0.85rem;">No specific exercises mapped. Try the 4-week program for a general approach.</span>';
+  }
+
+  // 3. Aggregate tone recommendations
+  const toneCounts = {};
+  selected.forEach(function(sym) {
+    const presetIds = SYMPTOM_TONES[sym];
+    if (presetIds) {
+      presetIds.forEach(function(pid) {
+        toneCounts[pid] = (toneCounts[pid] || 0) + 1;
+      });
+    }
+  });
+
+  const sortedTones = Object.keys(toneCounts)
+    .sort(function(a, b) { return toneCounts[b] - toneCounts[a]; })
+    .slice(0, 4);
+
+  const recTones = document.getElementById('recTones');
+  recTones.innerHTML = '';
+  sortedTones.forEach(function(pid) {
+    const tone = toneByPresetId[pid];
+    if (tone) {
+      const chip = document.createElement('a');
+      chip.href = '/tones';
+      chip.className = 'rec-chip tone';
+      chip.innerHTML = '<span class="icon">' + tone.icon + '</span> ' + tone.name;
+      recTones.appendChild(chip);
+    }
+  });
+
+  // 4. Aggregate article recommendations
+  const articleCounts = {};
+  selected.forEach(function(sym) {
+    const slugs = SYMPTOM_ARTICLES[sym];
+    if (slugs) {
+      slugs.forEach(function(slug) {
+        articleCounts[slug] = (articleCounts[slug] || 0) + 1;
+      });
+    }
+  });
+
+  const sortedArticles = Object.keys(articleCounts)
+    .sort(function(a, b) { return articleCounts[b] - articleCounts[a]; })
+    .slice(0, 4);
+
+  const recArticles = document.getElementById('recArticles');
+  recArticles.innerHTML = '';
+  sortedArticles.forEach(function(slug) {
+    const art = articleBySlug[slug];
+    if (art) {
+      const chip = document.createElement('a');
+      chip.href = '/articles/' + slug;
+      chip.className = 'rec-chip article';
+      chip.innerHTML = '<span class="icon">📖</span> ' + art.title;
+      recArticles.appendChild(chip);
+    }
+  });
+
+  // 5. Show relevant "why" explanations
+  document.querySelectorAll('.why-item').forEach(function(el) { el.classList.remove('visible'); });
+  selected.forEach(function(sym) {
+    const el = document.getElementById('why-' + sym);
+    if (el) el.classList.add('visible');
+  });
+
+  // Show results
+  document.getElementById('resultsPanel').classList.add('visible');
+  document.getElementById('resultsPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ─── Toggle all explanations ──────────────────────────────────────────
+function toggleAllWhy() {
+  // Show currently hidden visible ones
+  const visible = document.querySelectorAll('.why-item.visible');
+  const hidden = document.querySelectorAll('.why-item:not(.visible)');
+
+  if (visible.length > 0 && hidden.length === 0) {
+    // All are visible — hide them (keep only selected)
+    document.querySelectorAll('.why-item').forEach(function(el) { el.classList.remove('visible'); });
+    const selected = Array.from(selectedSymptoms);
+    selected.forEach(function(sym) {
+      const el = document.getElementById('why-' + sym);
+      if (el) el.classList.add('visible');
+    });
+  } else {
+    // Show all
+    document.querySelectorAll('.why-item').forEach(function(el) { el.classList.add('visible'); });
+  }
+}
+</script>
+{% endblock %}
