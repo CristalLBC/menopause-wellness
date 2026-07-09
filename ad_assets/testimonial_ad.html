@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menopause Wellness — Testimonial Ad</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #fdf6f0;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+  }
+
+  .slide {
+    width: 1080px;
+    background: linear-gradient(135deg, #fdf6f0 0%, #f8ede4 30%, #f0e6e6 60%, #fdf6f0 100%);
+    border-radius: 24px;
+    padding: 50px 60px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(200, 160, 150, 0.15);
+    margin-bottom: 40px;
+  }
+
+  /* Decorative pastel shapes */
+  .deco-1 {
+    position: absolute; top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(255,182,193,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .deco-2 {
+    position: absolute; bottom: -60px; left: -60px;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(179,229,252,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .deco-3 {
+    position: absolute; top: 200px; right: 200px;
+    width: 150px; height: 150px;
+    background: radial-gradient(circle, rgba(200,230,201,0.2) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(212,67,107,0.1);
+    border: 1px solid rgba(212,67,107,0.2);
+    color: #d4436b;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 56px;
+    font-weight: 900;
+    color: #3a2a3a;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    max-width: 900px;
+  }
+  h1 .highlight {
+    background: linear-gradient(135deg, #d4436b, #e8829a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: 22px;
+    color: #8a7a7a;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 40px;
+    max-width: 800px;
+  }
+
+  .tagline {
+    font-size: 20px;
+    color: #b08a8a;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(180, 150, 150, 0.15);
+  }
+
+  .testimonials {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .testimonial {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 16px;
+    padding: 22px 24px;
+    transition: all 0.2s;
+  }
+  .testimonial:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(200, 160, 150, 0.12);
+  }
+
+  .testimonial .name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #d4436b;
+    margin-bottom: 2px;
+  }
+  .testimonial .age {
+    font-size: 12px;
+    color: #b08a8a;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .testimonial .quote {
+    font-size: 14px;
+    color: #5a4a4a;
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .testimonial .quote::before {
+    content: '\201C';
+    color: #d4436b;
+    font-size: 18px;
+    font-weight: 700;
+    margin-right: 2px;
+  }
+  .testimonial .quote::after {
+    content: '\201D';
+    color: #d4436b;
+    font-size: 18px;
+    font-weight: 700;
+    margin-left: 2px;
+  }
+
+  .full-width {
+    grid-column: 1 / -1;
+  }
+
+  .cta-row {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 2px solid rgba(180, 150, 150, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cta-text {
+    font-size: 24px;
+    font-weight: 800;
+    color: #3a2a3a;
+  }
+  .cta-text .pink {
+    color: #d4436b;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #d4436b, #e8829a);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 16px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    border: none;
+  }
+
+  .cta-sub {
+    font-size: 14px;
+    color: #b08a8a;
+    margin-top: 6px;
+  }
+
+  /* Wide testimonial card style */
+  .testimonial-wide {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  /* Compact "every woman" summary */
+  .summary-row {
+    grid-column: 1 / -1;
+    background: rgba(212,67,107,0.06);
+    border: 1px solid rgba(212,67,107,0.1);
+    border-radius: 14px;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .summary-item {
+    text-align: center;
+  }
+  .summary-item .num {
+    font-size: 28px;
+    font-weight: 800;
+    color: #d4436b;
+  }
+  .summary-item .label {
+    font-size: 13px;
+    color: #8a7a7a;
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+
+<!-- SINGLE AD SLIDE: PASTEL + TESTIMONIALS -->
+<div class="slide" style="height: auto; min-height: auto;">
+  <div class="deco-1"></div>
+  <div class="deco-2"></div>
+  <div class="deco-3"></div>
+
+  <div class="badge">★ Real Women. Real Results. ★</div>
+
+  <h1>Finally — An App That<br>Understands <span class="highlight">Your Body<br>Through Menopause</span></h1>
+
+  <div class="subtitle">
+    The only app combining zero-impact isometric strength holds with
+    scientifically-calibrated brainwave therapy — created specifically
+    for women who were never taught what menopause would do to them.
+  </div>
+
+  <div class="tagline">✧ No woman should go through menopause alone. No woman should guess. ✧</div>
+
+  <div class="testimonials">
+
+    <div class="summary-row">
+      <div class="summary-item"><div class="num">15</div><div class="label">Exercises</div></div>
+      <div class="summary-item"><div class="num">13</div><div class="label">Brainwave Tones</div></div>
+      <div class="summary-item"><div class="num">4</div><div class="label">Week Program</div></div>
+      <div class="summary-item"><div class="num">47</div><div class="label">Symptom Trackers</div></div>
+    </div>
+
+    <div class="testimonial">
+      <div class="name">Sarah M.</div>
+      <div class="age">48 &middot; Perimenopause &middot; 6 months</div>
+      <div class="quote">I thought I was losing my mind. Nobody told me perimenopause changes how your body stores fat. The article about post-menopausal belly fat was the first time I understood what was happening. I'm down 8 pounds and I finally know why it's working.</div>
+    </div>
+
+    <div class="testimonial">
+      <div class="name">Priya K.</div>
+      <div class="age">52 &middot; Surgical menopause &middot; 3 months</div>
+      <div class="quote">I had a hysterectomy at 46 and gained 25 pounds in six months. I couldn't finish sentences at work. This app put language to what I was experiencing and gave me structure when I had no control. The Hot Flash Calm tone lowered my body temperature during a presentation.</div>
+    </div>
+
+    <div class="testimonial">
+      <div class="name">Diane R.</div>
+      <div class="age">56 &middot; Post-menopause &middot; 3 months</div>
+      <div class="quote">I assumed the weight gain was just age. The joint pain was normal. The educational articles explained that dropping oestrogen affects your bone density, sleep, and even how your glutes fire. The Pain and Comfort tone helps my knees at night. I wish I'd had this five years ago.</div>
+    </div>
+
+    <div class="testimonial">
+      <div class="name">Jasmine T.</div>
+      <div class="age">49 &middot; Perimenopause &middot; 1 month</div>
+      <div class="quote">I've tried everything — keto, HIIT, cold plunges, supplements. None of it addressed two-week insomnia cycles or hot flashes during investor calls. The Brain Focus tone cuts through my fog in five minutes. This app is for women who are tired of guessing.</div>
+    </div>
+
+    <div class="testimonial">
+      <div class="name">Maria L.</div>
+      <div class="age">61 &middot; Late post-menopause &middot; 2 months</div>
+      <div class="quote">I was a nurse for 35 years and nobody ever sat me down to explain what menopause would do. The Wall Angel Hold changed my posture in three weeks. My daughter said I look taller. I finally understand my body needed different support — and this app gave me the tools.</div>
+    </div>
+
+  </div>
+
+  <div class="cta-row">
+    <div>
+      <div class="cta-text">Start Understanding Your Body Today</div>
+      <div class="cta-sub">Just <span style="color:#d4436b;font-weight:700;">$3</span> for your first month with code <strong style="color:#d4436b;">MENO3</strong></div>
+    </div>
+    <a class="cta-btn" href="https://bit.ly/4eWViyw" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#d4436b,#e8829a);color:#fff;font-size:20px;font-weight:700;padding:16px 40px;border-radius:50px;text-decoration:none;border:none;cursor:pointer;">Start Your Journey 🚀</a>
+  </div>
+
+  <div style="text-align:center;margin-top:12px;font-size:13px;color:#b08a8a;">
+    <a href="https://bit.ly/4eWViyw" target="_blank" style="color:#b08a8a;text-decoration:underline;">bit.ly/4eWViyw</a>
+  </div>
+</div>
+
+</body>
+</html>

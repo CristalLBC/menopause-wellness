@@ -652,6 +652,13 @@ def article_view(slug):
     return render_template('article_view.html', article=article)
 
 
+# ─── Infographic Appendix ─────────────────────────────────────────────
+@app.route('/infographic')
+@login_required
+def infographic():
+    return render_template('infographic.html')
+
+
 # ─── Community ────────────────────────────────────────────────────────
 @app.route('/community')
 @login_required

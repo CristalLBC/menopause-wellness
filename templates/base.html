@@ -46,6 +46,9 @@
             <li><a href="{{ url_for('articles') }}" class="nav-item {% if 'article' in request.endpoint %}active{% endif %}">
                 <span class="nav-icon">&#9997;</span> Articles
             </a></li>
+            <li><a href="{{ url_for('infographic') }}" class="nav-item {% if request.endpoint == 'infographic' %}active{% endif %}">
+                <span class="nav-icon">&#128200;</span> Appendix
+            </a></li>
             <li><a href="{{ url_for('community') }}" class="nav-item {% if 'community' in request.endpoint %}active{% endif %}">
                 <span class="nav-icon">&#9993;</span> Community
             </a></li>

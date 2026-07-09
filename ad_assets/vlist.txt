@@ -1,0 +1,7 @@
+file 'C:/Users/crist/menopause-wellness-app/ad_assets/v1.mp4'
+file 'C:/Users/crist/menopause-wellness-app/ad_assets/v2.mp4'
+file 'C:/Users/crist/menopause-wellness-app/ad_assets/v3.mp4'
+file 'C:/Users/crist/menopause-wellness-app/ad_assets/v4.mp4'
+file 'C:/Users/crist/menopause-wellness-app/ad_assets/v5.mp4'
+file 'C:/Users/crist/menopause-wellness-app/ad_assets/v6.mp4'
+file 'C:/Users/crist/menopause-wellness-app/ad_assets/v7.mp4'

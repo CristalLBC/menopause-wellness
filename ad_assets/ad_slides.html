@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menopause Wellness Ad Slides</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0d0d1a; font-family: 'Inter', sans-serif; }
+  .slide {
+    width: 1080px; height: 1080px;
+    position: relative; overflow: hidden;
+    margin: 20px auto;
+    border-radius: 12px;
+  }
+  .gradient-bar {
+    position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, #ff6b6b, #d4436b, #7c6ff7);
+  }
+
+  /* SLIDE 1 */
+  .s1 { background: linear-gradient(135deg, #0d0d1a 0%, #1a1a3e 40%, #2d1b4e 70%, #0d0d1a 100%); }
+  .s1-tag { position:absolute; top:60px; left:60px; font-size:14px; color:#606080; letter-spacing:3px; text-transform:uppercase; }
+  .s1-cat { position:absolute; top:100px; left:60px; font-size:22px; color:#ffa94d; font-weight:600; letter-spacing:1px; text-transform:uppercase; }
+  .s1-h1 { position:absolute; top:180px; left:60px; font-size:68px; font-weight:800; color:#fff; line-height:1.1; }
+  .s1-h1 span { color:#ff6b6b; }
+  .s1-sub { position:absolute; top:400px; left:60px; font-size:22px; color:#9090b0; line-height:1.6; font-weight:300; max-width:800px; }
+  .s1-badge { position:absolute; bottom:120px; left:60px; background:rgba(255,107,107,0.15); border:1px solid rgba(255,107,107,0.3); border-radius:50px; padding:14px 28px; font-size:18px; color:#ffa94d; }
+  .s1-price { position:absolute; bottom:120px; right:60px; text-align:right; }
+  .s1-price .amt { font-size:48px; font-weight:700; color:#ff6b6b; }
+  .s1-price .per { font-size:16px; color:#606080; margin-top:4px; }
+
+  /* SLIDE 2 */
+  .s2 { background: linear-gradient(135deg, #0d0d1a 0%, #16213e 50%, #1a1a2e 100%); }
+  .s2-logo { position:absolute; top:60px; left:60px; font-size:14px; color:#606080; letter-spacing:3px; text-transform:uppercase; }
+  .s2-num { position:absolute; top:60px; right:60px; font-size:16px; color:#ffa94d; }
+  .s2-h1 { position:absolute; top:90px; left:60px; font-size:48px; font-weight:800; color:#fff; }
+  .s2-sub { position:absolute; top:160px; left:60px; font-size:20px; color:#9090b0; }
+  .s2-grid { position:absolute; top:230px; left:60px; right:60px; display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .s2-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:18px; }
+  .s2-card .icon { font-size:30px; margin-bottom:8px; }
+  .s2-card h3 { color:#e0e0f0; font-size:16px; font-weight:600; }
+  .s2-card p { color:#707090; font-size:13px; margin-top:4px; }
+
+  /* SLIDE 3 */
+  .s3 { background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 40%, #0d0d1a 100%); }
+  .s3-logo { position:absolute; top:60px; left:60px; font-size:14px; color:#606080; letter-spacing:3px; text-transform:uppercase; }
+  .s3-num { position:absolute; top:60px; right:60px; font-size:16px; color:#ffa94d; }
+  .s3-h1 { position:absolute; top:90px; left:60px; font-size:48px; font-weight:800; color:#fff; }
+  .s3-sub { position:absolute; top:160px; left:60px; font-size:20px; color:#9090b0; }
+  .s3-grid { position:absolute; top:230px; left:60px; right:60px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .s3-tone { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:16px 18px; display:flex; align-items:center; gap:14px; }
+  .s3-tone .icon { font-size:28px; }
+  .s3-tone h4 { color:#e0e0f0; font-size:15px; font-weight:600; }
+  .s3-tone span { color:#606080; font-size:12px; }
+
+  /* SLIDE 4 */
+  .s4 { background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 50%, #2d1b4e 100%); }
+  .s4-logo { position:absolute; top:60px; left:60px; font-size:14px; color:#606080; letter-spacing:3px; text-transform:uppercase; }
+  .s4-h1 { position:absolute; top:70px; left:60px; font-size:48px; font-weight:800; color:#fff; }
+  .s4-grid { position:absolute; top:180px; left:60px; right:60px; display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .s4-f { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:18px; display:flex; align-items:center; gap:14px; }
+  .s4-f .icon { font-size:30px; }
+  .s4-f h4 { color:#e0e0f0; font-size:15px; font-weight:600; }
+  .s4-f p { color:#707090; font-size:12px; }
+  .s4-cta { position:absolute; bottom:80px; left:60px; right:60px; text-align:center; }
+  .s4-cta .btn { display:inline-block; background:linear-gradient(135deg, #ff6b6b, #d4436b); border-radius:50px; padding:18px 60px; font-size:24px; font-weight:700; color:#fff; text-decoration:none; }
+  .s4-cta .code { margin-top:12px; font-size:16px; color:#ffa94d; }
+  .s4-cta .url { margin-top:6px; font-size:14px; color:#606080; }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: Hero -->
+<div class="slide s1">
+  <div class="gradient-bar"></div>
+  <div class="s1-tag">MENOPAUSE WELLNESS</div>
+  <div class="s1-cat">SCIENCE-BACKED  |  ZERO IMPACT</div>
+  <div class="s1-h1">The Post-Menopausal<br><span>Belly Fat Solution</span></div>
+  <div class="s1-sub">The only app that combines zero-impact isometric strength holds with scientifically-calibrated brainwave therapy tones — designed specifically for women over 50.</div>
+  <div class="s1-badge">15 Isometric Exercises  •  13 Brainwave Tones</div>
+  <div class="s1-price"><div class="amt">$3</div><div class="per">first month  •  code MENO3</div></div>
+</div>
+
+<!-- SLIDE 2: Exercises -->
+<div class="slide s2">
+  <div class="gradient-bar"></div>
+  <div class="s2-logo">MENOPAUSE WELLNESS</div>
+  <div class="s2-num">15 Exercises</div>
+  <div class="s2-h1">Zero-Impact Isometric Workouts</div>
+  <div class="s2-sub">Build strength without pounding your joints</div>
+  <div class="s2-grid">
+    <div class="s2-card"><div class="icon">📐</div><h3>Front Plank</h3><p>Deep core &amp; TVA activation — the foundation</p></div>
+    <div class="s2-card"><div class="icon">🍑</div><h3>Glute Bridge Hold</h3><p>Strong glutes pull your belly in naturally</p></div>
+    <div class="s2-card"><div class="icon">🦩</div><h3>Single-Leg Balance</h3><p>Fall prevention &amp; hip stability</p></div>
+    <div class="s2-card"><div class="icon">🦶</div><h3>Heel Raise Hold</h3><p>Bone density for osteoporosis prevention</p></div>
+    <div class="s2-card"><div class="icon">👼</div><h3>Wall Angel Hold</h3><p>Reverse menopause posture &amp; kyphosis</p></div>
+    <div class="s2-card"><div class="icon">🔙</div><h3>Prone Back Extension</h3><p>Strengthen spine &amp; posterior chain</p></div>
+  </div>
+</div>
+
+<!-- SLIDE 3: Tones -->
+<div class="slide s3">
+  <div class="gradient-bar"></div>
+  <div class="s3-logo">MENOPAUSE WELLNESS</div>
+  <div class="s3-num">13 Brainwave Tones</div>
+  <div class="s3-h1">Isochronic Brainwave Therapy</div>
+  <div class="s3-sub">Scientifically calibrated audio for every symptom</div>
+  <div class="s3-grid">
+    <div class="s3-tone"><div class="icon">💤</div><div><h4>Deep Sleep</h4><span>2.5 Hz Delta — fall asleep faster</span></div></div>
+    <div class="s3-tone"><div class="icon">🧘</div><div><h4>Anxiety Relief</h4><span>6.0 Hz Theta — quiet racing thoughts</span></div></div>
+    <div class="s3-tone"><div class="icon">🌊</div><div><h4>Hot Flash Calm</h4><span>5.5 Hz Theta — cool your nervous system</span></div></div>
+    <div class="s3-tone"><div class="icon">🧠</div><div><h4>Brain Focus</h4><span>10 Hz Alpha — cut through brain fog</span></div></div>
+    <div class="s3-tone"><div class="icon">🌿</div><div><h4>Stress Resilience</h4><span>8 Hz Alpha — lower baseline cortisol</span></div></div>
+    <div class="s3-tone"><div class="icon">☕</div><div><h4>Afternoon Recharge</h4><span>4.5 Hz Theta — replace the 3pm slump</span></div></div>
+  </div>
+</div>
+
+<!-- SLIDE 4: Features + CTA -->
+<div class="slide s4">
+  <div class="gradient-bar"></div>
+  <div class="s4-logo">MENOPAUSE WELLNESS</div>
+  <div class="s4-h1">Everything You Need in One Place</div>
+  <div class="s4-grid">
+    <div class="s4-f"><div class="icon">💪</div><div><h4>15 Isometric Exercises</h4><p>Form guides, modifications, progressive holds</p></div></div>
+    <div class="s4-f"><div class="icon">🎵</div><div><h4>13 Brainwave Tones</h4><p>Isochronic audio for sleep, calm, focus, energy</p></div></div>
+    <div class="s4-f"><div class="icon">📊</div><div><h4>Symptom Tracker</h4><p>Hot flashes, mood, sleep — spot your patterns</p></div></div>
+    <div class="s4-f"><div class="icon">📅</div><div><h4>4-Week Program</h4><p>Structured daily plan that adapts to you</p></div></div>
+    <div class="s4-f"><div class="icon">🧠</div><div><h4>Mood &amp; Journal</h4><p>Private space to track emotional wellbeing</p></div></div>
+    <div class="s4-f"><div class="icon">👯‍♀️</div><div><h4>Community</h4><p>Connect with women on the same journey</p></div></div>
+  </div>
+  <div class="s4-cta">
+    <div class="btn">Start Your Free Month</div>
+    <div class="code">Use code MENO3 — just $3 for your first month</div>
+    <div class="url">cristalhustler.gumroad.com/l/menopause-wellness</div>
+  </div>
+</div>
+
+</body>
+</html>
