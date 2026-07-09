@@ -1,0 +1,430 @@
+{% extends 'base.html' %}
+
+{% block title %}Perimenopause Hub — Menopause Wellness{% endblock %}
+
+{% block extra_head %}
+<style>
+  .ph-hero {
+    background: linear-gradient(135deg, #2a1a2e 0%, #1a1a3e 50%, #1a2235 100%);
+    border: 1px solid #4a2a5e;
+    border-radius: 1.2rem;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .ph-hero::before {
+    content: '🌸';
+    position: absolute;
+    top: -20px; right: -10px;
+    font-size: 6rem;
+    opacity: 0.06;
+  }
+  .ph-hero h1 { font-size: 2rem; color: #e0d0f0; margin-bottom: 0.5rem; }
+  .ph-hero .sub { color: #b0a0c0; max-width: 550px; margin: 0 auto 1.5rem; font-size: 0.95rem; line-height: 1.6; }
+  .ph-hero .badge {
+    display: inline-block;
+    background: rgba(212,67,107,0.15);
+    border: 1px solid rgba(212,67,107,0.3);
+    color: #f0a0b0;
+    padding: 0.3rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+  .ph-stats {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;
+  }
+  .ph-stat {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 0.8rem;
+    padding: 0.6rem 1.2rem;
+    text-align: center;
+    min-width: 100px;
+  }
+  .ph-stat .num { font-size: 1.4rem; font-weight: 700; color: #e0d0f0; }
+  .ph-stat .lbl { font-size: 0.7rem; color: #8080a0; text-transform: uppercase; letter-spacing: 0.03em; }
+
+  .ph-section-title {
+    font-size: 1.15rem;
+    color: #e0e0f0;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .phase-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+  @media (max-width: 600px) { .phase-cards { grid-template-columns: 1fr; } }
+  .phase-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: all 0.25s;
+  }
+  .phase-card:hover { border-color: #4a4a7a; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+  .phase-card .pc-emoji { font-size: 2rem; margin-bottom: 0.5rem; }
+  .phase-card .pc-title { font-size: 1.05rem; font-weight: 700; color: #e0e0f0; margin-bottom: 0.25rem; }
+  .phase-card .pc-age { font-size: 0.8rem; color: #b0a0c0; margin-bottom: 0.75rem; }
+  .phase-card .pc-desc { font-size: 0.85rem; color: #a0a0b0; line-height: 1.6; }
+  .phase-card .pc-symptoms { margin-top: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .phase-card .pc-symptoms span {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 1rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #b0a0c0;
+  }
+
+  .symptom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+  .sym-check-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 0.9rem;
+    padding: 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    user-select: none;
+  }
+  .sym-check-card:hover { border-color: #4a4a7a; }
+  .sym-check-card.checked {
+    border-color: #d4436b;
+    background: linear-gradient(145deg, #2a1a2e, #1e1a3e);
+    box-shadow: 0 0 16px rgba(212,67,107,0.12);
+  }
+  .sym-check-card .emoji { font-size: 1.4rem; display: block; margin-bottom: 0.2rem; }
+  .sym-check-card .name { font-size: 0.75rem; color: #c0c0d0; font-weight: 600; }
+  .sym-check-card .checked-icon { display: none; font-size: 0.65rem; color: #d4436b; margin-top: 0.2rem; }
+  .sym-check-card.checked .checked-icon { display: block; }
+
+  .peri-results {
+    display: none;
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #4a2a5e;
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .peri-results.visible { display: block; animation: fadeSlideUp 0.4s ease; }
+  @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .peri-results h3 { font-size: 1.1rem; color: #e0d0f0; margin-bottom: 0.5rem; }
+  .peri-results p { color: #a0a0c0; font-size: 0.85rem; line-height: 1.6; }
+  .peri-results .action-links { margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .peri-results .action-link {
+    padding: 0.6rem 1.2rem;
+    background: rgba(212,67,107,0.1);
+    border: 1px solid rgba(212,67,107,0.2);
+    color: #f0a0b0;
+    border-radius: 2rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .peri-results .action-link:hover { background: rgba(212,67,107,0.2); }
+
+  .rec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .rec-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 0.9rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .rec-card:hover { border-color: #4a4a7a; transform: translateY(-2px); }
+  .rec-card .icon { font-size: 1.6rem; flex-shrink: 0; }
+  .rec-card .info { flex: 1; min-width: 0; }
+  .rec-card .info .title { font-size: 0.85rem; font-weight: 600; color: #e0e0f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rec-card .info .meta { font-size: 0.7rem; color: #8080a0; }
+  .rec-card.exercise .icon { color: #2ecc71; }
+  .rec-card.tone .icon { color: #a78bfa; }
+  .rec-card.article .icon { color: #f59e0b; }
+
+  .quick-links { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+  @media (max-width: 600px) { .quick-links { grid-template-columns: 1fr; } }
+  .ql-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s;
+  }
+  .ql-card:hover { border-color: #4a4a7a; transform: translateY(-3px); }
+  .ql-card .emoji { font-size: 1.8rem; flex-shrink: 0; }
+  .ql-card .info { flex: 1; }
+  .ql-card .info h4 { font-size: 0.9rem; font-weight: 700; color: #e0e0f0; margin-bottom: 0.2rem; }
+  .ql-card .info p { font-size: 0.78rem; color: #9090b0; line-height: 1.5; }
+  .ql-card .arrow { font-size: 1.2rem; color: #606080; align-self: center; }
+  .ql-card:hover .arrow { color: #d4436b; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="ph-hero">
+  <div class="badge">🌸 Dedicated Perimenopause Resource</div>
+  <h1>Welcome to Perimenopause</h1>
+  <p class="sub">This is the phase most women describe as "what the hell is happening to me?" — and the one most doctors overlook. You are not crazy, you are not alone, and there is a lot you can do about it.</p>
+  <div class="ph-stats">
+    <div class="ph-stat"><div class="num">75%</div><div class="lbl">of women get hot flashes</div></div>
+    <div class="ph-stat"><div class="num">4-8</div><div class="lbl">years average duration</div></div>
+    <div class="ph-stat"><div class="num">60%</div><div class="lbl">report sleep disruption</div></div>
+    <div class="ph-stat"><div class="num">#1</div><div class="lbl">reason women seek help</div></div>
+  </div>
+</div>
+
+<!-- Two Phases -->
+<div class="ph-section-title">📅 The Two Faces of Perimenopause</div>
+<div class="phase-cards">
+  <div class="phase-card">
+    <div class="pc-emoji">🌱</div>
+    <div class="pc-title">Early Perimenopause</div>
+    <div class="pc-age">Typically ages 35–45</div>
+    <div class="pc-desc">Cycles start shifting — shorter, longer, heavier, lighter. You might notice PMS getting worse, occasional hot flashes, mood changes around your cycle, and sleep starting to fray. Fertility declines but is still possible. Many women don't even realize this is perimenopause yet.</div>
+    <div class="pc-symptoms">
+      <span>Irregular periods</span><span>Worse PMS</span><span>Mood shifts</span><span>Early sleep issues</span>
+    </div>
+  </div>
+  <div class="phase-card">
+    <div class="pc-emoji">🎢</div>
+    <div class="pc-title">Late Perimenopause</div>
+    <div class="pc-age">Typically ages 45–51</div>
+    <div class="pc-desc">This is the intense phase. Periods are 60+ days apart or skipping entirely. Hot flashes and night sweats become frequent and intense. Brain fog, anxiety, rage episodes, and crushing fatigue are common. This is when most women finally realize something is wrong and seek help.</div>
+    <div class="pc-symptoms">
+      <span>Skipped periods</span><span>Intense hot flashes</span><span>Brain fog</span><span>Panic/anxiety</span><span>Joint pain</span>
+    </div>
+  </div>
+</div>
+
+<!-- Self-Assessment Checklist -->
+<div class="ph-section-title">🔍 Am I in Perimenopause? Check your symptoms</div>
+<p style="color:#8080a0;font-size:0.85rem;margin-bottom:1rem;">Tap the symptoms you're experiencing. The more you check, the clearer the picture.</p>
+
+<div class="symptom-grid" id="periCheckGrid">
+  <div class="sym-check-card" onclick="togglePeriCheck('irregular_periods')" data-key="irregular_periods">
+    <span class="emoji">📅</span>
+    <span class="name">Irregular periods</span>
+    <span class="checked-icon">✓ checked</span>
+  </div>
+  <div class="sym-check-card" onclick="togglePeriCheck('hot_flashes')" data-key="hot_flashes">
+    <span class="emoji">🌡️</span>
+    <span class="name">Hot flashes / night sweats</span>
+    <span class="checked-icon">✓ checked</span>
+  </div>
+  <div class="sym-check-card" onclick="togglePeriCheck('sleep_issues')" data-key="sleep_issues">
+    <span class="emoji">🌙</span>
+    <span class="name">Sleep disruption</span>
+    <span class="checked-icon">✓ checked</span>
+  </div>
+  <div class="sym-check-card" onclick="togglePeriCheck('brain_fog')" data-key="brain_fog">
+    <span class="emoji">🧠</span>
+    <span class="name">Brain fog / memory</span>
+    <span class="checked-icon">✓ checked</span>
+  </div>
+  <div class="sym-check-card" onclick="togglePeriCheck('mood_swings')" data-key="mood_swings">
+    <span class="emoji">🎭</span>
+    <span class="name">Mood swings / rage</span>
+    <span class="checked-icon">✓ checked</span>
+  </div>
+  <div class="sym-check-card" onclick="togglePeriCheck('anxiety')" data-key="anxiety">
+    <span class="emoji">😰</span>
+    <span class="name">Anxiety / panic</span>
+    <span class="checked-icon">✓ checked</span>
+  </div>
+  <div class="sym-check-card" onclick="togglePeriCheck('fatigue')" data-key="fatigue">
+    <span class="emoji">😴</span>
+    <span class="name">Crushing fatigue</span>
+    <span class="checked-icon">✓ checked</span>
+  </div>
+  <div class="sym-check-card" onclick="togglePeriCheck('weight_gain')" data-key="weight_gain">
+    <span class="emoji">⚖️</span>
+    <span class="name">Weight gain (belly)</span>
+    <span class="checked-icon">✓ checked</span>
+  </div>
+  <div class="sym-check-card" onclick="togglePeriCheck('joint_pain')" data-key="joint_pain">
+    <span class="emoji">🦴</span>
+    <span class="name">Joint pain / stiffness</span>
+    <span class="checked-icon">✓ checked</span>
+  </div>
+  <div class="sym-check-card" onclick="togglePeriCheck('low_libido')" data-key="low_libido">
+    <span class="emoji">💕</span>
+    <span class="name">Low libido</span>
+    <span class="checked-icon">✓ checked</span>
+  </div>
+  <div class="sym-check-card" onclick="togglePeriCheck('headaches')" data-key="headaches">
+    <span class="emoji">🤕</span>
+    <span class="name">Migraines / headaches</span>
+    <span class="checked-icon">✓ checked</span>
+  </div>
+  <div class="sym-check-card" onclick="togglePeriCheck('bloating')" data-key="bloating">
+    <span class="emoji">🫃</span>
+    <span class="name">Bloating / digestion</span>
+    <span class="checked-icon">✓ checked</span>
+  </div>
+</div>
+
+<!-- Checklist Results -->
+<div class="peri-results" id="periResults">
+  <h3 id="periResultTitle">🌸 You're Not Alone</h3>
+  <p id="periResultText">Based on the symptoms you checked, here's what's likely happening — and what to do next.</p>
+  <div class="action-links" id="periActions">
+    <a href="/decoder" class="action-link">🔭 Try the Symptom Decoder →</a>
+    <a href="/doctor-prep" class="action-link">📋 Prep for Your Doctor Visit →</a>
+    <a href="/breathing" class="action-link">🌬️ Guided Breathing →</a>
+  </div>
+</div>
+
+<!-- Curated Recommendations -->
+<div class="ph-section-title">🏋️ Best Exercises for Perimenopause</div>
+<p style="color:#8080a0;font-size:0.85rem;margin-bottom:1rem;">These seven exercises target the areas perimenopause affects most: deep core, pelvic floor, posture, and stress resilience.</p>
+<div class="rec-grid">
+  {% for ex in exercises %}
+  <a href="/exercises/{{ ex.id }}" class="rec-card exercise">
+    <span class="icon">{{ ex.icon }}</span>
+    <div class="info">
+      <div class="title">{{ ex.name }}</div>
+      <div class="meta">{{ ex.target_muscles.split(',')[0] }}</div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<div class="ph-section-title">🎵 Best Brainwave Tones for Perimenopause</div>
+<p style="color:#8080a0;font-size:0.85rem;margin-bottom:1rem;">Target the nervous system chaos that perimenopause brings — anxiety, hot flashes, sleep disruption, brain fog.</p>
+<div class="rec-grid">
+  {% for tone in tones %}
+  <a href="/tones" class="rec-card tone">
+    <span class="icon">{{ tone.icon }}</span>
+    <div class="info">
+      <div class="title">{{ tone.name }}</div>
+      <div class="meta">{{ tone.brainwave_label }} | {{ tone.description[:60] }}...</div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<div class="ph-section-title">📖 Recommended Reading</div>
+<p style="color:#8080a0;font-size:0.85rem;margin-bottom:1rem;">Articles that answer the questions perimenopause brings up.</p>
+<div class="rec-grid">
+  {% for art in articles %}
+  <a href="/articles/{{ art.slug }}" class="rec-card article">
+    <span class="icon">📖</span>
+    <div class="info">
+      <div class="title">{{ art.title }}</div>
+      <div class="meta">{{ art.category }} | {{ art.summary[:80] }}...</div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<!-- Quick Links to Everything Else -->
+<div class="ph-section-title">🔗 Perimenopause Toolbox</div>
+<div class="quick-links">
+  <a href="/decoder" class="ql-card">
+    <span class="emoji">🔬</span>
+    <div class="info">
+      <h4>Symptom Decoder</h4>
+      <p>Tell us your symptoms, get personalized exercise, tone, and article recommendations — plus your likely stage.</p>
+    </div>
+    <span class="arrow">→</span>
+  </a>
+  <a href="/breathing" class="ql-card">
+    <span class="emoji">🌬️</span>
+    <div class="info">
+      <h4>Guided Breathing</h4>
+      <p>Wim Hof, 4-7-8, Calming Wave — breathe with the app.</p>
+    </div>
+    <span class="arrow">→</span>
+  </a>
+  <a href="/doctor-prep" class="ql-card">
+    <span class="emoji">📋</span>
+    <div class="info">
+      <h4>Doctor Visit Prep</h4>
+      <p>Walk into your appointment with a printable one-page summary of symptoms, labs, and questions.</p>
+    </div>
+    <span class="arrow">→</span>
+  </a>
+  <a href="/start" class="ql-card">
+    <span class="emoji">🏋️</span>
+    <div class="info">
+      <h4>Full Exercise Program</h4>
+      <p>The 4-week isometric program designed for perimenopausal bodies.</p>
+    </div>
+    <span class="arrow">→</span>
+  </a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// ─── Perimenopause Checklist ──────────────────────────────────────────
+const CHECKED = new Set();
+
+function togglePeriCheck(key) {
+  const card = document.querySelector(`.sym-check-card[data-key="${key}"]`);
+  if (CHECKED.has(key)) {
+    CHECKED.delete(key);
+    card.classList.remove('checked');
+  } else {
+    CHECKED.add(key);
+    card.classList.add('checked');
+  }
+  updatePeriResults();
+}
+
+function updatePeriResults() {
+  const panel = document.getElementById('periResults');
+  const title = document.getElementById('periResultTitle');
+  const text = document.getElementById('periResultText');
+  const count = CHECKED.size;
+
+  if (count === 0) {
+    panel.classList.remove('visible');
+    return;
+  }
+  panel.classList.add('visible');
+
+  if (count <= 2) {
+    title.textContent = '🌱 Early Signs';
+    text.textContent = 'You\'re noticing changes. This could be early perimenopause, or just a blip in your cycle. Track these symptoms for a few months — if they persist, use the Decoder for a deeper look.';
+  } else if (count <= 5) {
+    title.textContent = '🌿 You\'re in the Transition';
+    text.textContent = 'You\'re experiencing several symptoms consistent with perimenopause. The good news: these are manageable. The exercises, tones, and breathing on this page are specifically chosen for what you\'re going through. Start with the Symptom Decoder for personalized recommendations.';
+  } else if (count <= 8) {
+    title.textContent = '🎢 This Is Late Perimenopause';
+    text.textContent = 'You\'re in the most intense phase. With ' + count + ' of these symptoms, your body is in full transition. This is exactly when the Decoder and Doctor Prep tool are most valuable. Don\'t suffer silently — take this checklist to your doctor. You deserve real support.';
+  } else {
+    title.textContent = '🌸 You Deserve Support';
+    text.textContent = count + ' symptoms is significant. Perimenopause can feel overwhelming, but every single one of these symptoms is manageable. Your first step: use the Doctor Visit Prep tool to build a summary of everything you\'re experiencing, then book an appointment with a menopause-literate doctor. You are not broken — you\'re in transition.';
+  }
+}
+</script>
+{% endblock %}

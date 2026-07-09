@@ -690,6 +690,28 @@ def breathing():
     )
 
 
+# ─── Perimenopause Hub ────────────────────────────────────────────────
+@app.route('/perimenopause')
+@login_required
+def perimenopause():
+    # Curated exercises ideal for perimenopause (core strength, pelvic floor, posture)
+    peri_exercises = Exercise.query.filter(Exercise.order.in_([1, 3, 5, 6, 12, 13, 14])).order_by(Exercise.order).all()
+    # Curated tones
+    peri_tones = IsochronicTone.query.filter(IsochronicTone.preset_id.in_([
+        'anxiety_relief', 'hot_flash_calm', 'mood_lift', 'sleep', 'brain_focus', 'stress_resilience'
+    ])).all()
+    # Relevant articles
+    peri_articles = Article.query.filter(Article.slug.in_([
+        'understanding-belly-fat', 'why-isometric-exercise', 'nutrition-menopause', 'tracking-progress'
+    ])).all()
+
+    return render_template('perimenopause.html',
+        exercises=peri_exercises,
+        tones=peri_tones,
+        articles=peri_articles
+    )
+
+
 # ─── Doctor Visit Prep Tool ──────────────────────────────────────────
 DOCTOR_QUESTIONS = [
     {'id': 'hrt', 'question': 'Am I a candidate for body-identical hormone therapy (HRT)?'},
