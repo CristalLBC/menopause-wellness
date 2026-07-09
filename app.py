@@ -292,6 +292,9 @@ def login():
         login_user(user)
         next_page = request.args.get('next')
         flash('Welcome back!', 'success')
+        # Redirect to disclaimer if not yet accepted
+        if not user.disclaimer_accepted:
+            return redirect(url_for('disclaimer'))
         return redirect(next_page or url_for('dashboard'))
     return render_template('login.html')
 
@@ -301,6 +304,20 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+# ─── Legal Disclaimer ─────────────────────────────────────────────────
+@app.route('/disclaimer', methods=['GET', 'POST'])
+@login_required
+def disclaimer():
+    """Show legal disclaimer — user must accept before using the app."""
+    if request.method == 'POST':
+        current_user.disclaimer_accepted = True
+        current_user.disclaimer_accepted_at = datetime.utcnow()
+        db.session.commit()
+        flash('Thank you. You can now access the app.', 'success')
+        return redirect(url_for('dashboard'))
+    return render_template('disclaimer.html')
 
 
 # ─── Public Routes ────────────────────────────────────────────────────
@@ -315,6 +332,10 @@ def index():
 @app.route('/dashboard')
 @login_required
 def dashboard():
+    # Redirect to disclaimer if not accepted
+    if not current_user.disclaimer_accepted:
+        return redirect(url_for('disclaimer'))
+
     # Latest stats
     today = date.today()
     week_start = today - timedelta(days=today.weekday())
@@ -825,6 +846,20 @@ def sleep_log():
         sleep_tones=sleep_tones,
         today=date.today()
     )
+
+
+# ─── Pelvic Floor & Sexual Health ────────────────────────────────────
+PELVIC_EXERCISES = [14, 5, 3, 12, 2]  # Clamshell, Glute Bridge, Dead Bug, Single-Leg Balance, Side Plank
+
+@app.route('/pelvic-health')
+@login_required
+def pelvic_health():
+    """Pelvic floor and sexual health resource page."""
+    exercises = Exercise.query.filter(Exercise.order.in_(PELVIC_EXERCISES)).order_by(Exercise.order).all()
+    tones = IsochronicTone.query.filter(
+        IsochronicTone.preset_id.in_(['libido_sensuality', 'pain_comfort', 'stress_resilience', 'mood_lift'])
+    ).all()
+    return render_template('pelvic_health.html', exercises=exercises, tones=tones)
 
 
 # ─── Doctor Visit Prep Tool ──────────────────────────────────────────

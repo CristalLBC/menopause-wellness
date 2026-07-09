@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% block title %}Pelvic Floor & Sexual Health — Menopause Wellness{% endblock %}
+
+{% block extra_head %}
+<style>
+  .ph-hero {
+    background: linear-gradient(135deg, #2a1a2e 0%, #1e1a3a 50%, #1a2235 100%);
+    border: 1px solid #4a2a5e;
+    border-radius: 1.2rem;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .ph-hero h1 { font-size: 1.8rem; color: #e0d0f0; margin-bottom: 0.5rem; }
+  .ph-hero p { color: #b0a0c0; max-width: 550px; margin: 0 auto; font-size: 0.95rem; line-height: 1.6; }
+
+  .ph-section-title {
+    font-size: 1.1rem; color: #e0e0f0; font-weight: 700; margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+
+  .info-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .info-card h3 { font-size: 1rem; color: #e0d0f0; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem; }
+  .info-card p { font-size: 0.85rem; color: #a0a0b0; line-height: 1.7; }
+  .info-card ul { padding-left: 1.2rem; margin-top: 0.5rem; }
+  .info-card ul li { font-size: 0.82rem; color: #a0a0b0; line-height: 1.6; margin-bottom: 0.3rem; }
+
+  .highlight-box {
+    background: rgba(212,67,107,0.06);
+    border: 1px solid rgba(212,67,107,0.15);
+    border-radius: 0.8rem;
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  .highlight-box h4 { font-size: 0.85rem; color: #f0a0b0; margin-bottom: 0.3rem; }
+  .highlight-box p, .highlight-box li { font-size: 0.8rem; color: #a0a0b0; line-height: 1.6; }
+
+  .rec-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .rec-card {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a; border-radius: 0.9rem; padding: 1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+    transition: all 0.2s; text-decoration: none; color: inherit;
+  }
+  .rec-card:hover { border-color: #4a4a7a; transform: translateY(-2px); }
+  .rec-card .icon { font-size: 1.4rem; flex-shrink: 0; }
+  .rec-card .info { flex: 1; min-width: 0; }
+  .rec-card .info .title { font-size: 0.82rem; font-weight: 600; color: #e0e0f0; }
+  .rec-card .info .meta { font-size: 0.7rem; color: #8080a0; }
+
+  .partner-q { margin-top: 1rem; }
+  .partner-q li {
+    padding: 0.5rem 0.75rem; border-bottom: 1px solid #2a2a4a;
+    font-size: 0.82rem; color: #a0a0b0; line-height: 1.5;
+  }
+  .partner-q li:last-child { border-bottom: none; }
+  .partner-q li::before { content: '💬 '; }
+
+  .tone-chip {
+    display: inline-block; padding: 0.4rem 0.8rem;
+    background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.2);
+    border-radius: 2rem; font-size: 0.78rem; color: #c0b0e0;
+    margin-right: 0.4rem; margin-bottom: 0.4rem;
+  }
+
+  .nav-links { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .nav-links a {
+    padding: 0.6rem 1.2rem; background: rgba(212,67,107,0.1);
+    border: 1px solid rgba(212,67,107,0.2); color: #f0a0b0;
+    border-radius: 2rem; font-weight: 600; font-size: 0.8rem;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .nav-links a:hover { background: rgba(212,67,107,0.2); }
+
+  @media (max-width: 600px) {
+    .ph-hero { padding: 1.5rem; }
+    .ph-hero h1 { font-size: 1.4rem; }
+    .rec-grid { grid-template-columns: 1fr; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="ph-hero">
+  <h1>💗 Pelvic Floor & Sexual Health</h1>
+  <p>The most important topic almost nobody talks about. You are not alone, you are not broken, and there is a lot you can do. This page is your starting point.</p>
+</div>
+
+<!-- Why This Matters -->
+<div class="info-card">
+  <h3>💡 Why Pelvic Health Changes at Menopause</h3>
+  <p>Your pelvic floor, vagina, and clitoral tissue are densely packed with estrogen receptors. When estrogen declines:</p>
+  <ul>
+    <li><strong>Vaginal tissue thins, dries, and becomes less elastic</strong> — this is called vaginal atrophy (GSM: Genitourinary Syndrome of Menopause)</li>
+    <li><strong>Pelvic floor muscles weaken</strong> — contributing to incontinence, a feeling of heaviness, and reduced sensation during intimacy</li>
+    <li><strong>Blood flow to the pelvic region decreases</strong> — affecting arousal, lubrication, and the ability to orgasm</li>
+    <li><strong>Natural lubrication drops significantly</strong> — making intercourse painful for up to 50% of post-menopausal women</li>
+  </ul>
+  <div class="highlight-box" style="margin-top:1rem;">
+    <h4>🌸 The good news:</h4>
+    <p>Every single one of these changes is <strong>manageable</strong>. Pelvic floor exercises, vaginal moisturizers, lubricants, and low-dose vaginal estrogen (prescribed by your doctor) can restore comfort and pleasure at any age.</p>
+  </div>
+</div>
+
+<!-- Pelvic Floor Exercises -->
+<div class="ph-section-title">🏋️ Pelvic Floor & Core Exercises</div>
+<p style="color:#8080a0;font-size:0.85rem;margin-bottom:1rem;">These five exercises directly strengthen the pelvic floor, hip stabilizers, and deep core — the muscles that support bladder control, sexual sensation, and pelvic organ position.</p>
+
+<div class="rec-grid">
+  {% for ex in exercises %}
+  <a href="/exercises/{{ ex.id }}" class="rec-card">
+    <span class="icon">{{ ex.icon }}</span>
+    <div class="info">
+      <div class="title">{{ ex.name }}</div>
+      <div class="meta">{{ ex.target_muscles.split(',')[0] }}</div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<div class="highlight-box">
+  <h4>🦋 How to do a Kegel correctly (most women do it wrong):</h4>
+  <ol style="padding-left:1.2rem;margin-top:0.3rem;">
+    <li style="font-size:0.8rem;color:#a0a0b0;line-height:1.6;margin-bottom:0.2rem;"><strong>Find the right muscle:</strong> Imagine you're trying to stop the flow of urine mid-stream or stop passing gas. The muscles that tighten are your pelvic floor. Do NOT do this while actually urinating — it can cause bladder infections.</li>
+    <li style="font-size:0.8rem;color:#a0a0b0;line-height:1.6;margin-bottom:0.2rem;"><strong>The squeeze:</strong> Tighten those muscles, hold for 3–5 seconds, then fully relax for 5 seconds. One squeeze = one Kegel.</li>
+    <li style="font-size:0.8rem;color:#a0a0b0;line-height:1.6;margin-bottom:0.2rem;"><strong>What NOT to do:</strong> Don't hold your breath. Don't tighten your butt, thighs, or belly. Keep everything else relaxed. If you're doing it right, no one should be able to tell you're doing it.</li>
+    <li style="font-size:0.8rem;color:#a0a0b0;line-height:1.6;"><strong>Routine:</strong> 10 reps, 3 times per day. Progress to 10-second holds over several weeks.</li>
+  </ol>
+</div>
+
+<!-- Tones -->
+<div class="ph-section-title">🎵 Supportive Brainwave Tones</div>
+<p style="color:#8080a0;font-size:0.85rem;margin-bottom:1rem;">These tones help with the nervous system side of pelvic health — releasing tension, reconnecting with your body, and reducing pain.</p>
+<div class="rec-grid">
+  {% for tone in tones %}
+  <a href="/tones" class="rec-card">
+    <span class="icon">{{ tone.icon }}</span>
+    <div class="info">
+      <div class="title">{{ tone.name }}</div>
+      <div class="meta">{{ tone.brainwave_label }}</div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<!-- Intimacy & Communication -->
+<div class="info-card">
+  <h3>💕 Intimacy After Menopause: A Practical Guide</h3>
+  <p>Sex after menopause can be different — and different doesn't mean worse. Here's what helps:</p>
+  <ul>
+    <li><strong>Use lubricant. Lots of it.</strong> Water-based for daily use, silicone-based for longer sessions. This is not optional — it's essential care.</li>
+    <li><strong>Vaginal moisturizers</strong> (like Replens or hyaluronic acid-based gels) used 2–3 times per week can restore tissue health, not just during sex.</li>
+    <li><strong>More foreplay.</strong> It takes longer for blood flow to reach pelvic tissues now. 20+ minutes of arousal before penetration is normal and healthy.</li>
+    <li><strong>Talk to your partner.</strong> "My body has changed. I need more time, more lubrication, and a different approach. Here's what feels good now."</li>
+    <li><strong>Consider vaginal estrogen</strong> — a low-dose cream, tablet, or ring prescribed by your doctor. It's not systemic HRT. It stays local and restores tissue health with minimal absorption.</li>
+    <li><strong>Pelvic floor physiotherapy</strong> — a specialist who can assess your specific pelvic floor tension/pain and give you targeted exercises. Life-changing for many women.</li>
+  </ul>
+</div>
+
+<!-- Questions for Your Partner -->
+<div class="info-card">
+  <h3>🗣️ Questions for Your Partner</h3>
+  <p style="margin-bottom:0.75rem;">Having an honest conversation is the single most powerful thing you can do. Here are conversation starters:</p>
+  <ul class="partner-q">
+    <li>My body is going through changes. I need you to understand that it's not about you — it's hormonal.</li>
+    <li>I need more foreplay now than I used to. Can we take penetration off the table for a while and explore other ways to be intimate?</li>
+    <li>Lubricant is not optional anymore. Can we pick some out together?</li>
+    <li>Sometimes I feel self-conscious about my changing body. I need you to tell me I'm still desirable.</li>
+    <li>If penetration hurts, I will tell you. Please don't take that as rejection — it's my body telling me something.</li>
+    <li>Can we schedule intimacy? I know it sounds unromantic, but when I'm tired and stressed, knowing we have planned time helps me mentally prepare.</li>
+    <li>I'm going to start pelvic floor exercises. Would you be willing to learn about them with me?</li>
+  </ul>
+  <div class="highlight-box" style="margin-top:1rem;">
+    <h4>❤️ A note for partners:</h4>
+    <p>If your partner is sharing this with you, she is trusting you with something deeply vulnerable. The best response is: <em>"Thank you for telling me. I love you. What do you need from me?"</em></p>
+  </div>
+</div>
+
+<div class="nav-links">
+  <a href="/doctor-prep">📋 Add these to your Doctor Visit Prep →</a>
+  <a href="/decoder">🔭 Check your symptoms →</a>
+</div>
+{% endblock %}

@@ -21,6 +21,10 @@ class User(UserMixin, db.Model):
     birth_year = db.Column(db.Integer)
     last_period_year = db.Column(db.Integer)
 
+    # Legal disclaimer
+    disclaimer_accepted = db.Column(db.Boolean, default=False)
+    disclaimer_accepted_at = db.Column(db.DateTime, nullable=True)
+
     # Relationships
     workout_logs = db.relationship('WorkoutLog', backref='user', lazy='dynamic')
     mood_entries = db.relationship('MoodEntry', backref='user', lazy='dynamic')

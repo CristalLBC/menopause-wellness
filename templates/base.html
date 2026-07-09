@@ -54,6 +54,9 @@
             <li><a href="{{ url_for('doctor_prep') }}" class="nav-item {% if request.endpoint == 'doctor_prep' %}active{% endif %}">
                 <span class="nav-icon">&#128203;</span> Doctor Prep
             </a></li>
+            <li><a href="{{ url_for('pelvic_health') }}" class="nav-item {% if request.endpoint == 'pelvic_health' %}active{% endif %}">
+                <span class="nav-icon">&#128155;</span> Pelvic Health
+            </a></li>
             <li class="nav-divider"></li>
             <li><a href="{{ url_for('articles') }}" class="nav-item {% if 'article' in request.endpoint %}active{% endif %}">
                 <span class="nav-icon">&#9997;</span> Articles
