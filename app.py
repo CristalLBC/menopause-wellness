@@ -8,6 +8,7 @@ from models import db, User, Exercise, WorkoutLog, MoodEntry, JournalEntry, Symp
 from seed_data import seed_database
 import gumroad_utils
 import decoder_data
+import breathing_data
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'menopause-wellness-secret-key-2025')
@@ -676,6 +677,16 @@ def decoder():
         articles=articles_list,
         symptoms_types=SYMPTOM_TYPES,
         symptoms_labels=SYMPTOM_LABELS
+    )
+
+
+# ─── Breathing Exercises ───────────────────────────────────────────────
+@app.route('/breathing')
+@login_required
+def breathing():
+    return render_template('breathing.html',
+        patterns=breathing_data.BREATHING_PATTERNS,
+        emergency_calm=breathing_data.EMERGENCY_CALM
     )
 
 

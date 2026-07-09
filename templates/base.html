@@ -58,6 +58,9 @@
             <li><a href="{{ url_for('tones') }}" class="nav-item {% if 'tone' in request.endpoint %}active{% endif %}">
                 <span class="nav-icon">&#9835;</span> Brain Tones
             </a></li>
+            <li><a href="{{ url_for('breathing') }}" class="nav-item {% if 'breathing' in request.endpoint %}active{% endif %}">
+                <span class="nav-icon">&#9769;</span> Breathing
+            </a></li>
             <li class="nav-divider"></li>
             <li><a href="{{ url_for('profile') }}" class="nav-item {% if request.endpoint == 'profile' %}active{% endif %}">
                 <span class="nav-icon">&#9787;</span> Profile
