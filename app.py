@@ -690,6 +690,113 @@ def breathing():
     )
 
 
+# ─── Doctor Visit Prep Tool ──────────────────────────────────────────
+DOCTOR_QUESTIONS = [
+    {'id': 'hrt', 'question': 'Am I a candidate for body-identical hormone therapy (HRT)?'},
+    {'id': 'thyroid', 'question': 'Should I check my thyroid function (TSH, T3, T4)?'},
+    {'id': 'sleep', 'question': 'What can I do about my sleep disruption? Is there anything medical that can help?'},
+    {'id': 'weight', 'question': 'Is this weight gain hormonal, or is something else going on?'},
+    {'id': 'bone_density', 'question': 'Do I need a bone density scan (DEXA)?'},
+    {'id': 'vitamins', 'question': 'Should I check my vitamin D, iron, and B12 levels?'},
+    {'id': 'libido', 'question': 'What can help with vaginal dryness and low libido?'},
+    {'id': 'mood', 'question': 'Are these mood swings menopause or something else? Should I consider medication?'},
+    {'id': 'specialist', 'question': 'Can you recommend a certified menopause specialist?'},
+    {'id': 'exercise', 'question': 'Is isometric exercise safe for me given my current health?'},
+]
+
+LAB_TESTS = [
+    {'id': 'estradiol', 'label': 'Estradiol (E2)', 'unit': 'pg/mL', 'normal_range': 'Varies by stage — post-meno: <20'},
+    {'id': 'fsh', 'label': 'FSH', 'unit': 'mIU/mL', 'normal_range': 'Post-menopausal: 25–135'},
+    {'id': 'tsh', 'label': 'TSH', 'unit': 'mIU/L', 'normal_range': '0.5–4.5'},
+    {'id': 'vitamin_d', 'label': 'Vitamin D', 'unit': 'ng/mL', 'normal_range': '30–80'},
+    {'id': 'ferritin', 'label': 'Ferritin (Iron)', 'unit': 'ng/mL', 'normal_range': '20–150'},
+    {'id': 'vitamin_b12', 'label': 'Vitamin B12', 'unit': 'pg/mL', 'normal_range': '200–900'},
+    {'id': 'hba1c', 'label': 'HbA1c', 'unit': '%', 'normal_range': '<5.7'},
+    {'id': 'cholesterol', 'label': 'Total Cholesterol', 'unit': 'mg/dL', 'normal_range': '<200'},
+]
+
+
+@app.route('/doctor-prep', methods=['GET', 'POST'])
+@login_required
+def doctor_prep():
+    # Pre-fill from user's existing data
+    existing_symptoms = {}
+    entries = SymptomEntry.query.filter_by(user_id=current_user.id).order_by(SymptomEntry.entry_date.desc()).all()
+    for e in entries:
+        key = e.symptom_type
+        if key not in existing_symptoms:
+            existing_symptoms[key] = {'severity': e.severity, 'notes': e.notes or ''}
+
+    # Pre-fill stage info
+    stage_info = {
+        'stage': current_user.menopause_stage or '',
+        'birth_year': current_user.birth_year or '',
+        'last_period_year': current_user.last_period_year or ''
+    }
+
+    if request.method == 'POST':
+        # Process form data and show summary
+        selected_symptoms = {}
+        for sym in SYMPTOM_TYPES:
+            severity = request.form.get(f'sev_{sym}')
+            if severity and int(severity) > 0:
+                selected_symptoms[sym] = {
+                    'severity': int(severity),
+                    'notes': request.form.get(f'notes_{sym}', '')
+                }
+
+        # Lab values
+        lab_values = {}
+        for lab in LAB_TESTS:
+            val = request.form.get(f'lab_{lab["id"]}')
+            if val:
+                lab_values[lab['id']] = {
+                    'value': val,
+                    'label': lab['label'],
+                    'unit': lab['unit'],
+                    'normal_range': lab['normal_range']
+                }
+
+        # Selected questions
+        selected_questions = [q['question'] for q in DOCTOR_QUESTIONS if request.form.get(f'q_{q["id"]}')]
+        custom_question = request.form.get('custom_question', '').strip()
+        if custom_question:
+            selected_questions.append(custom_question)
+
+        # User info
+        user_info = {
+            'age': request.form.get('age', ''),
+            'stage': request.form.get('stage', ''),
+            'last_period': request.form.get('last_period', ''),
+            'name': current_user.display_name or current_user.username
+        }
+
+        return render_template('doctor_prep.html',
+            mode='summary',
+            symptoms_types=SYMPTOM_TYPES,
+            symptoms_labels=SYMPTOM_LABELS,
+            existing_symptoms=existing_symptoms,
+            stage_info=stage_info,
+            doctor_questions=DOCTOR_QUESTIONS,
+            lab_tests=LAB_TESTS,
+            selected_symptoms=selected_symptoms,
+            lab_values=lab_values,
+            selected_questions=selected_questions,
+            user_info=user_info,
+            now=datetime.now
+        )
+
+    return render_template('doctor_prep.html',
+        mode='form',
+        symptoms_types=SYMPTOM_TYPES,
+        symptoms_labels=SYMPTOM_LABELS,
+        existing_symptoms=existing_symptoms,
+        stage_info=stage_info,
+        doctor_questions=DOCTOR_QUESTIONS,
+        lab_tests=LAB_TESTS
+    )
+
+
 # ─── Community ────────────────────────────────────────────────────────
 @app.route('/community')
 @login_required

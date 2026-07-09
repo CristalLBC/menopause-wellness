@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doctor Visit Prep — Menopause Wellness</title>
+{% if mode == 'form' %}
+<style>
+  body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: #0a0e17;
+    color: #e8edf5;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+  .container { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
+  h1 { font-size: 1.8rem; margin-bottom: 0.3rem; background: linear-gradient(135deg, #d4436b, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .subtitle { color: #9090b0; font-size: 0.9rem; margin-bottom: 2rem; line-height: 1.5; }
+  .step-header { font-size: 1.1rem; font-weight: 700; color: #e0e0f0; padding: 1rem 0 0.5rem; border-bottom: 1px solid #2a2a4a; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .step-header .num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: #d4436b; color: white; font-size: 0.8rem; }
+  .form-card { background: linear-gradient(145deg, #1a1a2e, #16213e); border: 1px solid #2a2a4a; border-radius: 1rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .symptom-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid #1e1e3a; flex-wrap: wrap; }
+  .symptom-row:last-child { border-bottom: none; }
+  .symptom-row label { min-width: 120px; font-size: 0.85rem; color: #c0c0d0; font-weight: 600; }
+  .symptom-row input[type="range"] { flex: 1; min-width: 100px; height: 6px; -webkit-appearance: none; background: #2a2a4a; border-radius: 3px; outline: none; }
+  .symptom-row input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #d4436b; cursor: pointer; }
+  .symptom-row .sev-label { font-size: 0.8rem; color: #8080a0; min-width: 50px; text-align: center; }
+  .symptom-row input[type="text"] { flex: 2; min-width: 150px; padding: 0.4rem 0.6rem; background: #121827; border: 1px solid #2a2a4a; border-radius: 0.5rem; color: #e0e0f0; font-size: 0.8rem; }
+  .symptom-row input[type="text"]:focus { outline: none; border-color: #d4436b; }
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; }
+  .lab-item { display: flex; flex-direction: column; gap: 0.3rem; }
+  .lab-item label { font-size: 0.8rem; color: #a0a0c0; font-weight: 600; }
+  .lab-item .range { font-size: 0.7rem; color: #606080; }
+  .lab-item input { padding: 0.5rem; background: #121827; border: 1px solid #2a2a4a; border-radius: 0.5rem; color: #e0e0f0; font-size: 0.85rem; width: 100%; box-sizing: border-box; }
+  .lab-item input:focus { outline: none; border-color: #a78bfa; }
+  .q-item { display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.5rem 0; border-bottom: 1px solid #1e1e3a; }
+  .q-item:last-child { border-bottom: none; }
+  .q-item input[type="checkbox"] { margin-top: 0.2rem; accent-color: #d4436b; width: 16px; height: 16px; flex-shrink: 0; }
+  .q-item label { font-size: 0.85rem; color: #c0c0d0; line-height: 1.4; cursor: pointer; }
+  .custom-q { margin-top: 0.75rem; }
+  .custom-q textarea { width: 100%; padding: 0.6rem; background: #121827; border: 1px solid #2a2a4a; border-radius: 0.5rem; color: #e0e0f0; font-size: 0.85rem; resize: vertical; min-height: 50px; box-sizing: border-box; }
+  .custom-q textarea:focus { outline: none; border-color: #a78bfa; }
+  .btn-generate { display: block; width: 100%; padding: 1rem; background: linear-gradient(135deg, #d4436b, #b8305a); color: white; border: none; border-radius: 1rem; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.25s; margin-top: 1rem; }
+  .btn-generate:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,67,107,0.3); }
+  .info-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .info-row input, .info-row select { padding: 0.5rem; background: #121827; border: 1px solid #2a2a4a; border-radius: 0.5rem; color: #e0e0f0; font-size: 0.85rem; }
+  .info-row input:focus, .info-row select:focus { outline: none; border-color: #d4436b; }
+  .info-row label { font-size: 0.8rem; color: #a0a0c0; display: flex; flex-direction: column; gap: 0.3rem; flex: 1; min-width: 140px; }
+  .stage-select { -webkit-appearance: none; appearance: none; background: #121827; border: 1px solid #2a2a4a; border-radius: 0.5rem; color: #e0e0f0; padding: 0.5rem 2rem 0.5rem 0.5rem; font-size: 0.85rem; cursor: pointer; }
+  @media print { body { background: white; color: black; } }
+</style>
+{% else %}
+<style>
+  /* ─── Printable Summary Styles ────────────────────────────────── */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #f5f3f0;
+    color: #1a1a2e;
+    padding: 2rem;
+  }
+  .print-container { max-width: 800px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 2.5rem; }
+  @media print {
+    body { background: white; padding: 0; }
+    .print-container { box-shadow: none; padding: 1.5rem; }
+    .no-print { display: none !important; }
+    .print-only { display: block !important; }
+    .break-before { page-break-before: always; }
+  }
+  .print-only { display: none; }
+  .header { text-align: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #d4436b; }
+  .header h1 { font-size: 1.4rem; color: #d4436b; margin-bottom: 0.3rem; }
+  .header .date { font-size: 0.8rem; color: #8080a0; }
+  .header .patient { font-size: 0.9rem; color: #4a4a6a; font-weight: 600; }
+  .section { margin-bottom: 1.5rem; }
+  .section h2 { font-size: 1rem; color: #d4436b; border-bottom: 1px solid #e8d5d0; padding-bottom: 0.4rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem; }
+  .symptom-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .symptom-table th { text-align: left; padding: 0.4rem 0.6rem; background: #faf0ee; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: #6a4a4a; }
+  .symptom-table td { padding: 0.4rem 0.6rem; border-bottom: 1px solid #f0e8e6; }
+  .symptom-table .sev-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; }
+  .sev-1 { background: #2ecc71; }
+  .sev-2 { background: #f1c40f; }
+  .sev-3 { background: #f39c12; }
+  .sev-4 { background: #e67e22; }
+  .sev-5 { background: #d4436b; }
+  .lab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.5rem; }
+  .lab-card { padding: 0.5rem 0.75rem; background: #faf8f5; border: 1px solid #e8e0dc; border-radius: 6px; }
+  .lab-card .lab-name { font-size: 0.75rem; color: #6a5a5a; text-transform: uppercase; letter-spacing: 0.03em; }
+  .lab-card .lab-val { font-size: 1.1rem; font-weight: 700; color: #1a1a2e; }
+  .lab-card .lab-range { font-size: 0.7rem; color: #908080; }
+  .q-list { list-style: none; padding: 0; }
+  .q-list li { padding: 0.4rem 0.6rem; border-bottom: 1px solid #f0e8e6; font-size: 0.85rem; color: #2a2a3e; }
+  .q-list li::before { content: '☐ '; color: #d4436b; }
+  .q-custom { margin-top: 0.5rem; padding: 0.5rem 0.6rem; background: #faf8f5; border-left: 3px solid #d4436b; font-size: 0.85rem; font-style: italic; color: #4a4a6a; }
+  .footer-note { text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e0d8d4; font-size: 0.75rem; color: #908080; }
+  .actions { text-align: center; margin-bottom: 1.5rem; gap: 0.75rem; display: flex; justify-content: center; flex-wrap: wrap; }
+  .btn-action { padding: 0.6rem 1.5rem; border-radius: 2rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; }
+  .btn-print { background: #d4436b; color: white; }
+  .btn-print:hover { background: #b8305a; }
+  .btn-back { background: #e8e0dc; color: #4a4a6a; }
+  .btn-back:hover { background: #d8d0cc; }
+  .empty-state { color: #908080; font-style: italic; font-size: 0.85rem; }
+  @media (max-width: 600px) {
+    .print-container { padding: 1.5rem; }
+    .lab-grid { grid-template-columns: repeat(2, 1fr); }
+    body { padding: 1rem; }
+  }
+</style>
+{% endif %}
+</head>
+<body>
+
+{% if mode == 'form' %}
+<div class="container">
+  <h1>📋 Doctor Visit Prep Tool</h1>
+  <p class="subtitle">Walk into your appointment prepared. Fill in what you know, print the one-page summary, and hand it to your doctor. You'll have a better conversation and leave with real answers.</p>
+
+  <form method="POST" action="/doctor-prep">
+    <!-- Step 0: About You -->
+    <div class="step-header"><span class="num">0</span> About You</div>
+    <div class="form-card">
+      <div class="info-row">
+        <label>Your Age
+          <input type="number" name="age" placeholder="e.g. 52" value="{{ stage_info.birth_year and (2025 - stage_info.birth_year|int) or '' }}">
+        </label>
+        <label>Menopause Stage
+          <select name="stage" class="stage-select">
+            <option value="">Select...</option>
+            <option value="early_perimenopause" {% if stage_info.stage == 'early_perimenopause' %}selected{% endif %}>Early Perimenopause</option>
+            <option value="late_perimenopause" {% if stage_info.stage == 'late_perimenopause' %}selected{% endif %}>Late Perimenopause</option>
+            <option value="menopause" {% if stage_info.stage == 'menopause' %}selected{% endif %}>Menopause (12 months no period)</option>
+            <option value="post_menopause" {% if stage_info.stage == 'post_menopause' %}selected{% endif %}>Post-Menopause</option>
+            <option value="unsure" {% if stage_info.stage == 'unsure' %}selected{% endif %}>Not sure</option>
+          </select>
+        </label>
+        <label>Last Period (year)
+          <input type="number" name="last_period" placeholder="e.g. 2023" value="{{ stage_info.last_period_year }}">
+        </label>
+      </div>
+    </div>
+
+    <!-- Step 1: Symptoms -->
+    <div class="step-header"><span class="num">1</span> My Symptoms</div>
+    <p style="color:#8080a0;font-size:0.8rem;margin-bottom:0.75rem;">Rate each symptom you're experiencing. Leave at 0 if not applicable.</p>
+    <div class="form-card">
+      {% for sym in symptoms_types %}
+      {% set existing = existing_symptoms.get(sym, {}) %}
+      <div class="symptom-row">
+        <label>{{ symptoms_labels[sym] }}</label>
+        <input type="range" name="sev_{{ sym }}" min="0" max="5" value="{{ existing.get('severity', 0) }}" oninput="document.getElementById('sv-{{ sym }}').textContent = this.value" style="flex:1;">
+        <span class="sev-label" id="sv-{{ sym }}">{{ existing.get('severity', 0) }}</span>
+        <input type="text" name="notes_{{ sym }}" placeholder="Notes (when, how often, triggers...)" value="{{ existing.get('notes', '') }}">
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Step 2: Lab Values -->
+    <div class="step-header"><span class="num">2</span> Lab Results (Optional)</div>
+    <p style="color:#8080a0;font-size:0.8rem;margin-bottom:0.75rem;">Enter any recent lab results. The normal range is shown for reference. Leave blank if you don't have them yet.</p>
+    <div class="form-card">
+      <div class="form-grid">
+        {% for lab in lab_tests %}
+        <div class="lab-item">
+          <label>{{ lab.label }}</label>
+          <input type="text" name="lab_{{ lab.id }}" placeholder="e.g. 45">
+          <span class="range">Normal: {{ lab.normal_range }} | Unit: {{ lab.unit }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Step 3: Questions -->
+    <div class="step-header"><span class="num">3</span> Questions for My Doctor</div>
+    <p style="color:#8080a0;font-size:0.8rem;margin-bottom:0.75rem;">Check the questions you want to ask. Add your own at the bottom.</p>
+    <div class="form-card">
+      {% for q in doctor_questions %}
+      <div class="q-item">
+        <input type="checkbox" name="q_{{ q.id }}" id="q_{{ q.id }}">
+        <label for="q_{{ q.id }}">{{ q.question }}</label>
+      </div>
+      {% endfor %}
+      <div class="custom-q">
+        <label style="font-size:0.8rem;color:#a0a0c0;display:block;margin-bottom:0.3rem;">Your own question:</label>
+        <textarea name="custom_question" placeholder="Type any question you want to ask..."></textarea>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-generate">📄 Generate My Doctor Visit Summary</button>
+  </form>
+</div>
+
+<script>
+  // Update severity labels on load
+  document.querySelectorAll('input[type="range"]').forEach(function(el) {
+    el.addEventListener('input', function() {
+      var label = document.getElementById('sv-' + this.name.replace('sev_', ''));
+      if (label) label.textContent = this.value;
+    });
+  });
+</script>
+
+{% else %}
+<!-- ─── Printable Summary View ──────────────────────────────────── -->
+<div class="actions no-print">
+  <button class="btn-action btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+  <a href="/doctor-prep" class="btn-action btn-back">← Start Over</a>
+</div>
+
+<div class="print-container" id="printArea">
+  <div class="header">
+    <h1>📋 My Menopause Appointment Summary</h1>
+    <div class="patient">{{ user_info.name }}</div>
+    <div class="date">Prepared on {{ now().strftime('%B %d, %Y') }}</div>
+  </div>
+
+  <!-- Patient Info -->
+  <div class="section">
+    <h2>👤 About Me</h2>
+    {% if user_info.age or user_info.stage or user_info.last_period %}
+    <table class="symptom-table">
+      <tr><th>Age</th><td>{{ user_info.age or '—' }}</td></tr>
+      <tr><th>Stage</th><td>{{ user_info.stage or '—' }}</td></tr>
+      <tr><th>Last Period</th><td>{{ user_info.last_period or '—' }}</td></tr>
+    </table>
+    {% else %}
+    <div class="empty-state">No personal info provided.</div>
+    {% endif %}
+  </div>
+
+  <!-- Symptoms -->
+  <div class="section">
+    <h2>🔬 Current Symptoms</h2>
+    {% if selected_symptoms %}
+    <table class="symptom-table">
+      <tr><th>Symptom</th><th>Severity</th><th>Notes</th></tr>
+      {% for sym, data in selected_symptoms.items() %}
+      <tr>
+        <td>{{ symptoms_labels[sym] }}</td>
+        <td>
+          <span class="sev-dot sev-{{ data.severity }}"></span>
+          {{ data.severity }}/5
+        </td>
+        <td>{{ data.notes or '—' }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <div class="empty-state">No symptoms selected.</div>
+    {% endif %}
+  </div>
+
+  <!-- Lab Values -->
+  {% if lab_values %}
+  <div class="section">
+    <h2>🧪 Lab Results</h2>
+    <div class="lab-grid">
+      {% for id, data in lab_values.items() %}
+      <div class="lab-card">
+        <div class="lab-name">{{ data.label }}</div>
+        <div class="lab-val">{{ data.value }} <span style="font-size:0.7rem;font-weight:400;color:#908080;">{{ data.unit }}</span></div>
+        <div class="lab-range">Normal: {{ data.normal_range }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Questions -->
+  <div class="section">
+    <h2>❓ Questions for My Doctor</h2>
+    {% if selected_questions %}
+    <ul class="q-list">
+      {% for q in selected_questions %}
+      <li>{{ q }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <div class="empty-state">No questions selected.</div>
+    {% endif %}
+    <div style="margin-top:1rem;padding:0.75rem;background:#faf8f5;border-radius:8px;border-left:3px solid #d4436b;">
+      <p style="font-size:0.85rem;color:#4a4a6a;"><strong>💡 Tip:</strong> Hand this sheet to your doctor at the start of your appointment. It saves 10 minutes of history-taking and gets you straight to the conversation that matters.</p>
+    </div>
+  </div>
+
+  <div class="footer-note no-print">
+    Generated by Menopause Wellness App — menopause-wellness.onrender.com
+  </div>
+</div>
+{% endif %}
+
+</body>
+</html>
