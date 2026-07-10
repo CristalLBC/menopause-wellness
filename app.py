@@ -316,8 +316,21 @@ def disclaimer():
         current_user.disclaimer_accepted_at = datetime.utcnow()
         db.session.commit()
         flash('Thank you. You can now access the app.', 'success')
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('onboarding'))
     return render_template('disclaimer.html')
+
+
+# ─── Onboarding Tour ─────────────────────────────────────────────────
+@app.route('/onboarding', methods=['GET', 'POST'])
+@login_required
+def onboarding():
+    """Welcome tour that shows once after disclaimer — explains the mission and each page."""
+    if request.method == 'POST':
+        current_user.onboarding_complete = True
+        db.session.commit()
+        flash('Welcome! Start exploring the app.', 'success')
+        return redirect(url_for('dashboard'))
+    return render_template('onboarding.html')
 
 
 # ─── Public Routes ────────────────────────────────────────────────────
@@ -335,6 +348,9 @@ def dashboard():
     # Redirect to disclaimer if not accepted
     if not current_user.disclaimer_accepted:
         return redirect(url_for('disclaimer'))
+    # Redirect to onboarding if not completed
+    if not current_user.onboarding_complete:
+        return redirect(url_for('onboarding'))
 
     # Latest stats
     today = date.today()

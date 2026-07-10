@@ -25,6 +25,9 @@ class User(UserMixin, db.Model):
     disclaimer_accepted = db.Column(db.Boolean, default=False)
     disclaimer_accepted_at = db.Column(db.DateTime, nullable=True)
 
+    # Onboarding tour
+    onboarding_complete = db.Column(db.Boolean, default=False)
+
     # Relationships
     workout_logs = db.relationship('WorkoutLog', backref='user', lazy='dynamic')
     mood_entries = db.relationship('MoodEntry', backref='user', lazy='dynamic')

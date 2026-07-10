@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome — Menopause Wellness</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: #FAF6F0;
+    color: #2D3436;
+    min-height: 100vh;
+  }
+
+  /* ─── Hero ─────────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #16213e 100%);
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '🌸';
+    position: absolute;
+    bottom: -30px; right: 20px;
+    font-size: 8rem;
+    opacity: 0.04;
+  }
+  .hero h1 {
+    font-size: 2.6rem;
+    color: #e0d0f0;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+  .hero h1 em { font-style: normal; color: #f0a0b0; }
+  .hero .sub {
+    color: #b0a0c0;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.6;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 300;
+  }
+  .hero .badge {
+    display: inline-block;
+    background: rgba(212,67,107,0.15);
+    border: 1px solid rgba(212,67,107,0.3);
+    color: #f0a0b0;
+    padding: 0.4rem 1.2rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+
+  /* ─── Mission ──────────────────────────────────────── */
+  .mission {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .mission h2 {
+    font-size: 1.8rem;
+    color: #d4436b;
+    margin-bottom: 1rem;
+  }
+  .mission p {
+    font-size: 1rem;
+    color: #5a5a6a;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+  .mission p strong { color: #d4436b; }
+  .mission .quote {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #7a5a5a;
+    padding: 1.5rem 2rem;
+    background: white;
+    border-left: 4px solid #d4436b;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    text-align: left;
+  }
+
+  /* ─── Tour ─────────────────────────────────────────── */
+  .tour {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem 3rem;
+  }
+  .tour h2 {
+    font-size: 1.6rem;
+    color: #1a1a2e;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .tour h2 small {
+    display: block;
+    font-size: 0.85rem;
+    color: #9090a0;
+    font-weight: 400;
+    margin-top: 0.3rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+
+  .tour-card {
+    background: white;
+    border: 1px solid #f0e8e4;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    transition: all 0.2s;
+  }
+  .tour-card:hover {
+    border-color: #d4c8c0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  }
+  .tour-card .icon {
+    font-size: 2.2rem;
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: #faf5f0;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tour-card .info { flex: 1; }
+  .tour-card .info h3 {
+    font-size: 1.05rem;
+    color: #1a1a2e;
+    margin-bottom: 0.25rem;
+  }
+  .tour-card .info p {
+    font-size: 0.85rem;
+    color: #6a6a7a;
+    line-height: 1.6;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+  .tour-card .info .tip {
+    font-size: 0.78rem;
+    color: #d4436b;
+    font-weight: 600;
+    margin-top: 0.3rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+
+  /* ─── CTA ──────────────────────────────────────────── */
+  .cta-section {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+  }
+  .cta-section p {
+    color: #6a6a7a;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .btn-start {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: linear-gradient(135deg, #d4436b, #b8305a);
+    color: white;
+    border: none;
+    border-radius: 3rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    box-shadow: 0 8px 24px rgba(212,67,107,0.3);
+  }
+  .btn-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(212,67,107,0.4);
+  }
+
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    color: #a0a0a0;
+    font-size: 0.8rem;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.8rem; }
+    .hero { padding: 2.5rem 1.5rem; }
+    .tour-card { flex-direction: column; align-items: center; text-align: center; }
+    .tour-card .icon { width: 50px; height: 50px; font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="badge">🌸 You've Arrived.</div>
+  <h1>Welcome to <em>Menopause Wellness</em></h1>
+  <p class="sub">The app built by women who know — because nobody told us either.</p>
+</div>
+
+<!-- Mission -->
+<div class="mission">
+  <h2>💗 Why This App Exists</h2>
+  <p>For generations, menopause was whispered about in secret — if it was spoken of at all. Our mothers didn't know what was happening. Our grandmothers suffered silently. We were told it was "just a phase" and to "push through it."</p>
+
+  <p><strong>We're breaking that silence.</strong></p>
+
+  <div class="quote">
+    "I was 47 when the hot flashes started. I thought I was dying. My doctor said it was anxiety. It took me two years and three different doctors to learn it was perimenopause. Nobody should have to fight that hard to understand their own body."
+  </div>
+
+  <p>Menopause affects <strong>every single woman</strong> who lives long enough to reach it. And yet most of us enter it completely blind — not knowing what symptoms are normal, what helps, or even what to ask our doctors.</p>
+
+  <p><strong>This app is the guide we all deserved.</strong> Every feature was built to answer a real question a real woman asked — "Why am I waking up at 3 AM?" "Why is my belly growing?" "Why do I feel so alone?"</p>
+
+  <p>You are not broken. You are not alone. And now you have a place to start.</p>
+</div>
+
+<!-- Tour -->
+<div class="tour">
+  <h2>🗺️ Your App — A Quick Tour<small>Here's what each section does and how to use it</small></h2>
+
+  <div class="tour-card">
+    <div class="icon">🏋️</div>
+    <div class="info">
+      <h3>Exercises</h3>
+      <p>15 isometric exercises designed specifically for menopausal bodies — no jumping, no equipment, no joint strain. Each exercise includes instructions, modifications, and target hold times.</p>
+      <div class="tip">💡 Start with the Wall Sit or Front Plank. Hold for 15 seconds and work up.</div>
+    </div>
+  </div>
+
+  <div class="tour-card">
+    <div class="icon">🎵</div>
+    <div class="info">
+      <h3>Brainwave Tones</h3>
+      <p>13 isochronic tones that use sound frequencies to guide your brain into specific states — deep sleep, calm focus, hot flash relief, energy boost. Use with headphones for best results.</p>
+      <div class="tip">💡 Try "Hot Flash Calm" when a flash starts, or "Deep Sleep" 15 minutes before bed.</div>
+    </div>
+  </div>
+
+  <div class="tour-card">
+    <div class="icon">🔭</div>
+    <div class="info">
+      <h3>Symptom Decoder</h3>
+      <p>Select your symptoms and the Decoder tells you what stage you're likely in, which exercises target those exact symptoms, which tones help, and what articles explain it all.</p>
+      <div class="tip">💡 Select 3+ symptoms for the most accurate results. Try it first!</div>
+    </div>
+  </div>
+
+  <div class="tour-card">
+    <div class="icon">📋</div>
+    <div class="info">
+      <h3>Doctor Visit Prep</h3>
+      <p>Rate your symptoms, enter lab results, and pick questions to ask. Then print or save a one-page summary to hand your doctor. You'll get better answers when they see everything in one place.</p>
+      <div class="tip">💡 Fill this out before every appointment. It saves 10 minutes of history-taking.</div>
+    </div>
+  </div>
+
+  <div class="tour-card">
+    <div class="icon">🌬️</div>
+    <div class="info">
+      <h3>Guided Breathing</h3>
+      <p>Four breathing patterns (Wim Hof, 4-7-8, Box Breathing, Calming Wave) with an animated circle that expands and contracts — so you breathe WITH the app. Includes a 60-second "Emergency Calm" for hot flash moments.</p>
+      <div class="tip">💡 Use 4-7-8 during a hot flash. Use Wim Hof in the morning for energy.</div>
+    </div>
+  </div>
+
+  <div class="tour-card">
+    <div class="icon">🌙</div>
+    <div class="info">
+      <h3>Sleep Log</h3>
+      <p>Track bedtime, wake time, hot flash interruptions, alcohol, and exercise each morning. After 5 entries, the app reveals patterns — like "you sleep 1.5 hours worse on nights with alcohol."</p>
+      <div class="tip">💡 Log every morning. The insights get smarter with more data.</div>
+    </div>
+  </div>
+
+  <div class="tour-card">
+    <div class="icon">🌸</div>
+    <div class="info">
+      <h3>Perimenopause Hub</h3>
+      <p>A dedicated landing page for the most confusing phase. Self-assessment checklist, curated exercises and tones, plus links to every tool that helps during perimenopause specifically.</p>
+      <div class="tip">💡 Start here if you're 35-51 and not sure what's happening.</div>
+    </div>
+  </div>
+
+  <div class="tour-card">
+    <div class="icon">💗</div>
+    <div class="info">
+      <h3>Pelvic Floor & Sexual Health</h3>
+      <p>Everything you need to know about pelvic floor changes at menopause — Kegels done correctly, intimacy guides, lubricant advice, and conversation starters for your partner.</p>
+      <div class="tip">💡 This is the most under-addressed topic. Share it with a friend.</div>
+    </div>
+  </div>
+
+  <div class="tour-card">
+    <div class="icon">📈</div>
+    <div class="info">
+      <h3>Infographic Appendix</h3>
+      <p>The full interactive menopause guide — timeline, 34 body changes explained, hormone charts, and a personalized relief plan builder. Everything in one beautiful page.</p>
+      <div class="tip">💡 A great place to send a friend who's just starting her research.</div>
+    </div>
+  </div>
+
+  <div class="tour-card">
+    <div class="icon">📰</div>
+    <div class="info">
+      <h3>Weekly Research Briefing</h3>
+      <p>Every Monday, the app scans PubMed for the latest menopause research and delivers a plain-language summary of the most interesting studies — so you stay informed without reading medical journals.</p>
+      <div class="tip">💡 Appears in your chat every Monday morning.</div>
+    </div>
+  </div>
+
+  <div class="tour-card">
+    <div class="icon">📅</div>
+    <div class="info">
+      <h3>More Tools</h3>
+      <p>Symptom Tracker, Mood Tracker, Journal, Community Forum, 4-Week Program, and Workout Timer — built to support every part of your journey. The sidebar navigates you to everything.</p>
+      <div class="tip">💡 The sidebar (left side of the screen) is your home base. Everything is one click away.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <p>You've done the hardest part — you showed up for yourself.<br>Now let's explore what your body is telling you.</p>
+  <form method="POST" action="/onboarding">
+    <button type="submit" class="btn-start">🌸 Start Exploring →</button>
+  </form>
+</div>
+
+<div class="footer">
+  Menopause Wellness — built with love for women everywhere
+</div>
+
+</body>
+</html>
