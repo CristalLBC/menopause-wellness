@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinterest Pin — Doctor Checklist</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f0e8e0; }
+  .pin {
+    width: 1000px; height: 1500px;
+    background: linear-gradient(135deg, #1a2235 0%, #16213e 50%, #1a1a2e 100%);
+    display: flex; flex-direction: column; padding: 3rem;
+    font-family: 'Arial', 'Helvetica', sans-serif; position: relative; overflow: hidden;
+  }
+  .bg-line {
+    position: absolute; left: 3rem; top: 8rem; bottom: 5rem;
+    width: 2px; background: rgba(212,67,107,0.1);
+  }
+  .badge {
+    background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3);
+    color: #b0b0f0; padding: 0.4rem 1.2rem; border-radius: 2rem;
+    font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    display: inline-block; margin-bottom: 1.5rem; position: relative; z-index: 1;
+    width: fit-content;
+  }
+  .title {
+    font-size: 2.5rem; font-weight: 700; color: #e0e0f0;
+    line-height: 1.2; margin-bottom: 2rem; position: relative; z-index: 1;
+  }
+  .title em { font-style: normal; color: #818cf8; }
+  .checklist { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 0.8rem; }
+  .item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 0.8rem 1rem; border-radius: 0.8rem;
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+    max-width: 700px;
+  }
+  .item .box { width: 24px; height: 24px; border: 2px solid #4a4a7a; border-radius: 4px; flex-shrink: 0; }
+  .item .text { font-size: 1.1rem; color: #c0c0d0; font-weight: 500; }
+  .item .text small { font-size: 0.85rem; color: #8080a0; font-weight: 400; display: block; }
+  .cta {
+    background: linear-gradient(135deg, #818cf8, #6366f1); color: white;
+    padding: 1rem 3rem; border-radius: 3rem; font-size: 1.1rem; font-weight: 700;
+    text-decoration: none; font-family: 'Arial', sans-serif; position: relative; z-index: 1;
+    margin-top: 2rem; text-align: center; box-shadow: 0 8px 24px rgba(99,102,241,0.3);
+  }
+  .url {
+    position: absolute; bottom: 2rem; left: 3rem; font-size: 0.8rem; color: #606080; z-index: 1;
+  }
+</style>
+</head>
+<body>
+<div class="pin">
+  <div class="bg-line"></div>
+  <div class="badge">📋 Doctor Visit Prep</div>
+  <div class="title"><em>10 Questions</em> to Ask<br>Your Gynecologist</div>
+  <div class="checklist">
+    <div class="item"><div class="box"></div><div class="text">Am I a candidate for body-identical HRT?</div></div>
+    <div class="item"><div class="box"></div><div class="text">Should I check my thyroid (TSH, T3, T4)?</div></div>
+    <div class="item"><div class="box"></div><div class="text">Do I need a bone density (DEXA) scan?</div></div>
+    <div class="item"><div class="box"></div><div class="text">Is this weight gain hormonal?</div></div>
+    <div class="item"><div class="box"></div><div class="text">What can help with vaginal dryness?</div></div>
+    <div class="item"><div class="box"></div><div class="text">Can you recommend a menopause specialist?</div></div>
+  </div>
+  <div class="cta">Get the Free Guide →</div>
+  <div class="url">menopause-wellness.onrender.com/free-guide</div>
+</div>
+</body>
+</html>

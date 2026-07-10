@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pin — Menopause Timeline</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f0e8e0; padding: 20px; }
+  .pin {
+    width: 1000px; height: 1500px;
+    background: #FAF6F0;
+    display: flex; flex-direction: column; padding: 0;
+    position: relative; border-radius: 24px; overflow: hidden;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+  .head {
+    background: linear-gradient(135deg, #1a1a2e, #2a1a3e);
+    padding: 2.5rem 3rem 2rem; text-align: center;
+  }
+  .head h1 { font-family: Georgia, serif; font-size: 2.2rem; color: #e0d0f0; margin-bottom: 0.3rem; }
+  .head h1 em { font-style: normal; color: #f0a0b0; }
+  .head p { color: #b0a0c0; font-size: 0.9rem; }
+
+  .timeline { padding: 2rem 3rem; flex: 1; display: flex; flex-direction: column; gap: 1rem; justify-content: center; }
+  .milestone {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: white; border: 1px solid #f0e8e4; border-radius: 14px;
+  }
+  .milestone .age {
+    background: #d4436b; color: white; padding: 0.3rem 0.7rem; border-radius: 2rem;
+    font-size: 0.75rem; font-weight: 700; white-space: nowrap; flex-shrink: 0; margin-top: 0.1rem;
+  }
+  .milestone .info { flex: 1; }
+  .milestone .info h3 { font-size: 0.9rem; color: #1a1a2e; margin-bottom: 0.15rem; }
+  .milestone .info p { font-size: 0.8rem; color: #6a6a7a; line-height: 1.4; }
+  .milestone .emoji { font-size: 1.5rem; flex-shrink: 0; }
+
+  .foot {
+    background: #1a1a2e; padding: 1.5rem; text-align: center;
+  }
+  .foot p { color: #8080a0; font-size: 0.85rem; }
+  .foot a { color: #f0a0b0; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="pin">
+  <div class="head">
+    <h1>Your Menopause <em>Timeline</em></h1>
+    <p>What to expect at every age — and what actually helps</p>
+  </div>
+  <div class="timeline">
+    <div class="milestone">
+      <span class="emoji">🌱</span>
+      <span class="age">35–45</span>
+      <div class="info">
+        <h3>Early Perimenopause</h3>
+        <p>Cycles shift — shorter, longer, heavier. PMS worsens. Sleep starts fraying. Most women don't realize this is perimenopause yet.</p>
+      </div>
+    </div>
+    <div class="milestone">
+      <span class="emoji">🎢</span>
+      <span class="age">45–51</span>
+      <div class="info">
+        <h3>Late Perimenopause</h3>
+        <p>Intense phase. Periods skip. Hot flashes, night sweats, brain fog, anxiety, rage episodes. This is when most women seek help.</p>
+      </div>
+    </div>
+    <div class="milestone">
+      <span class="emoji">🔄</span>
+      <span class="age">51+</span>
+      <div class="info">
+        <h3>Menopause</h3>
+        <p>12 months with no period. Symptoms may still be intense but begin to stabilise. Bone density and metabolism become the focus.</p>
+      </div>
+    </div>
+    <div class="milestone">
+      <span class="emoji">🌿</span>
+      <span class="age">55+</span>
+      <div class="info">
+        <h3>Post-Menopause</h3>
+        <p>Hormones settle. Hot flashes often ease. Joint health, vaginal changes, weight management, and bone protection are key.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <p>Isometric exercise + brainwave therapy for every stage — <a href="https://menopause-wellness.onrender.com/free-guide">menopause-wellness.onrender.com/free-guide</a></p>
+  </div>
+</div>
+</body>
+</html>

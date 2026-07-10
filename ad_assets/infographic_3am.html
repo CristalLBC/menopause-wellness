@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infographic — Why You Wake Up at 3AM</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #e8e0d8; padding: 20px; }
+  .infographic {
+    width: 1000px;
+    background: #FAF6F0;
+    font-family: 'Outfit', 'Segoe UI', Arial, sans-serif;
+    color: #2D3436;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+  }
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 100%);
+    padding: 2.5rem 3rem;
+    text-align: center;
+  }
+  .header h1 {
+    font-family: 'Georgia', serif;
+    font-size: 2.4rem;
+    color: #e0d0f0;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+  .header h1 em { font-style: normal; color: #f0a0b0; }
+  .header p {
+    color: #b0a0c0;
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .body-content { padding: 2.5rem 3rem; }
+
+  .section-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #d4436b;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Step-by-step flow */
+  .flow { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+  .flow-step {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: white;
+    border: 1px solid #f0e8e4;
+    border-radius: 14px;
+    transition: all 0.2s;
+  }
+  .flow-step .num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #d4436b; color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.95rem; flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .flow-step .content { flex: 1; }
+  .flow-step .content h3 { font-size: 1rem; color: #1a1a2e; margin-bottom: 0.2rem; }
+  .flow-step .content p { font-size: 0.85rem; color: #6a6a7a; line-height: 1.5; }
+  .flow-step .time { font-size: 0.8rem; color: #d4436b; font-weight: 700; white-space: nowrap; }
+
+  /* Two-column section */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+  .col-card {
+    background: white; border: 1px solid #f0e8e4; border-radius: 14px; padding: 1.25rem;
+  }
+  .col-card h3 { font-size: 1rem; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.4rem; }
+  .col-card ul { list-style: none; padding: 0; }
+  .col-card ul li {
+    padding: 0.4rem 0; border-bottom: 1px solid #f5f0ec;
+    font-size: 0.85rem; color: #5a5a6a; line-height: 1.4;
+    display: flex; align-items: flex-start; gap: 0.5rem;
+  }
+  .col-card ul li:last-child { border-bottom: none; }
+  .col-card ul li::before { content: '•'; color: #d4436b; font-weight: 700; }
+
+  /* What helps */
+  .help-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 2rem;
+  }
+  .help-card {
+    background: white; border: 1px solid #f0e8e4; border-radius: 12px;
+    padding: 1rem; display: flex; align-items: center; gap: 0.75rem;
+  }
+  .help-card .icon { font-size: 1.6rem; flex-shrink: 0; }
+  .help-card .text { flex: 1; }
+  .help-card .text h4 { font-size: 0.85rem; color: #1a1a2e; margin-bottom: 0.15rem; }
+  .help-card .text p { font-size: 0.78rem; color: #7a7a8a; line-height: 1.4; }
+
+  .quote-box {
+    background: linear-gradient(135deg, #fef6f3, #faf0ee);
+    border: 1px solid #f0d8d0;
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .quote-box p { font-size: 1rem; color: #5a3a3a; line-height: 1.6; font-style: italic; }
+  .quote-box strong { color: #d4436b; font-style: normal; }
+
+  .footer {
+    background: #1a1a2e;
+    padding: 1.5rem 3rem;
+    text-align: center;
+  }
+  .footer p { color: #8080a0; font-size: 0.85rem; }
+  .footer a { color: #f0a0b0; text-decoration: none; }
+
+  @media (max-width: 700px) {
+    .two-col { grid-template-columns: 1fr; }
+    .help-grid { grid-template-columns: 1fr; }
+    .header h1 { font-size: 1.8rem; }
+    .body-content { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="infographic">
+  <!-- Header -->
+  <div class="header">
+    <h1>Why You Wake Up at <em>3 AM</em><br>With a Racing Heart</h1>
+    <p>(It's not a panic attack — it's your hormones. Here's what's actually happening.)</p>
+  </div>
+
+  <!-- Body -->
+  <div class="body-content">
+    <!-- The flow -->
+    <div class="section-title">⏰ The Midnight Hormone Cascade</div>
+    <div class="flow">
+      <div class="flow-step">
+        <span class="num">1</span>
+        <div class="content">
+          <h3>Estrogen drops overnight</h3>
+          <p>Your body naturally produces less estrogen at night. During menopause, this normal dip becomes a dramatic crash — especially between 2 AM and 4 AM.</p>
+        </div>
+        <span class="time">2:00 AM</span>
+      </div>
+      <div class="flow-step">
+        <span class="num">2</span>
+        <div class="content">
+          <h3>Your brain misreads the signal</h3>
+          <p>Your hypothalamus (the body's thermostat and master regulator) detects the sudden estrogen drop as an emergency. It thinks something is dangerously wrong.</p>
+        </div>
+        <span class="time">2:30 AM</span>
+      </div>
+      <div class="flow-step">
+        <span class="num">3</span>
+        <div class="content">
+          <h3>Adrenaline dump — the "fight or flight" switch flips</h3>
+          <p>Your adrenal glands release a surge of adrenaline and cortisol to "rescue" you. This is the same chemical reaction as if you were being chased by a bear — except there's no bear. This causes your heart to race, palms to sweat, and your mind to snap wide awake.</p>
+        </div>
+        <span class="time">3:00 AM</span>
+      </div>
+      <div class="flow-step">
+        <span class="num">4</span>
+        <div class="content">
+          <h3>Hot flash follows</h3>
+          <p>The adrenaline surge triggers blood vessel dilation to cool the body down. Your core temperature drops rapidly, and you wake up drenched in sweat. The combination of racing heart + soaked sheets = terrifying.</p>
+        </div>
+        <span class="time">3:05 AM</span>
+      </div>
+    </div>
+
+    <!-- Two columns: Why it's NOT anxiety + Quick facts -->
+    <div class="two-col">
+      <div class="col-card" style="border-left: 3px solid #d4436b;">
+        <h3>🫀 Why It's NOT a Panic Attack</h3>
+        <ul>
+          <li>Panic attacks are triggered by the brain. This is triggered by your <strong>hormones</strong> — it's a chemical event, not a psychological one.</li>
+          <li>Real panic attacks happen anytime, not just at 3 AM on the dot. Hormone-driven wake-ups are <strong>clockwork</strong> — same time every night.</li>
+          <li>Knowing it's hormonal doesn't make it less real — but it means you can <strong>fix the cause</strong>, not just manage the symptom.</li>
+        </ul>
+      </div>
+      <div class="col-card" style="border-left: 3px solid #6366f1;">
+        <h3>📊 Quick Facts</h3>
+        <ul>
+          <li><strong>60-80%</strong> of perimenopausal women report this exact experience</li>
+          <li>The "3 AM wake-up" is the <strong>#1 most searched</strong> menopause sleep symptom</li>
+          <li>Each adrenaline spike raises cortisol for <strong>2-4 hours</strong> — making the next day harder</li>
+          <li>The pattern typically lasts <strong>1-3 years</strong> but can be significantly reduced</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- What helps -->
+    <div class="section-title">🌿 What Actually Helps</div>
+    <div class="help-grid">
+      <div class="help-card">
+        <span class="icon">🌬️</span>
+        <div class="text">
+          <h4>4-7-8 Breathing</h4>
+          <p>Inhale 4s, hold 7s, exhale 8s. Activates your vagus nerve and overrides the adrenaline. Do it in bed — don't get up.</p>
+        </div>
+      </div>
+      <div class="help-card">
+        <span class="icon">🧊</span>
+        <div class="text">
+          <h4>Cool the Room</h4>
+          <p>Keep your bedroom below 68°F (20°C). Use a fan aimed at your face and chest. A cool neck wrap helps mid-flash.</p>
+        </div>
+      </div>
+      <div class="help-card">
+        <span class="icon">🎵</span>
+        <div class="text">
+          <h4>Hot Flash Calm Tone</h4>
+          <p>A 5.5 Hz theta isochronic tone regulates your nervous system temperature response. Use earbuds at bedtime.</p>
+        </div>
+      </div>
+      <div class="help-card">
+        <span class="icon">🍷</span>
+        <div class="text">
+          <h4>No Alcohol After 7 PM</h4>
+          <p>Alcohol blocks deep sleep and worsens the 3 AM adrenaline surge. Even one glass can double your night sweat intensity.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quote box -->
+    <div class="quote-box">
+      <p>💡 <strong>You are not broken.</strong> Your body is not betraying you. It's a thermostat that needs recalibrating — and there are proven tools to do exactly that. The exercises, tones, and breathing techniques in this app were built for this moment.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Built for the menopause community — <a href="https://menopause-wellness.onrender.com/free-guide">menopause-wellness.onrender.com/free-guide</a></p>
+  </div>
+</div>
+</body>
+</html>

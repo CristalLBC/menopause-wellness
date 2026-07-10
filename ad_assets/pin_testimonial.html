@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pin — Testimonial</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f0e8e0; padding: 20px; }
+  .pin {
+    width: 1000px; height: 1500px;
+    background: linear-gradient(135deg, #fdf6f0 0%, #f8ede4 50%, #fdf6f0 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem; position: relative; overflow: hidden;
+    border-radius: 24px;
+  }
+  .bg-blob1 { position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(212,67,107,0.06), transparent); }
+  .bg-blob2 { position: absolute; bottom: -80px; left: -40px; width: 250px; height: 250px; border-radius: 50%; background: radial-gradient(circle, rgba(46,204,113,0.05), transparent); }
+  .badge {
+    background: rgba(212,67,107,0.1); border: 1px solid rgba(212,67,107,0.2);
+    color: #d4436b; padding: 0.4rem 1.2rem; border-radius: 2rem;
+    font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 1.5rem; font-family: Arial, sans-serif; z-index: 1;
+  }
+  .stars { font-size: 2rem; color: #f59e0b; margin-bottom: 1rem; z-index: 1; letter-spacing: 0.3rem; }
+  .quote-mark { font-size: 6rem; color: rgba(212,67,107,0.1); font-family: Georgia, serif; line-height: 0.3; margin-bottom: 1.5rem; z-index: 1; }
+  .quote {
+    font-size: 2rem; font-weight: 600; color: #2D3436; text-align: center;
+    line-height: 1.4; max-width: 650px; font-family: Georgia, serif; z-index: 1;
+  }
+  .quote em { font-style: italic; color: #d4436b; }
+  .attrib {
+    margin-top: 1.5rem; text-align: center; z-index: 1;
+  }
+  .attrib .name { font-size: 1.1rem; font-weight: 700; color: #1a1a2e; }
+  .attrib .detail { font-size: 0.85rem; color: #7a7a8a; margin-top: 0.2rem; }
+  .result {
+    margin-top: 2rem; display: flex; gap: 2rem; z-index: 1;
+  }
+  .result-item { text-align: center; }
+  .result-item .n { font-size: 1.8rem; font-weight: 700; color: #d4436b; }
+  .result-item .l { font-size: 0.75rem; color: #7a7a8a; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.15rem; }
+  .cta {
+    margin-top: 2.5rem;
+    background: linear-gradient(135deg, #d4436b, #b8305a); color: white;
+    padding: 1rem 3rem; border-radius: 3rem; font-size: 1.1rem; font-weight: 700;
+    font-family: Arial, sans-serif; z-index: 1; box-shadow: 0 8px 24px rgba(212,67,107,0.3);
+  }
+  .url { position: absolute; bottom: 2rem; font-size: 0.8rem; color: #a0a0a0; font-family: Arial, sans-serif; z-index: 1; }
+</style>
+</head>
+<body>
+<div class="pin">
+  <div class="bg-blob1"></div>
+  <div class="bg-blob2"></div>
+  <div class="badge">⭐ Real Results</div>
+  <div class="stars">★★★★★</div>
+  <div class="quote-mark">"</div>
+  <div class="quote">I stopped hot flashes in <em>2 weeks</em><br>with 15 minutes a day of this.</div>
+  <div class="attrib">
+    <div class="name">— Sarah M.</div>
+    <div class="detail">Age 52 • Post-menopause • 3 months using the app</div>
+  </div>
+  <div class="result">
+    <div class="result-item"><div class="n">↓80%</div><div class="l">Hot flash reduction</div></div>
+    <div class="result-item"><div class="n">2.8 cm</div><div class="l">Waist loss</div></div>
+    <div class="result-item"><div class="n">15 min</div><div class="l">Per day</div></div>
+  </div>
+  <div class="cta">Start Your Journey →</div>
+  <div class="url">menopause-wellness.onrender.com/free-guide</div>
+</div>
+</body>
+</html>

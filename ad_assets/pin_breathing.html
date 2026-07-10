@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinterest Pin — Breathing</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f0e8e0; }
+  .pin {
+    width: 1000px; height: 1500px;
+    background: linear-gradient(135deg, #0a1a1e 0%, #0f1f2e 50%, #0a0e17 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem; font-family: 'Georgia', 'Times New Roman', serif; position: relative; overflow: hidden;
+  }
+  .circle-bg {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(6,182,212,0.06), transparent 60%);
+  }
+  .badge {
+    background: rgba(6,182,212,0.15); border: 1px solid rgba(6,182,212,0.3);
+    color: #80d8e8; padding: 0.5rem 1.5rem; border-radius: 2rem;
+    font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 2rem; font-family: 'Arial', sans-serif; position: relative; z-index: 1;
+  }
+  .breath-circle {
+    width: 160px; height: 160px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #06b6d4, #0a5a6a);
+    box-shadow: 0 0 80px rgba(6,182,212,0.15), 0 0 160px rgba(6,182,212,0.05);
+    margin-bottom: 2rem; position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    animation: pulse 8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.4); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.3); }
+  }
+  .breath-circle span { font-size: 3rem; filter: brightness(1.5); }
+  .title {
+    font-size: 2.8rem; font-weight: 700; color: #e0e0f0; text-align: center;
+    line-height: 1.2; margin-bottom: 1rem; position: relative; z-index: 1;
+  }
+  .title em { font-style: normal; color: #06b6d4; }
+  .subtitle {
+    font-size: 1.3rem; color: #a0a0b0; text-align: center; line-height: 1.6;
+    max-width: 550px; margin-bottom: 1rem; font-weight: 300; position: relative; z-index: 1;
+  }
+  .patterns {
+    display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; justify-content: center;
+    position: relative; z-index: 1;
+  }
+  .pattern {
+    text-align: center; padding: 0.8rem 1.2rem;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 1rem; min-width: 120px;
+  }
+  .pattern .name { font-size: 0.9rem; color: #e0e0f0; font-weight: 600; }
+  .pattern .time { font-size: 0.75rem; color: #8080a0; }
+  .cta {
+    background: linear-gradient(135deg, #06b6d4, #0a8a9a); color: white;
+    padding: 1rem 3rem; border-radius: 3rem; font-size: 1.1rem; font-weight: 700;
+    text-decoration: none; font-family: 'Arial', sans-serif; position: relative; z-index: 1;
+    box-shadow: 0 8px 24px rgba(6,182,212,0.3);
+  }
+  .url {
+    position: absolute; bottom: 2rem; font-size: 0.8rem; color: #606080;
+    font-family: 'Arial', sans-serif; z-index: 1;
+  }
+</style>
+</head>
+<body>
+<div class="pin">
+  <div class="circle-bg"></div>
+  <div class="badge">🌬️ 60 Seconds to Calm</div>
+  <div class="breath-circle"><span>🌊</span></div>
+  <div class="title">Breathe Away a <em>Hot Flash</em></div>
+  <div class="subtitle">4-7-8 breathing activates your vagus nerve and cools your nervous system in under a minute.</div>
+  <div class="patterns">
+    <div class="pattern"><div class="name">🌬️ Wim Hof</div><div class="time">11 min</div></div>
+    <div class="pattern"><div class="name">🧘 4-7-8</div><div class="time">6 min</div></div>
+    <div class="pattern"><div class="name">⬜ Box</div><div class="time">5 min</div></div>
+    <div class="pattern"><div class="name">🌊 Calming Wave</div><div class="time">8 min</div></div>
+  </div>
+  <div class="cta">Get the Free Guide →</div>
+  <div class="url">menopause-wellness.onrender.com/free-guide</div>
+</div>
+</body>
+</html>

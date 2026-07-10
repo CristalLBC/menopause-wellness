@@ -691,11 +691,24 @@ def decoder():
     tones_list = IsochronicTone.query.all()
     articles_list = Article.query.filter_by(published=True).order_by(Article.created_at.desc()).all()
 
+    # Convert to dicts for JSON serialization in template
+    exercises_data = [{'id': e.id, 'order': e.order, 'name': e.name,
+                       'icon': e.icon, 'target_muscles': e.target_muscles,
+                       'category': e.category} for e in exercises_list]
+
+    tones_data = [{'id': t.id, 'preset_id': t.preset_id, 'name': t.name,
+                   'icon': t.icon, 'description': t.description[:100] if t.description else '',
+                   'brainwave_label': t.brainwave_label} for t in tones_list]
+
+    articles_data = [{'id': a.id, 'slug': a.slug, 'title': a.title,
+                      'category': a.category, 'summary': a.summary[:100] if a.summary else ''}
+                     for a in articles_list]
+
     return render_template('decoder.html',
         decoder_data=decoder_data,
-        exercises=exercises_list,
-        tones=tones_list,
-        articles=articles_list,
+        exercises=exercises_data,
+        tones=tones_data,
+        articles=articles_data,
         symptoms_types=SYMPTOM_TYPES,
         symptoms_labels=SYMPTOM_LABELS
     )

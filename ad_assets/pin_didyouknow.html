@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinterest Pin — Did You Know</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f0e8e0; }
+  .pin {
+    width: 1000px; height: 1500px;
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem; font-family: 'Georgia', 'Times New Roman', serif; position: relative; overflow: hidden;
+  }
+  .bg-icon { position: absolute; top: 2rem; right: 2rem; font-size: 8rem; opacity: 0.04; }
+  .badge {
+    background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
+    color: #f0c080; padding: 0.5rem 1.5rem; border-radius: 2rem;
+    font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 2rem; font-family: 'Arial', sans-serif; position: relative; z-index: 1;
+  }
+  .emoji-big { font-size: 5rem; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+  .title {
+    font-size: 2.8rem; font-weight: 700; color: #e0e0f0; text-align: center;
+    line-height: 1.2; margin-bottom: 1.5rem; position: relative; z-index: 1;
+  }
+  .title em { font-style: normal; color: #f59e0b; }
+  .fact-box {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 1.5rem; padding: 2rem; max-width: 650px;
+    position: relative; z-index: 1; margin-bottom: 2rem;
+  }
+  .fact-box p {
+    font-size: 1.3rem; color: #a0a0c0; text-align: center; line-height: 1.6;
+    font-weight: 300;
+  }
+  .fact-box strong { color: #f0a0b0; }
+  .cta {
+    background: linear-gradient(135deg, #d4436b, #b8305a); color: white;
+    padding: 1rem 3rem; border-radius: 3rem; font-size: 1.1rem; font-weight: 700;
+    text-decoration: none; font-family: 'Arial', sans-serif; position: relative; z-index: 1;
+    box-shadow: 0 8px 24px rgba(212,67,107,0.3);
+  }
+  .url {
+    position: absolute; bottom: 2rem; font-size: 0.8rem; color: #606080;
+    font-family: 'Arial', sans-serif; z-index: 1;
+  }
+</style>
+</head>
+<body>
+<div class="pin">
+  <div class="bg-icon">🌡️</div>
+  <div class="badge">💡 Did you know?</div>
+  <div class="emoji-big">⚡</div>
+  <div class="title">That 3 AM <em>Heart-Racing</em><br>Wake-Up Call?</div>
+  <div class="fact-box">
+    <p>It's not panic. It's an <strong>adrenaline surge</strong> triggered by your brain trying to regulate your dropping estrogen. Your body literally dumps emergency fuel into your system at 3 AM.</p>
+  </div>
+  <p style="color:#8080a0;font-size:1rem;margin-bottom:2rem;font-family:'Arial',sans-serif;position:relative;z-index:1;">Learn why this happens — and how to stop it</p>
+  <div class="cta">See the Full Guide →</div>
+  <div class="url">menopause-wellness.onrender.com/free-guide</div>
+</div>
+</body>
+</html>

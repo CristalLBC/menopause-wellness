@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pin — Front Plank</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f0e8e0; padding: 20px; }
+  .pin {
+    width: 1000px; height: 1500px;
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem; position: relative; overflow: hidden;
+    border-radius: 24px;
+  }
+  .badge {
+    background: rgba(46,204,113,0.15); border: 1px solid rgba(46,204,113,0.3);
+    color: #80d8a0; padding: 0.5rem 1.5rem; border-radius: 2rem;
+    font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 2rem; font-family: Arial, sans-serif; z-index: 1;
+  }
+  .icon { font-size: 5rem; margin-bottom: 1.5rem; z-index: 1; }
+  .title {
+    font-size: 3rem; font-weight: 700; color: #e0e0f0; text-align: center;
+    line-height: 1.2; margin-bottom: 1rem; font-family: Georgia, serif; z-index: 1;
+  }
+  .title em { font-style: normal; color: #2ecc71; }
+  .sub {
+    font-size: 1.2rem; color: #a0a0c0; text-align: center; line-height: 1.5;
+    margin-bottom: 2rem; font-weight: 300; font-family: Arial, sans-serif; z-index: 1;
+  }
+  .stats { display: flex; gap: 2rem; margin-bottom: 2.5rem; z-index: 1; }
+  .stat { text-align: center; }
+  .stat .n { font-size: 1.6rem; font-weight: 700; color: #2ecc71; }
+  .stat .l { font-size: 0.75rem; color: #8080a0; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.2rem; }
+  .cta {
+    background: linear-gradient(135deg, #2ecc71, #27ae60); color: white;
+    padding: 1rem 3rem; border-radius: 3rem; font-size: 1.1rem; font-weight: 700;
+    font-family: Arial, sans-serif; z-index: 1; box-shadow: 0 8px 24px rgba(46,204,113,0.3);
+  }
+  .url { position: absolute; bottom: 2rem; font-size: 0.8rem; color: #606080; font-family: Arial, sans-serif; z-index: 1; }
+  .bg-c { position: absolute; top: -100px; right: -80px; width: 350px; height: 350px; border-radius: 50%; background: radial-gradient(circle, rgba(46,204,113,0.08), transparent); }
+</style>
+</head>
+<body>
+<div class="pin">
+  <div class="bg-c"></div>
+  <div class="badge">🏋️ #1 Exercise for Menopause</div>
+  <div class="icon">📐</div>
+  <div class="title">The <em>Front Plank</em><br>That Flattens Your Belly</div>
+  <div class="sub">Holds your deep core for 30 seconds —<br>more effective than 100 crunches</div>
+  <div class="stats">
+    <div class="stat"><div class="n">60s</div><div class="l">Target hold</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Equipment</div></div>
+    <div class="stat"><div class="n">15</div><div class="l">Exercises total</div></div>
+  </div>
+  <div class="cta">Get the Free Exercise Guide →</div>
+  <div class="url">menopause-wellness.onrender.com/free-guide</div>
+</div>
+</body>
+</html>
