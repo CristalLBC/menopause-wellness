@@ -4,7 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Menopause Wellness{% endblock %}</title>
+    <meta name="description" content="{% block meta_desc %}Menopause Wellness - evidence-based isometric exercises, isochronic brainwave tones, and health tracking for women navigating perimenopause, menopause, and postmenopause.{% endblock %}">
+    <meta name="keywords" content="menopause wellness, isometric exercise, menopause relief, isochronic tones, perimenopause, hot flash relief, women's health, pelvic health, menopause symptoms">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ request.url }}">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Menopause Wellness">
+    <meta property="og:title" content="{% block og_title %}Menopause Wellness - Isometric Exercise &amp; Health Tracking{% endblock %}">
+    <meta property="og:description" content="{% block og_desc %}Evidence-based isometric exercises and isochronic brainwave tones designed specifically for women in all stages of menopause.{% endblock %}">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}Menopause Wellness{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_desc %}Evidence-based isometric exercises and brainwave tones for menopause relief.{% endblock %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231a0a2e'/%3E%3Ctext x='16' y='22' font-size='20' text-anchor='middle' fill='%23ff6b9d'%3E%E2%99%80%3C/text%3E%3C/svg%3E">
+    <link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231a0a2e'/%3E%3Ctext x='16' y='22' font-size='20' text-anchor='middle' fill='%23ff6b9d'%3E%E2%99%80%3C/text%3E%3C/svg%3E">
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Menopause Wellness",
+        "url": "https://menopause-wellness.onrender.com",
+        "description": "Evidence-based isometric exercises and isochronic brainwave tones for women in all stages of menopause.",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
     {% block extra_head %}{% endblock %}
 </head>
 <body>
