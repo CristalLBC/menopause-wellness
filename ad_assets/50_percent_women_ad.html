@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ad — 50% of Us Are Women</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #e8e0d8; padding: 20px; flex-direction: column; gap: 40px; }
+  
+  .ad {
+    width: 1000px; height: 1500px;
+    border-radius: 24px; overflow: hidden;
+    position: relative; font-family: 'Georgia', 'Times New Roman', serif;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  }
+  
+  /* ─── MAIN AD: "50% of us are women" ─── */
+  .ad-main {
+    background: linear-gradient(160deg, #1a0f1e 0%, #2a1a2e 30%, #1a1a2e 60%, #121827 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem; position: relative;
+  }
+  .ad-main .glow-big {
+    position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,67,107,0.05), rgba(167,139,250,0.03), transparent 70%);
+    z-index: 0;
+  }
+  .ad-main .glow-small {
+    position: absolute; bottom: -60px; right: -60px;
+    width: 350px; height: 350px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(167,139,250,0.04), transparent);
+  }
+  .ad-main .percentage {
+    font-size: 7rem; font-weight: 700;
+    background: linear-gradient(135deg, #d4436b, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1; margin-bottom: 0.5rem; z-index: 1;
+    letter-spacing: -3px;
+  }
+  .ad-main .stat-line {
+    font-size: 1.1rem; color: #c0b0d0; text-align: center;
+    font-family: 'Segoe UI', Arial, sans-serif; font-weight: 300;
+    margin-bottom: 2rem; z-index: 1;
+    letter-spacing: 0.3em; text-transform: uppercase;
+  }
+  .ad-main .hook {
+    font-size: 2.4rem; font-weight: 700; color: #f0e4f0; text-align: center;
+    line-height: 1.3; margin-bottom: 0.6rem; z-index: 1;
+  }
+  .ad-main .hook em { font-style: normal; color: #f090a0; }
+  .ad-main .sub {
+    font-size: 1.05rem; color: #a098b8; text-align: center; line-height: 1.7;
+    max-width: 530px; font-family: 'Segoe UI', Arial, sans-serif;
+    margin-bottom: 0.8rem; z-index: 1;
+  }
+  .ad-main .pain-list {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    margin-bottom: 1.5rem; z-index: 1; width: 100%; max-width: 400px;
+  }
+  .ad-main .pain-item {
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px; padding: 0.5rem 1rem;
+    font-size: 0.85rem; color: #b0a8c0;
+    font-family: 'Segoe UI', Arial, sans-serif; text-align: center;
+  }
+  .ad-main .divider {
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(212,67,107,0.3), transparent);
+    margin-bottom: 1.2rem; z-index: 1;
+  }
+  .ad-main .solution {
+    font-size: 1.1rem; color: #a0d0b0; text-align: center;
+    font-family: 'Segoe UI', Arial, sans-serif; font-weight: 600;
+    margin-bottom: 0.5rem; z-index: 1;
+  }
+  .ad-main .free-badge {
+    background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.2);
+    color: #70d090; padding: 0.35rem 1.2rem; border-radius: 2rem;
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em;
+    margin-bottom: 1.3rem; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+  }
+  .ad-main .cta {
+    background: linear-gradient(135deg, #d4436b, #b8305a); color: white;
+    padding: 1.1rem 3.5rem; border-radius: 3rem; font-size: 1.1rem; font-weight: 700;
+    font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+    box-shadow: 0 8px 30px rgba(212,67,107,0.35);
+    text-align: center; width: 100%; max-width: 460px;
+    cursor: pointer;
+  }
+  .ad-main .url { position: absolute; bottom: 1.5rem; font-size: 0.7rem; color: #505870; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1; letter-spacing: 0.05em; }
+
+  /* ─── SQUARE VARIANT (Instagram/FB) ─── */
+  .ad-square {
+    width: 600px; height: 600px;
+    border-radius: 20px; overflow: hidden;
+    position: relative; font-family: 'Georgia', 'Times New Roman', serif;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+  .sq {
+    background: linear-gradient(160deg, #1a0f1e 0%, #2a1a2e 50%, #1a1a2e 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 2.5rem; text-align: center;
+  }
+  .sq .pct { font-size: 4rem; font-weight: 700; background: linear-gradient(135deg, #d4436b, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; margin-bottom: 0.3rem; }
+  .sq .hook { font-size: 1.7rem; font-weight: 700; color: #f0e4f0; line-height: 1.25; margin-bottom: 0.6rem; }
+  .sq .hook em { font-style: normal; color: #f090a0; }
+  .sq .sub { font-size: 0.85rem; color: #a098b8; font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.5; margin-bottom: 0.8rem; max-width: 380px; }
+  .sq .free-tag { color: #70d090; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; font-family: 'Segoe UI', sans-serif; margin-bottom: 1rem; }
+  .sq .cta-sm {
+    background: linear-gradient(135deg, #d4436b, #b8305a); color: white;
+    padding: 0.8rem 2.5rem; border-radius: 2.5rem; font-size: 0.95rem; font-weight: 700;
+    font-family: 'Segoe UI', Arial, sans-serif; display: inline-block;
+  }
+
+  /* ─── STORY VARIANT (9:16) ─── */
+  .ad-story {
+    width: 500px; height: 890px;
+    border-radius: 20px; overflow: hidden;
+    position: relative; font-family: 'Georgia', 'Times New Roman', serif;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+  .story {
+    background: linear-gradient(160deg, #1a0f1e 0%, #2a1a2e 40%, #121827 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 2rem; text-align: center;
+  }
+  .story .pct { font-size: 5rem; font-weight: 700; background: linear-gradient(135deg, #d4436b, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; margin-bottom: 0.5rem; }
+  .story .hook { font-size: 2rem; font-weight: 700; color: #f0e4f0; line-height: 1.2; margin-bottom: 0.8rem; }
+  .story .hook em { font-style: normal; color: #f090a0; }
+  .story .sub { font-size: 0.9rem; color: #a098b8; font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; margin-bottom: 1.5rem; max-width: 400px; }
+  .story .cta-sm {
+    background: linear-gradient(135deg, #d4436b, #b8305a); color: white;
+    padding: 0.85rem 2.5rem; border-radius: 2.5rem; font-size: 1rem; font-weight: 700;
+    font-family: 'Segoe UI', Arial, sans-serif; display: inline-block;
+  }
+  .story .url { position: absolute; bottom: 1.5rem; font-size: 0.65rem; color: #505870; font-family: 'Segoe UI', Arial, sans-serif; letter-spacing: 0.05em; }
+
+  .label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 0.8rem; color: #9a8a8a; text-align: center; margin-top: 6px; }
+  .row { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; align-items: flex-start; }
+</style>
+</head>
+<body>
+
+<div style="max-width: 1100px; width: 100%; padding: 20px 0; text-align: center;">
+  <div style="display:inline-block;background:#d4436b;color:white;padding:0.3rem 1.2rem;border-radius:2rem;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;font-family:'Segoe UI',sans-serif;margin-bottom:0.5rem;">New Ad</div>
+  <h1 style="font-size:2.2rem;color:#1a1a2e;font-family:Georgia,serif;margin-bottom:0.5rem;">"50% of Us Are Women"</h1>
+  <p style="font-family:'Segoe UI',sans-serif;color:#7a6a6a;max-width:600px;margin:0 auto;line-height:1.6;">All formats ready to post. Use the copy from <strong style="color:#d4436b;">ad_assets\50_percent_women_ad_copy.md</strong> as your caption.</p>
+</div>
+
+<!-- ─── FULL-SIZE AD (1000x1500) ─── -->
+<div class="ad ad-main">
+  <div class="glow-big"></div>
+  <div class="glow-small"></div>
+  <div class="percentage">50%</div>
+  <div class="stat-line">of us are women</div>
+  <div class="hook">...but something no one<br><em>talked to us about.</em></div>
+  <div class="sub">Not our moms. Not our doctors. Not our friends.<br>And yet almost every woman goes through it.</div>
+  <div class="divider"></div>
+  <div class="pain-list">
+    <div class="pain-item">🔥 Hot flashes & night sweats nobody warned us about</div>
+    <div class="pain-item">🧠 Brain fog that makes us feel "crazy"</div>
+    <div class="pain-item">🦋 Belly fat that won't budge no matter what</div>
+    <div class="pain-item">😴 3 AM wake-ups with a racing heart</div>
+  </div>
+  <div class="solution">📖 The FREE guide explains ALL of it.</div>
+  <div class="free-badge">🎁 FREE DOWNLOAD — NO CREDIT CARD</div>
+  <div class="cta">💜 Get the Ultimate Menopause Guide →</div>
+  <div class="url">menopause-wellness.onrender.com/free-guide</div>
+</div>
+
+<br><br>
+<p style="font-family:'Segoe UI',sans-serif;color:#9a8a8a;font-size:0.9rem;">⬇️ Square & Story formats below ⬇️</p>
+<br>
+
+<!-- ─── ROW: SQUARE + STORY ─── -->
+<div class="row">
+
+  <!-- SQUARE (600x600) -->
+  <div>
+    <div class="ad-square sq">
+      <div class="pct">50%</div>
+      <div class="hook">of us are women.<br>Something <em>no one</em> talked about.</div>
+      <div class="sub">Not our moms. Not our doctors.<br>The free guide changes that.</div>
+      <div class="free-tag">🎁 FREE • Ultimate Menopause Guide</div>
+      <div class="cta-sm">💜 Download Free →</div>
+    </div>
+    <div class="label">📱 Instagram / Facebook Feed — Square</div>
+  </div>
+
+  <!-- STORY (9:16) -->
+  <div>
+    <div class="ad-story story">
+      <div class="pct">50%</div>
+      <div class="hook">of us are women.<br><em>No one told us.</em></div>
+      <div class="sub">Hot flashes. Brain fog. Belly fat.<br>The FREE guide explains everything.</div>
+      <div class="cta-sm">💜 Get the Guide</div>
+      <div class="url">menopause-wellness.onrender.com/free-guide</div>
+    </div>
+    <div class="label">📱 Instagram / Facebook Story</div>
+  </div>
+
+</div>
+
+<!-- ─── QUICK REFERENCE BOX ─── -->
+<br><br>
+<div style="max-width:1000px;width:100%;background:white;border-radius:24px;padding:2rem;box-shadow:0 8px 30px rgba(0,0,0,0.04);font-family:'Segoe UI',Arial,sans-serif;">
+  <h2 style="font-family:Georgia,serif;color:#1a1a2e;margin-bottom:1rem;">✏️ How to Post This</h2>
+  
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+    
+    <div style="background:#f8f0f8;border-radius:12px;padding:1.2rem;">
+      <h3 style="color:#7c5cbf;font-size:0.95rem;margin-bottom:0.5rem;">📱 Instagram / Facebook</h3>
+      <p style="font-size:0.85rem;color:#6a5a5a;line-height:1.6;">
+        <strong>Image:</strong> Square version above<br>
+        <strong>Caption:</strong> Use the caption from <code style="background:#eee;padding:0.1rem 0.4rem;border-radius:4px;">50_percent_women_ad_copy.md</code><br>
+        <strong>Link:</strong> <a href="https://bit.ly/4eWViyw" style="color:#d4436b;">bit.ly/4eWViyw</a> in bio<br>
+        <strong>Hashtags:</strong> #menopause #womenshealth #perimenopause #menopausesupport
+      </p>
+    </div>
+
+    <div style="background:#f0f8f0;border-radius:12px;padding:1.2rem;">
+      <h3 style="color:#2ecc71;font-size:0.95rem;margin-bottom:0.5rem;">📌 Pinterest</h3>
+      <p style="font-size:0.85rem;color:#6a5a5a;line-height:1.6;">
+        <strong>Image:</strong> Full-size vertical ad (1000×1500)<br>
+        <strong>Title:</strong> "50% of Us Are Women — So Why Did No One Tell Us About Menopause?"<br>
+        <strong>Link:</strong> <a href="https://bit.ly/4eWViyw" style="color:#d4436b;">bit.ly/4eWViyw</a><br>
+        <strong>Board:</strong> Menopause Health & Wellness
+      </p>
+    </div>
+
+  </div>
+
+  <hr style="border:none;border-top:1px solid #e8e0d8;margin:1.5rem 0;">
+
+  <div style="text-align:center;">
+    <p style="font-size:0.9rem;color:#7a6a6a;margin-bottom:0.5rem;">📂 All copy is saved in:</p>
+    <code style="background:#f0ece6;padding:0.3rem 0.8rem;border-radius:6px;font-size:0.85rem;">C:\Users\crist\menopause-wellness-app\ad_assets\50_percent_women_ad_copy.md</code>
+  </div>
+</div>
+
+</body>
+</html>

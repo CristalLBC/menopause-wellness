@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Menopause Guide — Ad Package</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f0ece6; padding: 20px; flex-direction: column; gap: 40px; }
+  .section-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 1.5rem; color: #1a1a2e; font-weight: 700; text-align: center; margin-bottom: 20px; }
+  .section-sub { font-family: 'Segoe UI', Arial, sans-serif; font-size: 0.95rem; color: #7a6a6a; text-align: center; margin-bottom: 20px; max-width: 700px; line-height: 1.5; }
+  
+  .ad {
+    width: 1000px; height: 1500px;
+    border-radius: 24px; overflow: hidden;
+    position: relative; font-family: 'Georgia', 'Times New Roman', serif;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  }
+  
+  /* ─────────────────────────────────────────────
+     AD 1: "3 AM Heart Racing" — Emotional Hook
+     ───────────────────────────────────────────── */
+  .ad1 {
+    background: linear-gradient(160deg, #0a0e17 0%, #1a0f24 40%, #121827 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem; position: relative;
+  }
+  .ad1 .glow-orb {
+    position: absolute; top: 20%; right: -80px; width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,67,107,0.06), transparent 70%);
+  }
+  .ad1 .glow-orb2 {
+    position: absolute; bottom: -60px; left: -100px; width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(167,139,250,0.04), transparent 70%);
+  }
+  .ad1 .clock-icon {
+    font-size: 4rem; margin-bottom: 1rem; z-index: 1;
+    color: #f0a0b0; text-shadow: 0 0 40px rgba(212,67,107,0.3);
+  }
+  .ad1 .hook {
+    font-size: 3.2rem; font-weight: 700; color: #f0e4f0; text-align: center;
+    line-height: 1.15; margin-bottom: 1rem; z-index: 1;
+  }
+  .ad1 .hook em { font-style: normal; color: #f090a0; }
+  .ad1 .pain-text {
+    font-size: 1.1rem; color: #9098b0; text-align: center; line-height: 1.7;
+    max-width: 500px; font-family: 'Segoe UI', Arial, sans-serif;
+    margin-bottom: 1.5rem; z-index: 1;
+  }
+  .ad1 .divider {
+    width: 60px; height: 2px; background: linear-gradient(90deg, transparent, rgba(212,67,107,0.4), transparent);
+    margin-bottom: 1.5rem; z-index: 1;
+  }
+  .ad1 .solution {
+    font-size: 1.5rem; color: #c8b0e0; text-align: center;
+    font-family: 'Georgia', serif; font-style: italic;
+    margin-bottom: 0.5rem; z-index: 1;
+  }
+  .ad1 .free-badge {
+    background: rgba(46,204,113,0.12); border: 1px solid rgba(46,204,113,0.25);
+    color: #70d090; padding: 0.35rem 1.2rem; border-radius: 2rem;
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em;
+    margin-bottom: 1.5rem; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+  }
+  .ad1 .cta {
+    background: linear-gradient(135deg, #d4436b, #b8305a); color: white;
+    padding: 1.1rem 3.5rem; border-radius: 3rem; font-size: 1.15rem; font-weight: 700;
+    font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+    box-shadow: 0 8px 30px rgba(212,67,107,0.35);
+    text-align: center; width: 100%; max-width: 450px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .ad1 .cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(212,67,107,0.45); }
+  .ad1 .url { position: absolute; bottom: 1.5rem; font-size: 0.7rem; color: #505870; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1; letter-spacing: 0.05em; }
+
+  /* ─────────────────────────────────────────────
+     AD 2: "Your Body's Software Update" — Education Angle
+     ───────────────────────────────────────────── */
+  .ad2 {
+    background: linear-gradient(145deg, #fdf8f2 0%, #f8ede4 50%, #fef9f4 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem; position: relative;
+  }
+  .ad2 .deco-1 { position: absolute; top: -30px; right: -30px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(212,67,107,0.04), transparent); }
+  .ad2 .deco-2 { position: absolute; bottom: -40px; left: -40px; width: 250px; height: 250px; border-radius: 50%; background: radial-gradient(circle, rgba(167,139,250,0.03), transparent); }
+  .ad2 .badge {
+    background: #d4436b; color: white; padding: 0.3rem 1.2rem; border-radius: 2rem;
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 1.2rem; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+  }
+  .ad2 h2 {
+    font-size: 2.8rem; font-weight: 700; color: #1a1a2e; text-align: center;
+    line-height: 1.2; margin-bottom: 0.4rem; z-index: 1;
+  }
+  .ad2 h2 em { font-style: normal; color: #d4436b; }
+  .ad2 .sub {
+    font-size: 1.15rem; color: #8a7a7a; text-align: center; line-height: 1.6;
+    max-width: 520px; font-family: 'Segoe UI', Arial, sans-serif; margin-bottom: 1.5rem; z-index: 1;
+  }
+  .ad2 .features {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;
+    width: 100%; max-width: 520px; margin-bottom: 1.8rem; z-index: 1;
+  }
+  .ad2 .feat {
+    background: white; border: 1px solid #f0e8e0;
+    border-radius: 12px; padding: 0.8rem 1rem; text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+  .ad2 .feat .icon { font-size: 1.5rem; }
+  .ad2 .feat .label { font-size: 0.8rem; color: #6a5a5a; font-family: 'Segoe UI', Arial, sans-serif; margin-top: 0.15rem; font-weight: 600; }
+  .ad2 .price-tag {
+    background: rgba(46,204,113,0.08); border: 1px solid rgba(46,204,113,0.2);
+    color: #2ecc71; padding: 0.4rem 1.4rem; border-radius: 2rem;
+    font-size: 0.95rem; font-weight: 700; font-family: 'Segoe UI', Arial, sans-serif;
+    margin-bottom: 1.3rem; z-index: 1;
+  }
+  .ad2 .cta {
+    background: #1a1a2e; color: white;
+    padding: 1.1rem 3.5rem; border-radius: 3rem; font-size: 1.15rem; font-weight: 700;
+    font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+    text-align: center; width: 100%; max-width: 450px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .ad2 .cta:hover { background: #2a2a4e; transform: translateY(-2px); }
+
+  /* ─────────────────────────────────────────────
+     AD 3: "Why Is My Body Changing?" — Relatable Confusion
+     ───────────────────────────────────────────── */
+  .ad3 {
+    background: linear-gradient(150deg, #f0e8f8 0%, #e8e0f0 50%, #fdf6ff 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem; position: relative;
+  }
+  .ad3 .top-wave {
+    position: absolute; top: 0; left: 0; right: 0; height: 200px;
+    background: linear-gradient(180deg, rgba(167,139,250,0.04), transparent);
+  }
+  .ad3 .badge {
+    background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.2);
+    color: #7c5cbf; padding: 0.4rem 1.2rem; border-radius: 2rem;
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 1rem; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+  }
+  .ad3 .big-q {
+    font-size: 6rem; color: rgba(167,139,250,0.12); font-weight: 700;
+    position: absolute; top: 2rem; left: 3rem; font-family: Georgia, serif; z-index: 0;
+  }
+  .ad3 h2 {
+    font-size: 2.6rem; font-weight: 700; color: #2a1a3e; text-align: center;
+    line-height: 1.2; margin-bottom: 0.8rem; z-index: 1;
+  }
+  .ad3 h2 em { font-style: normal; color: #7c5cbf; }
+  .ad3 .sub {
+    font-size: 1.1rem; color: #7a6a8a; text-align: center; line-height: 1.7;
+    max-width: 480px; font-family: 'Segoe UI', Arial, sans-serif; margin-bottom: 1.8rem; z-index: 1;
+  }
+  .ad3 .guide-mockup {
+    width: 220px; height: 300px; background: white; border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.06); margin-bottom: 1.5rem; z-index: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 1.5rem; border: 1px solid #e8e0ee;
+  }
+  .ad3 .guide-mockup .g-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .ad3 .guide-mockup .g-title { font-size: 0.8rem; color: #7c5cbf; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+  .ad3 .guide-mockup .g-dash { width: 90%; height: 5px; background: #f0ecf5; border-radius: 3px; margin: 0.25rem 0; }
+  .ad3 .guide-mockup .g-dash:nth-child(4) { width: 70%; }
+  .ad3 .guide-mockup .g-dash:nth-child(5) { width: 80%; }
+  .ad3 .guide-mockup .g-dash:nth-child(6) { width: 60%; }
+  .ad3 .cta {
+    background: linear-gradient(135deg, #7c5cbf, #6a4aad); color: white;
+    padding: 1.1rem 3.5rem; border-radius: 3rem; font-size: 1.1rem; font-weight: 700;
+    font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+    box-shadow: 0 8px 24px rgba(124,92,191,0.3);
+    text-align: center; width: 100%; max-width: 450px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .ad3 .cta:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(124,92,191,0.4); }
+
+  /* ─────────────────────────────────────────────
+     AD 4: "Belly Fat After 45" — Specific Problem
+     ───────────────────────────────────────────── */
+  .ad4 {
+    background: linear-gradient(150deg, #1a1a2e 0%, #2a1a2e 50%, #1a2235 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem; position: relative;
+  }
+  .ad4 .glow-l { position: absolute; bottom: -100px; left: -80px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(212,67,107,0.04), transparent 70%); }
+  .ad4 .glow-r { position: absolute; top: -60px; right: -60px; width: 350px; height: 350px; border-radius: 50%; background: radial-gradient(circle, rgba(46,204,113,0.03), transparent 70%); }
+  .ad4 .icon-top { font-size: 3.5rem; margin-bottom: 0.8rem; z-index: 1; }
+  .ad4 .hook {
+    font-size: 2.6rem; font-weight: 700; color: #e8e0f0; text-align: center;
+    line-height: 1.2; margin-bottom: 0.8rem; z-index: 1;
+  }
+  .ad4 .hook em { font-style: normal; color: #f0a0b0; }
+  .ad4 .pain {
+    font-size: 1.05rem; color: #9098b0; text-align: center; line-height: 1.7;
+    max-width: 500px; font-family: 'Segoe UI', Arial, sans-serif; margin-bottom: 0.8rem; z-index: 1;
+  }
+  .ad4 .solution {
+    font-size: 1.05rem; color: #a0d0b0; text-align: center; font-weight: 600;
+    font-family: 'Segoe UI', Arial, sans-serif; margin-bottom: 1.5rem; z-index: 1;
+  }
+  .ad4 .features {
+    display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 1.8rem; z-index: 1; width: 100%; max-width: 480px;
+  }
+  .ad4 .feat {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px; padding: 0.5rem 0.8rem; text-align: center; flex: 1; min-width: 100px;
+  }
+  .ad4 .feat .icon { font-size: 1.2rem; }
+  .ad4 .feat .label { font-size: 0.7rem; color: #a0a0b0; font-family: 'Segoe UI', Arial, sans-serif; }
+  .ad4 .free-badge {
+    background: rgba(46,204,113,0.12); border: 1px solid rgba(46,204,113,0.25);
+    color: #70d090; padding: 0.35rem 1.2rem; border-radius: 2rem;
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em;
+    margin-bottom: 1.2rem; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+  }
+  .ad4 .cta {
+    background: linear-gradient(135deg, #d4436b, #b8305a); color: white;
+    padding: 1.1rem 3.5rem; border-radius: 3rem; font-size: 1.1rem; font-weight: 700;
+    font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+    box-shadow: 0 8px 30px rgba(212,67,107,0.35);
+    text-align: center; width: 100%; max-width: 450px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .ad4 .cta:hover { transform: translateY(-2px); }
+  .ad4 .url { position: absolute; bottom: 1.5rem; font-size: 0.7rem; color: #505870; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1; }
+
+  /* ─────────────────────────────────────────────
+     AD 5: Testimonial-Style Social Proof
+     ───────────────────────────────────────────── */
+  .ad5 {
+    background: linear-gradient(135deg, #fdf6f0 0%, #f8ede4 50%, #fef9f4 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem; position: relative;
+  }
+  .ad5 .bg-dots {
+    position: absolute; top: 2rem; right: 2rem;
+    font-size: 2rem; color: rgba(212,67,107,0.04); letter-spacing: 0.3rem; line-height: 1;
+    z-index: 0; font-family: 'Segoe UI', sans-serif;
+  }
+  .ad5 .quote-mark {
+    font-size: 5rem; color: rgba(212,67,107,0.08); font-family: Georgia, serif;
+    position: absolute; top: 1rem; left: 2.5rem; line-height: 1; z-index: 0;
+  }
+  .ad5 .avatar {
+    width: 70px; height: 70px; border-radius: 50%;
+    background: linear-gradient(135deg, #f0c0d0, #d4436b);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; margin-bottom: 1rem; z-index: 1;
+    color: white; font-weight: 700; font-family: 'Segoe UI', sans-serif;
+  }
+  .ad5 .testimonial {
+    font-size: 1.35rem; color: #3a2a2a; text-align: center;
+    line-height: 1.6; max-width: 520px; font-family: Georgia, serif;
+    font-style: italic; margin-bottom: 0.8rem; z-index: 1;
+  }
+  .ad5 .testimonial em { font-style: normal; color: #d4436b; }
+  .ad5 .attribution {
+    font-size: 0.85rem; color: #9a8a8a; font-family: 'Segoe UI', Arial, sans-serif;
+    margin-bottom: 1.5rem; z-index: 1;
+  }
+  .ad5 .attribution strong { color: #5a4a4a; }
+  .ad5 .result-line {
+    background: rgba(46,204,113,0.06); border: 1px solid rgba(46,204,113,0.15);
+    border-radius: 10px; padding: 0.6rem 1.5rem;
+    font-size: 0.9rem; color: #27ae60; font-weight: 600;
+    font-family: 'Segoe UI', Arial, sans-serif; margin-bottom: 1.5rem; z-index: 1;
+  }
+  .ad5 .cta {
+    background: #d4436b; color: white;
+    padding: 1.1rem 3.5rem; border-radius: 3rem; font-size: 1.1rem; font-weight: 700;
+    font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+    text-align: center; width: 100%; max-width: 450px;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 6px 20px rgba(212,67,107,0.2);
+  }
+  .ad5 .cta:hover { background: #e0557a; transform: translateY(-2px); }
+  .ad5 .url { position: absolute; bottom: 1.5rem; font-size: 0.7rem; color: #b0a0a0; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1; letter-spacing: 0.05em; }
+
+  /* ─── Ad variants for social media (square) ─── */
+  .ad-square {
+    width: 600px; height: 600px;
+    border-radius: 20px; overflow: hidden;
+    position: relative; font-family: 'Georgia', 'Times New Roman', serif;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    margin-bottom: 15px;
+  }
+  
+  /* S1: Instagram square — 3AM */
+  .s1 {
+    background: linear-gradient(160deg, #0a0e17 0%, #1a0f24 50%, #121827 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 2.5rem; text-align: center;
+  }
+  .s1 .hook { font-size: 2rem; font-weight: 700; color: #f0e4f0; line-height: 1.2; margin-bottom: 0.8rem; }
+  .s1 .hook em { font-style: normal; color: #f090a0; }
+  .s1 .sub { font-size: 0.9rem; color: #9098b0; font-family: 'Segoe UI', Arial, sans-serif; margin-bottom: 1.5rem; max-width: 400px; line-height: 1.5; }
+  .s1 .cta-sm {
+    background: linear-gradient(135deg, #d4436b, #b8305a); color: white;
+    padding: 0.8rem 2.5rem; border-radius: 2.5rem; font-size: 1rem; font-weight: 700;
+    font-family: 'Segoe UI', Arial, sans-serif; display: inline-block;
+  }
+  .s1 .free-tag { color: #70d090; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; font-family: 'Segoe UI', sans-serif; margin-top: 1rem; }
+
+  /* S2: Instagram square — Software Update / warm */
+  .s2 {
+    background: linear-gradient(145deg, #fdf8f2, #f5e8dc);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 2.5rem; text-align: center;
+  }
+  .s2 .hook { font-size: 1.8rem; font-weight: 700; color: #1a1a2e; line-height: 1.25; margin-bottom: 0.6rem; }
+  .s2 .hook em { font-style: normal; color: #d4436b; }
+  .s2 .sub { font-size: 0.85rem; color: #8a7a7a; font-family: 'Segoe UI', Arial, sans-serif; margin-bottom: 1.2rem; max-width: 360px; line-height: 1.5; }
+  .s2 .feat-row { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; justify-content: center; }
+  .s2 .feat-sm { background: white; border: 1px solid #e8e0d8; border-radius: 8px; padding: 0.4rem 0.7rem; font-size: 0.7rem; color: #6a5a5a; font-family: 'Segoe UI', sans-serif; font-weight: 600; }
+  .s2 .cta-sm {
+    background: #1a1a2e; color: white;
+    padding: 0.8rem 2.5rem; border-radius: 2.5rem; font-size: 1rem; font-weight: 700;
+    font-family: 'Segoe UI', Arial, sans-serif; display: inline-block;
+  }
+
+  /* S3: Instagram square — Purple / "Why Is My Body Changing" */
+  .s3 {
+    background: linear-gradient(150deg, #f0e8f8, #e0d6f0);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 2.5rem; text-align: center;
+  }
+  .s3 .hook { font-size: 1.8rem; font-weight: 700; color: #2a1a3e; line-height: 1.25; margin-bottom: 0.6rem; }
+  .s3 .hook em { font-style: normal; color: #7c5cbf; }
+  .s3 .sub { font-size: 0.85rem; color: #7a6a8a; font-family: 'Segoe UI', Arial, sans-serif; margin-bottom: 1.2rem; max-width: 360px; line-height: 1.5; }
+  .s3 .cta-sm {
+    background: linear-gradient(135deg, #7c5cbf, #6a4aad); color: white;
+    padding: 0.8rem 2.5rem; border-radius: 2.5rem; font-size: 1rem; font-weight: 700;
+    font-family: 'Segoe UI', Arial, sans-serif; display: inline-block;
+  }
+  .s3 .free-tag { color: #5a4a7a; font-size: 0.7rem; font-weight: 600; font-family: 'Segoe UI', sans-serif; margin-top: 0.8rem; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════ -->
+<!--   SECTION TITLE                             -->
+<!-- ════════════════════════════════════════════ -->
+<div style="max-width: 1000px; width: 100%; padding: 20px 0; text-align: center;">
+  <div style="display:inline-block;background:#d4436b;color:white;padding:0.3rem 1.2rem;border-radius:2rem;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;font-family:'Segoe UI',sans-serif;margin-bottom:0.5rem;">Lead Magnet Ads</div>
+  <h1 style="font-size:2.5rem;color:#1a1a2e;font-family:Georgia,serif;margin-bottom:0.5rem;">Free Ultimate Menopause Guide</h1>
+  <p style="font-family:'Segoe UI',sans-serif;color:#7a6a6a;max-width:600px;margin:0 auto;line-height:1.6;">5 high-converting ad concepts for social media. Designed to drive email captures at <strong style="color:#d4436b;">menopause-wellness.onrender.com/free-guide</strong></p>
+  <div style="margin-top:1rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;font-family:'Segoe UI',sans-serif;font-size:0.85rem;color:#6a5a5a;">
+    <span>🎯 Emotional Hook</span>
+    <span>📚 Education Value</span>
+    <span>💜 Relatability</span>
+    <span>🔥 Specific Problem</span>
+    <span>⭐ Social Proof</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!--   FULL-SIZE AD CONCEPTS (story/page format) -->
+<!-- ════════════════════════════════════════════ -->
+
+<!-- ─── AD 1: 3AM Emotional Hook ─── -->
+<div class="ad ad1">
+  <div class="glow-orb"></div>
+  <div class="glow-orb2"></div>
+  <div class="clock-icon">🌙</div>
+  <div class="hook">Why Do I Wake Up at<br><em>3 AM Every Night?</em></div>
+  <div class="pain-text">Heart racing. Sheets soaked. Mind spinning. You're not broken — your hormones are just on a rollercoaster. The free guide explains exactly <em>why</em> and what actually helps.</div>
+  <div class="divider"></div>
+  <div class="solution">"Finally, I understand my body again"</div>
+  <div class="free-badge">🎁 FREE DOWNLOAD</div>
+  <div class="cta">🌙 Get the Free Guide →</div>
+  <div class="url">menopause-wellness.onrender.com/free-guide</div>
+</div>
+
+<!-- ─── AD 2: Your Body's Software Update ─── -->
+<div class="ad ad2">
+  <div class="deco-1"></div>
+  <div class="deco-2"></div>
+  <div class="badge">📖 FREE ULTIMATE GUIDE</div>
+  <h2>Think of Menopause as<br><em>Your Body's Software Update</em></h2>
+  <div class="sub">34 body changes explained • Hormone timeline • Symptom explorer • Personalized relief plan — all in one interactive page.</div>
+  <div class="features">
+    <div class="feat"><div class="icon">📊</div><div class="label">Hormone Charts</div></div>
+    <div class="feat"><div class="icon">🔍</div><div class="label">Symptom Explorer</div></div>
+    <div class="feat"><div class="icon">📅</div><div class="label">Timeline by Age</div></div>
+    <div class="feat"><div class="icon">📋</div><div class="label">Relief Plan Builder</div></div>
+  </div>
+  <div class="price-tag">✨ Free — No credit card needed</div>
+  <div class="cta">📖 Download the Ultimate Guide →</div>
+</div>
+
+<!-- ─── AD 3: "Why Is My Body Changing?" ─── -->
+<div class="ad ad3">
+  <div class="top-wave"></div>
+  <div class="big-q">"</div>
+  <div class="badge">💜 FREE GUIDE</div>
+  <h2>"Why Is My Body<br><em>Changing So Much?</em>"</h2>
+  <div class="sub">The guide that finally explains everything — from night sweats to brain fog to belly fat — in plain language with practical solutions.</div>
+  <div class="guide-mockup">
+    <div class="g-icon">📖</div>
+    <div class="g-title">Ultimate Menopause Guide</div>
+    <div class="g-dash"></div>
+    <div class="g-dash"></div>
+    <div class="g-dash"></div>
+    <div style="margin-top:0.5rem;font-size:0.6rem;color:#a090b0;font-family:'Segoe UI',sans-serif;">34 Changes • Timeline • Relief</div>
+  </div>
+  <div class="cta">💜 Get Your Free Guide →</div>
+</div>
+
+<!-- ─── AD 4: Belly Fat After 45 ─── -->
+<div class="ad ad4">
+  <div class="glow-l"></div>
+  <div class="glow-r"></div>
+  <div class="icon-top">🦋</div>
+  <div class="hook">Why Belly Fat Sticks<br><em>After 45 (It's Not Your Fault)</em></div>
+  <div class="pain">Hormones control where your body stores fat. When estrogen drops, your body shifts fat to your middle — even if nothing else changed. The guide explains the science and the solutions.</div>
+  <div class="solution">✅ 5 isometric exercises that target hormonal belly</div>
+  <div class="free-badge">🎁 FREE DOWNLOAD</div>
+  <div class="features">
+    <div class="feat"><div class="icon">⏱️</div><div class="label">10 min/day</div></div>
+    <div class="feat"><div class="icon">🦵</div><div class="label">Zero Impact</div></div>
+    <div class="feat"><div class="icon">🔥</div><div class="label">Belly Focus</div></div>
+  </div>
+  <div class="cta">🔥 Get the Free Guide →</div>
+  <div class="url">menopause-wellness.onrender.com/free-guide</div>
+</div>
+
+<!-- ─── AD 5: Testimonial Social Proof ─── -->
+<div class="ad ad5">
+  <div class="bg-dots">•••<br>•••<br>•••</div>
+  <div class="quote-mark">"</div>
+  <div class="avatar">💜</div>
+  <div class="testimonial">"I thought I was losing my mind. Hot flashes, brain fog, couldn't sleep. This free guide explained <em>everything</em> in a way my doctor never did. Now I finally know what's happening to my body."</div>
+  <div class="attribution">— <strong>Sarah, 52</strong> • Menopause Wellness Community</div>
+  <div class="result-line">⭐ "34 changes explained. Finally, answers."</div>
+  <div class="cta">💜 Download Free →</div>
+  <div class="url">menopause-wellness.onrender.com/free-guide</div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!--   SOCIAL MEDIA SQUARE FORMATS (600x600)     -->
+<!-- ════════════════════════════════════════════ -->
+<br><br>
+<div class="section-title">📱 Social Media Ads (Square — Instagram / Facebook / Pinterest)</div>
+<div class="section-sub">These 600×600 variants work best in-feed. Each targets a different emotional trigger.</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:20px;justify-content:center;max-width:1240px;">
+
+  <!-- S1: 3AM Square -->
+  <div class="ad-square s1">
+    <div style="font-size:2.5rem;margin-bottom:0.8rem;">🌙</div>
+    <div class="hook">3 AM?<br><em>It's Your Hormones</em></div>
+    <div class="sub">Heart racing. Bed soaked. Brain wide awake. The free guide explains why — and gives you real solutions.</div>
+    <div class="cta-sm">🌙 Get the Free Guide</div>
+    <div class="free-tag">🎁 FREE • No email required? → menopause-wellness.onrender.com/free-guide</div>
+  </div>
+
+  <!-- S2: Software Update Square -->
+  <div class="ad-square s2">
+    <div class="hook">Your Body Is Getting a<br><em>Major Software Update</em></div>
+    <div class="sub">34 changes explained • Hormone timeline • Symptom explorer • Personalized relief plan</div>
+    <div class="feat-row">
+      <span class="feat-sm">📊 Hormone Charts</span>
+      <span class="feat-sm">🔍 Symptom Explorer</span>
+      <span class="feat-sm">📅 Age Timeline</span>
+    </div>
+    <div style="background:#d4436b;color:white;border-radius:2rem;padding:0.2rem 0.8rem;font-size:0.65rem;font-weight:700;font-family:'Segoe UI',sans-serif;margin-bottom:0.8rem;display:inline-block;text-transform:uppercase;letter-spacing:0.12em;">Free</div>
+    <div class="cta-sm">📖 Download the Ultimate Guide</div>
+  </div>
+
+  <!-- S3: Purple "Why Is My Body Changing" -->
+  <div class="ad-square s3">
+    <div class="hook">"Why Is My Body<br><em>Changing So Much?"</em></div>
+    <div class="sub">Hot flashes? Brain fog? Belly fat? You're not alone — and there are answers. Download the free guide.</div>
+    <div class="cta-sm">💜 Get Your Free Guide</div>
+    <div class="free-tag">📖 The Ultimate Menopause Guide • Free Download</div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!--   COPY & STRATEGY                           -->
+<!-- ════════════════════════════════════════════ -->
+<br><br>
+<div style="max-width:1000px;width:100%;background:white;border-radius:24px;padding:3rem;box-shadow:0 8px 30px rgba(0,0,0,0.04);font-family:'Segoe UI',Arial,sans-serif;">
+  
+  <h2 style="font-family:Georgia,serif;color:#1a1a2e;font-size:1.8rem;margin-bottom:1.5rem;">📝 Ad Copy & Strategy Guide</h2>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+    
+    <!-- Facebook / Instagram Captions -->
+    <div style="background:#fdf6f0;border-radius:16px;padding:1.5rem;">
+      <h3 style="color:#d4436b;margin-bottom:1rem;">📱 Facebook / Instagram Captions</h3>
+      
+      <div style="margin-bottom:1.2rem;">
+        <div style="font-weight:700;font-size:0.85rem;color:#1a1a2e;margin-bottom:0.3rem;">Caption A — 3AM Hook:</div>
+        <p style="font-size:0.85rem;color:#6a5a5a;line-height:1.6;background:white;padding:0.8rem;border-radius:8px;">
+        It's 3 AM. Your heart is racing. The sheets are soaked. And you're wondering, "What is happening to me?"<br><br>
+        The answer? Your hormones. And the good news? It's completely normal — and there ARE solutions.<br><br>
+        🌙 Download the FREE Ultimate Menopause Guide — 34 body changes explained, hormone timeline, symptom explorer, and a personalized relief plan. All in one interactive page.<br><br>
+        👉 Link in bio / menopause-wellness.onrender.com/free-guide<br><br>
+        #menopause #perimenopause #hotsflashes #womenshealth #menopausesupport #hormonehealth
+        </p>
+      </div>
+
+      <div style="margin-bottom:1.2rem;">
+        <div style="font-weight:700;font-size:0.85rem;color:#1a1a2e;margin-bottom:0.3rem;">Caption B — Belly Fat Angle:</div>
+        <p style="font-size:0.85rem;color:#6a5a5a;line-height:1.6;background:white;padding:0.8rem;border-radius:8px;">
+        That belly fat that won't budge no matter what you do? It's not your fault. It's your hormones.<br><br>
+        When estrogen drops, your body starts storing fat around your middle — even if you're eating the same and exercising the same.<br><br>
+        🔥 The FREE Ultimate Menopause Guide includes 5 isometric exercises specifically designed to target hormonal belly fat. Zero impact. 10 minutes a day. Results.<br><br>
+        👉 Download free → menopause-wellness.onrender.com/free-guide<br><br>
+        #menopausebelly #hormonehealth #womenshealth #menopausefitness #bellyfatloss #over50fitness
+        </p>
+      </div>
+
+      <div>
+        <div style="font-weight:700;font-size:0.85rem;color:#1a1a2e;margin-bottom:0.3rem;">Caption C — Education Angle:</div>
+        <p style="font-size:0.85rem;color:#6a5a5a;line-height:1.6;background:white;padding:0.8rem;border-radius:8px;">
+        Finally — a guide that tells you what's ACTUALLY happening to your body.<br><br>
+        📊 Hormone timeline that shows exactly what changes at each age<br>
+        🔍 Symptom explorer for 34+ body changes<br>
+        📋 Personalized relief plan builder<br>
+        ⏱️ 5 isometric exercises for hormonal belly fat<br><br>
+        All free. No email required (but we'd love to send you updates!).<br><br>
+        👉 menopause-wellness.onrender.com/free-guide<br><br>
+        #menopauseducation #womenshealth #perimenopause #menopauseguide #knowyourbody #menopausesupport
+        </p>
+      </div>
+    </div>
+
+    <!-- Pinterest & Ad Copy -->
+    <div style="background:#f0ece6;border-radius:16px;padding:1.5rem;">
+      <h3 style="color:#7c5cbf;margin-bottom:1rem;">📌 Pinterest Pin Titles & Descriptions</h3>
+      
+      <div style="margin-bottom:1rem;">
+        <div style="font-weight:700;font-size:0.85rem;color:#1a1a2e;margin-bottom:0.3rem;">Pin 1: 3AM Hot Flashes</div>
+        <p style="font-size:0.85rem;color:#6a5a5a;line-height:1.5;background:white;padding:0.8rem;border-radius:8px;">
+        <strong>Title:</strong> Why You Wake Up at 3 AM During Menopause (And What Actually Helps)<br>
+        <strong>Description:</strong> Night sweats, heart racing, and insomnia are some of the most common menopause symptoms. Learn exactly why they happen and discover natural solutions that work. FREE interactive guide with 34 body changes explained, hormone timeline, and relief plan builder.
+        </p>
+      </div>
+
+      <div style="margin-bottom:1rem;">
+        <div style="font-weight:700;font-size:0.85rem;color:#1a1a2e;margin-bottom:0.3rem;">Pin 2: Menopause Belly</div>
+        <p style="font-size:0.85rem;color:#6a5a5a;line-height:1.5;background:white;padding:0.8rem;border-radius:8px;">
+        <strong>Title:</strong> 5 Isometric Exercises That Melt Menopause Belly Fat (10 Minutes a Day)<br>
+        <strong>Description:</strong> Hormonal belly fat after 45 is real — and it's not your fault. These zero-impact isometric exercises target deep core muscles to help flatten your belly. Free printable guide included!
+        </p>
+      </div>
+
+      <div style="margin-bottom:1rem;">
+        <div style="font-weight:700;font-size:0.85rem;color:#1a1a2e;margin-bottom:0.3rem;">Pin 3: Ultimate Guide</div>
+        <p style="font-size:0.85rem;color:#6a5a5a;line-height:1.5;background:white;padding:0.8rem;border-radius:8px;">
+        <strong>Title:</strong> The Ultimate Menopause Guide: 34 Body Changes Explained<br>
+        <strong>Description:</strong> From hot flashes to brain fog to joint pain — everything you need to know about menopause in one interactive guide. Free download with hormone charts, symptom explorer, and personalized relief plan.
+        </p>
+      </div>
+
+      <div style="margin-bottom:1rem;">
+        <div style="font-weight:700;font-size:0.85rem;color:#1a1a2e;margin-bottom:0.3rem;">Pin 4: Doctor Didn't Tell You</div>
+        <p style="font-size:0.85rem;color:#6a5a5a;line-height:1.5;background:white;padding:0.8rem;border-radius:8px;">
+        <strong>Title:</strong> What Your Doctor Never Told You About Menopause (Free Guide)<br>
+        <strong>Description:</strong> Most doctors get less than 1 hour of menopause training. This free guide gives you the full picture — hormone timeline, 34+ symptoms explained, and practical relief strategies that actually work.
+        </p>
+      </div>
+
+      <hr style="border:none;border-top:1px solid #d8d0c8;margin:1.5rem 0;">
+
+      <h3 style="color:#2ecc71;margin-bottom:1rem;">📧 Email Subject Lines (for follow-ups after download)</h3>
+      <ul style="font-size:0.85rem;color:#6a5a5a;line-height:2;list-style:none;padding:0;">
+        <li>✅ "Your Free Menopause Guide is Ready"</li>
+        <li>✅ "3 AM wake-ups? Here's why (and what helps)"</li>
+        <li>✅ "The guide that explains 34 menopause changes"</li>
+        <li>✅ "Your body's getting a software update 🖥️"</li>
+        <li>✅ "Not crazy — just hormonal. Here's the proof."</li>
+        <li>✅ "5 exercises that target menopause belly"</li>
+        <li>✅ "What your doctor didn't have time to tell you"</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ─── PAIN POINTS & TRIGGERS ─── -->
+  <hr style="border:none;border-top:1px solid #e8e0d8;margin:2rem 0;">
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:2rem;">
+    
+    <div style="background:#f8f0f0;border-radius:16px;padding:1.2rem;">
+      <h4 style="color:#d4436b;font-size:0.9rem;margin-bottom:0.5rem;">🎯 Pain Points to Target</h4>
+      <ul style="font-size:0.8rem;color:#6a5a5a;line-height:1.8;padding-left:1.2rem;">
+        <li>Night sweats / sleep disruption</li>
+        <li>Belly fat that won't budge</li>
+        <li>Brain fog / memory lapses</li>
+        <li>Feeling "broken" or alone</li>
+        <li>Doctor didn't explain anything</li>
+        <li>Mood swings nobody warned about</li>
+        <li>Joint pain / stiffness</li>
+      </ul>
+    </div>
+
+    <div style="background:#f0f8f0;border-radius:16px;padding:1.2rem;">
+      <h4 style="color:#2ecc71;font-size:0.9rem;margin-bottom:0.5rem;">💡 Emotional Triggers</h4>
+      <ul style="font-size:0.8rem;color:#6a5a5a;line-height:1.8;padding-left:1.2rem;">
+        <li>"Finally, someone explains it!"</li>
+        <li>"I'm not broken — it's hormones"</li>
+        <li>"There ARE solutions that work"</li>
+        <li>"I'm not alone in this"</li>
+        <li>"It's FREE and actually helpful"</li>
+        <li>"I can take control again"</li>
+        <li>"Simple enough to actually follow"</li>
+      </ul>
+    </div>
+
+    <div style="background:#f8f0f8;border-radius:16px;padding:1.2rem;">
+      <h4 style="color:#7c5cbf;font-size:0.9rem;margin-bottom:0.5rem;">📊 Best Times to Post</h4>
+      <ul style="font-size:0.8rem;color:#6a5a5a;line-height:1.8;padding-left:1.2rem;">
+        <li>🌅 7-9 AM — Morning scroll</li>
+        <li>🌙 9-11 PM — Late night (insomniacs!)</li>
+        <li>📅 Mon-Wed — Highest engagement</li>
+        <li>☕️ Weekend mornings — Self-care time</li>
+        <li>🏥 Monday mornings — "Doctor visit" mindset</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ─── CTA LINK VARIATIONS ─── -->
+  <hr style="border:none;border-top:1px solid #e8e0d8;margin:2rem 0;">
+
+  <div style="text-align:center;">
+    <h3 style="color:#1a1a2e;font-family:Georgia,serif;margin-bottom:1rem;">🔗 Where to Send Them</h3>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="https://menopause-wellness.onrender.com/free-guide" style="display:inline-block;background:#d4436b;color:white;padding:0.8rem 2rem;border-radius:2rem;text-decoration:none;font-weight:700;font-size:0.95rem;font-family:'Segoe UI',sans-serif;">menopause-wellness.onrender.com/free-guide</a>
+      <a href="https://bit.ly/4eWViyw" style="display:inline-block;background:#1a1a2e;color:white;padding:0.8rem 2rem;border-radius:2rem;text-decoration:none;font-weight:700;font-size:0.95rem;font-family:'Segoe UI',sans-serif;">bit.ly/4eWViyw (Gumroad)</a>
+    </div>
+    <p style="font-size:0.8rem;color:#9a8a8a;margin-top:1rem;font-family:'Segoe UI',sans-serif;">Use the bit.ly link for all social media posts (easier to track). Use the /free-guide link for direct traffic. Both work!</p>
+  </div>
+
+</div>
+
+<br><br>
+<div style="max-width:1000px;width:100%;background:#1a1a2e;border-radius:24px;padding:2.5rem;text-align:center;color:white;font-family:Georgia,serif;">
+  <p style="font-size:1.2rem;font-style:italic;color:#d0c0e0;margin-bottom:1rem;">"Knowledge is the first step. Action is the second.<br>This free guide gives you both."</p>
+  <p style="font-size:0.8rem;color:#8088a0;font-family:'Segoe UI',sans-serif;">Built for women 45-60 • Menopause Wellness App • menopause-wellness.onrender.com</p>
+</div>
+
+<div style="padding:2rem;text-align:center;font-family:'Segoe UI',sans-serif;font-size:0.75rem;color:#a09090;">
+  Ad Package v2 • Created for the Menopause Wellness App • All content proprietary
+</div>
+
+</body>
+</html>

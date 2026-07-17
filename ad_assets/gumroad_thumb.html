@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gumroad Thumbnail</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #e8e0d8; padding: 20px; }
+  .thumb {
+    width: 500px; height: 500px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #16213e 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 2rem; position: relative; overflow: hidden;
+    font-family: 'Georgia', 'Times New Roman', serif; border-radius: 24px;
+  }
+  .bg-c { position: absolute; top: -40px; right: -30px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(212,67,107,0.1), transparent); }
+  .icon { font-size: 3.5rem; margin-bottom: 0.75rem; z-index: 1; }
+  h1 {
+    font-size: 2rem; font-weight: 700; color: #e0d0f0; text-align: center;
+    line-height: 1.2; margin-bottom: 0.3rem; z-index: 1;
+  }
+  h1 em { font-style: normal; color: #f0a0b0; }
+  .tagline {
+    font-size: 0.85rem; color: #b0a0c0; text-align: center;
+    font-family: 'Segoe UI', Arial, sans-serif; z-index: 1; margin-bottom: 1rem;
+  }
+  .price {
+    background: rgba(212,67,107,0.15); border: 1px solid rgba(212,67,107,0.3);
+    color: #f0a0b0; padding: 0.4rem 1.2rem; border-radius: 2rem;
+    font-size: 0.85rem; font-weight: 700; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+  }
+  .features {
+    display: flex; gap: 0.4rem; margin-top: 0.75rem; z-index: 1; flex-wrap: wrap; justify-content: center;
+  }
+  .feat {
+    font-size: 0.7rem; color: #8080a0; font-family: 'Segoe UI', Arial, sans-serif;
+    padding: 0.2rem 0.5rem; background: rgba(255,255,255,0.03); border-radius: 1rem;
+  }
+</style>
+</head>
+<body>
+<div class="thumb">
+  <div class="bg-c"></div>
+  <div class="icon">🌸</div>
+  <h1>Menopause <em>Wellness</em></h1>
+  <div class="tagline">Exercises • Tones • Decoder • Sleep</div>
+  <div class="price">$9/mo • First month $3</div>
+  <div class="features">
+    <span class="feat">🏋️ 15 Exercises</span>
+    <span class="feat">🎵 13 Tones</span>
+    <span class="feat">🔭 Decoder</span>
+    <span class="feat">📋 Doctor Prep</span>
+    <span class="feat">🌙 Sleep Log</span>
+  </div>
+</div>
+</body>
+</html>

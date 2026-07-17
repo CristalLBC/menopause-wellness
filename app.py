@@ -1120,6 +1120,12 @@ def log_tone_session():
     return jsonify({'status': 'ok', 'session_id': session.id})
 
 
+# ─── Privacy Policy ───────────────────────────────────────────────────
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+
+
 # ─── Initialize ───────────────────────────────────────────────────────
 @app.cli.command('init-db')
 def init_db():

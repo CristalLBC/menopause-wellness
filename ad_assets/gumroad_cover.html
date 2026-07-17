@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gumroad Cover</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #e8e0d8; padding: 20px; }
+  .cover {
+    width: 1280px; height: 720px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 40%, #16213e 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem 5rem; position: relative; overflow: hidden;
+    font-family: 'Georgia', 'Times New Roman', serif;
+  }
+  .bg-flower { position: absolute; top: -60px; right: -30px; font-size: 12rem; opacity: 0.04; }
+  .bg-circle1 { position: absolute; bottom: -120px; left: -60px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(212,67,107,0.08), transparent); }
+  .bg-circle2 { position: absolute; top: -80px; left: 20%; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(167,139,250,0.05), transparent); }
+  .badge {
+    background: rgba(212,67,107,0.15); border: 1px solid rgba(212,67,107,0.3);
+    color: #f0a0b0; padding: 0.5rem 1.5rem; border-radius: 2rem;
+    font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 1rem; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+  }
+  .icon-row { font-size: 3rem; margin-bottom: 1rem; z-index: 1; letter-spacing: 0.8rem; }
+  h1 {
+    font-size: 3.2rem; font-weight: 700; color: #e0d0f0; text-align: center;
+    line-height: 1.2; margin-bottom: 0.5rem; z-index: 1;
+  }
+  h1 em { font-style: normal; color: #f0a0b0; }
+  .sub {
+    font-size: 1.3rem; color: #b0a0c0; text-align: center; line-height: 1.5;
+    max-width: 700px; font-weight: 300; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+    margin-bottom: 1.5rem;
+  }
+  .features {
+    display: flex; gap: 2rem; z-index: 1; flex-wrap: wrap; justify-content: center;
+  }
+  .feat { text-align: center; }
+  .feat .icon { font-size: 1.8rem; }
+  .feat .label { font-size: 0.8rem; color: #a0a0c0; font-family: 'Segoe UI', Arial, sans-serif; font-weight: 600; margin-top: 0.2rem; }
+  .url {
+    position: absolute; bottom: 1.5rem; font-size: 0.8rem; color: #606080;
+    font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+  }
+</style>
+</head>
+<body>
+<div class="cover">
+  <div class="bg-flower">🌸</div>
+  <div class="bg-circle1"></div>
+  <div class="bg-circle2"></div>
+  <div class="badge">🌸 New — Complete Menopause Guide</div>
+  <div class="icon-row">🏋️ 🎵 🌬️</div>
+  <h1>Menopause <em>Wellness</em></h1>
+  <div class="sub">The only app combining isometric exercises + brainwave therapy<br>— built for women who deserve better answers.</div>
+  <div class="features">
+    <div class="feat"><div class="icon">🏋️</div><div class="label">15 Exercises</div></div>
+    <div class="feat"><div class="icon">🎵</div><div class="label">13 Brain Tones</div></div>
+    <div class="feat"><div class="icon">🔭</div><div class="label">Symptom Decoder</div></div>
+    <div class="feat"><div class="icon">📋</div><div class="label">Doctor Prep</div></div>
+    <div class="feat"><div class="icon">🌙</div><div class="label">Sleep Log</div></div>
+    <div class="feat"><div class="icon">💗</div><div class="label">Pelvic Health</div></div>
+  </div>
+  <div class="url">menopause-wellness.onrender.com  •  Code: MENO3 for $3 first month</div>
+</div>
+</body>
+</html>

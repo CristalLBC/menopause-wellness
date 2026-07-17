@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ultimate Menopause Guide: Changes, Timeline & Relief</title>
+    <!-- Tailwind CSS for modern responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for beautiful interactive canvas charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts for friendly, clear, modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #FAF6F0; /* Soft, warm linen background */
+            color: #2D3436;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Fredoka', sans-serif;
+        }
+        /* Custom scrollbar for beautiful lists */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F3ECE0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D9C3B0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #BFA590;
+        }
+        /* Card transitions */
+        .interactive-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .interactive-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.15);
+        }
+        /* Active button state highlight */
+        .tab-active {
+            background-color: #F43F5E !important;
+            color: white !important;
+            box-shadow: 0 4px 6px -1px rgba(244, 63, 94, 0.4);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+
+<header class="max-w-6xl mx-auto text-center mt-6 mb-12">
+    <div class="inline-block bg-rose-100 text-rose-600 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+        Interactive Wellness Dashboard
+    </div>
+    <h1 class="text-4xl md:text-6xl font-bold text-rose-500 mb-4 tracking-tight">
+        The Ultimate Guide to Menopause
+    </h1>
+    <p class="text-lg md:text-2xl text-slate-600 max-w-3xl mx-auto font-light leading-relaxed">
+        Think of menopause as a <strong class="text-rose-500">major system software update</strong> for the body. Let's explore when it happens, how it feels, and how to make the update run as smoothly as possible!
+    </p>
+</header>
+
+<main class="max-w-6xl mx-auto space-y-12">
+    <!-- Stat Cards Overview -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-orange-100 text-center interactive-card">
+            <span class="text-3xl md:text-5xl font-bold text-amber-500">51</span>
+            <p class="text-sm font-semibold text-slate-500 mt-2">Average Age in Western Countries</p>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-rose-100 text-center interactive-card">
+            <span class="text-3xl md:text-5xl font-bold text-rose-500">4-8</span>
+            <span class="text-lg font-semibold text-rose-500">Yrs</span>
+            <p class="text-sm font-semibold text-slate-500 mt-2">Average Transition Duration</p>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-emerald-100 text-center interactive-card">
+            <span class="text-3xl md:text-5xl font-bold text-emerald-500">34+</span>
+            <p class="text-sm font-semibold text-slate-500 mt-2">Different Body Changes Reported</p>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-indigo-100 text-center interactive-card">
+            <span class="text-3xl md:text-5xl font-bold text-indigo-500">Up to 90%</span>
+            <p class="text-sm font-semibold text-slate-500 mt-2">Decrease in Estrogen Levels</p>
+        </div>
+    </section>
+
+    <!-- SECTION 1: TIMELINE & MILESTONES -->
+    <section class="bg-white p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Left side: Timeline Steps -->
+            <div class="w-full lg:w-1/2 flex flex-col justify-between">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-800 mb-2">1. The Journey & Timeline</h2>
+                    <p class="text-slate-600 mb-6">
+                        Menopause doesn't happen overnight! It is a slow, natural curve divided into three major chapters. Click on each phase below to see what is happening underneath.
+                    </p>
+                    
+                    <!-- Interactive Timeline Buttons -->
+                    <div class="space-y-3 mb-6">
+                        <button onclick="switchTimelinePhase('pre')" id="btn-pre" class="w-full text-left p-4 rounded-2xl border border-slate-100 hover:border-amber-200 bg-slate-50/50 hover:bg-amber-50/30 transition duration-200 flex items-center justify-between group tab-active">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold">1</span>
+                                <div>
+                                    <h4 class="font-bold text-slate-800">Premenopause (Ages 35-45)</h4>
+                                    <p class="text-xs text-slate-500">Everything is running as usual.</p>
+                                </div>
+                            </div>
+                            <span class="text-lg opacity-40 group-hover:opacity-100 transition">➔</span>
+                        </button>
+                        
+                        <button onclick="switchTimelinePhase('peri')" id="btn-peri" class="w-full text-left p-4 rounded-2xl border border-slate-100 hover:border-rose-200 bg-slate-50/50 hover:bg-rose-50/30 transition duration-200 flex items-center justify-between group">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold">2</span>
+                                <div>
+                                    <h4 class="font-bold text-slate-800">Perimenopause (Ages 45-51)</h4>
+                                    <p class="text-xs text-slate-500">The "Bumpy Road" transition phase.</p>
+                                </div>
+                            </div>
+                            <span class="text-lg opacity-40 group-hover:opacity-100 transition">➔</span>
+                        </button>
+
+                        <button onclick="switchTimelinePhase('post')" id="btn-post" class="w-full text-left p-4 rounded-2xl border border-slate-100 hover:border-emerald-200 bg-slate-50/50 hover:bg-emerald-50/30 transition duration-200 flex items-center justify-between group">
+                            <div class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">3</span>
+                                <div>
+                                    <h4 class="font-bold text-slate-800">Menopause & Postmenopause (Ages 51+)</h4>
+                                    <p class="text-xs text-slate-500">The new system baseline has stabilized.</p>
+                                </div>
+                            </div>
+                            <span class="text-lg opacity-40 group-hover:opacity-100 transition">➔</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Interactive Description Box -->
+                <div id="timeline-detail-box" class="p-5 bg-rose-50/50 border border-rose-100 rounded-2xl">
+                    <h3 id="timeline-detail-title" class="font-bold text-rose-600 text-lg mb-1">Premenopause</h3>
+                    <p id="timeline-detail-desc" class="text-sm text-slate-600 leading-relaxed">
+                        During this chapter, a woman's body has healthy cycles. Estrogen levels are robust, keeping bones strong, skin hydrated, and the brain's "thermostat" stable. It is the natural baseline before the change starts.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right side: Estrogen/Progesterone Decline Curve -->
+            <div class="w-full lg:w-1/2 bg-slate-50 p-6 rounded-2xl border border-slate-100 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-1">Hormone Change Timeline</h3>
+                    <p class="text-xs text-slate-500 mb-4">See how the main regulatory hormones (Estrogen & Progesterone) change over age milestones.</p>
+                </div>
+                <div class="relative h-[280px] w-full">
+                    <canvas id="hormoneChart"></canvas>
+                </div>
+                <div class="mt-4 flex items-center justify-around text-xs font-semibold text-slate-500">
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span> Estrogen</span>
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> Progesterone</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: EXPECTED BODY CHANGES (Interactive Symptom Explorer) -->
+    <section class="space-y-6">
+        <div class="text-center max-w-2xl mx-auto">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2">2. The 34 Expected Changes Explained</h2>
+            <p class="text-slate-600 text-sm md:text-base">
+                When hormones decline, different systems in the body must adapt. This can cause various effects. Filter by category to learn why these happen in simple terms!
+            </p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto">
+            <button onclick="filterSymptoms('all')" id="btn-cat-all" class="px-4 py-2 rounded-full text-xs font-bold border border-rose-100 bg-white text-slate-600 hover:bg-rose-50/50 transition tab-active">✨ All Changes</button>
+            <button onclick="filterSymptoms('thermo')" id="btn-cat-thermo" class="px-4 py-2 rounded-full text-xs font-bold border border-rose-100 bg-white text-slate-600 hover:bg-rose-50/50 transition">🌡️ Temperature & Sleep</button>
+            <button onclick="filterSymptoms('brain')" id="btn-cat-brain" class="px-4 py-2 rounded-full text-xs font-bold border border-rose-100 bg-white text-slate-600 hover:bg-rose-50/50 transition">🧠 Mind & Mood</button>
+            <button onclick="filterSymptoms('body')" id="btn-cat-body" class="px-4 py-2 rounded-full text-xs font-bold border border-rose-100 bg-white text-slate-600 hover:bg-rose-50/50 transition">💪 Bones, Voice & Joint</button>
+            <button onclick="filterSymptoms('skin')" id="btn-cat-skin" class="px-4 py-2 rounded-full text-xs font-bold border border-rose-100 bg-white text-slate-600 hover:bg-rose-50/50 transition">🧬 Skin & Digestive</button>
+        </div>
+
+        <!-- Symptom Cards Grid -->
+        <div id="symptomsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamically populated from JS -->
+        </div>
+    </section>
+
+    <!-- SECTION 3: ALLEVIATION & RELIEF (The Actionable Tools) -->
+    <section class="bg-gradient-to-br from-emerald-50/40 via-white to-teal-50/30 p-6 md:p-8 rounded-3xl shadow-sm border border-emerald-100">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2">3. How to Relieve & Alleviate Symptoms</h2>
+            <p class="text-slate-600 text-sm">
+                No one needs to suffer in silence! Science and lifestyle adjustments have provided powerful tools to rebalance the body. Here are the four primary relief categories:
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-12">
+            <!-- Pill 1: Modern HRT -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-emerald-50 flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-rose-50 text-rose-500 rounded-xl flex items-center justify-center text-2xl mb-4 font-bold">🧬</div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Modern HRT</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                        Replaces missing estrogen/progesterone using natural "body-identical" hormones. Offers relief for severe hot flashes and protects bones.
+                    </p>
+                </div>
+                <div class="text-xs text-rose-600 font-semibold bg-rose-50 p-2 rounded-lg text-center">Highly effective for core symptoms</div>
+            </div>
+
+            <!-- Pill 2: Nutrients & Hydration -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-emerald-50 flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-amber-50 text-amber-500 rounded-xl flex items-center justify-center text-2xl mb-4 font-bold">🥑</div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Active Nutrition</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                        Consuming plenty of calcium, vitamin D, magnesium, and healthy phytoestrogens (like soy) helps maintain robust bone density and digestion.
+                    </p>
+                </div>
+                <div class="text-xs text-amber-600 font-semibold bg-amber-50 p-2 rounded-lg text-center">Supports bone & digestive health</div>
+            </div>
+
+            <!-- Pill 3: Lifestyle & Exercise -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-emerald-50 flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-xl flex items-center justify-center text-2xl mb-4 font-bold">👟</div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Strength Training</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                        Weight-bearing exercise stimulates bone growth and keeps muscles strong, preventing joint stiffness and boosting slow metabolisms.
+                    </p>
+                </div>
+                <div class="text-xs text-emerald-600 font-semibold bg-emerald-50 p-2 rounded-lg text-center">Essential for body-frame strength</div>
+            </div>
+
+            <!-- Pill 4: Mind & Sleep Habits -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-emerald-50 flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-indigo-50 text-indigo-500 rounded-xl flex items-center justify-center text-2xl mb-4 font-bold">🧘‍♀️</div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Mind-Body Practices</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-4">
+                        Using Cognitive Behavioral Therapy (CBT), yoga, and temperature-optimized sleep setups targets brain-related changes and improves sleep.
+                    </p>
+                </div>
+                <div class="text-xs text-indigo-600 font-semibold bg-indigo-50 p-2 rounded-lg text-center">Calms nervous system adrenaline</div>
+            </div>
+        </div>
+
+        <!-- Interactive Relief Plan Builder -->
+        <div class="bg-emerald-900 text-white rounded-3xl p-6 md:p-8 shadow-md">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                    <span class="bg-emerald-800 text-emerald-300 text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wider mb-2 inline-block">Interactive Tool</span>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-3">Build Your Personalized Relief Plan</h3>
+                    <p class="text-emerald-100 text-sm leading-relaxed mb-6">
+                        Select the primary changes you or a loved one are experiencing below. Our smart generator will immediately build an actionable relief routine.
+                    </p>
+
+                    <!-- Multi-select list -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6" id="planSelectors">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Custom Generated Relief Strategy Output Box -->
+                <div class="bg-emerald-950/80 border border-emerald-800 p-6 rounded-2xl flex flex-col justify-between h-full min-h-[300px]">
+                    <div>
+                        <h4 class="font-bold text-emerald-400 text-lg mb-3 flex items-center gap-2">
+                            <span>📋</span> Your Customized Action Plan
+                        </h4>
+                        <div id="reliefPlanOutput" class="text-sm text-emerald-100 space-y-4 max-h-[220px] overflow-y-auto pr-2">
+                            <p class="italic text-emerald-300">No symptoms selected. Click on items on the left side to compile your custom daily advice.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 pt-4 border-t border-emerald-800 flex justify-between items-center flex-wrap gap-2">
+                        <span class="text-xs text-emerald-400">Scientifically vetted lifestyle strategies</span>
+                        <button onclick="copyReliefPlan()" id="btnCopyPlan" class="text-xs bg-emerald-500 hover:bg-emerald-400 text-white px-3 py-2 rounded-xl font-bold transition">
+                            Copy Advice Plan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: DATA & SCIENCE INSIGHTS -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Chart 1: Relief Method Effectiveness -->
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col justify-between">
+            <div>
+                <h3 class="text-xl font-bold text-slate-800 mb-1">What Women Find Most Helpful</h3>
+                <p class="text-xs text-slate-500 mb-6">General survey feedback of relief plan strategies.</p>
+            </div>
+            <div class="relative h-[250px] w-full flex items-center justify-center">
+                <canvas id="reliefMethodsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- FAQ Quick Explainer Cards -->
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col justify-between">
+            <div>
+                <h3 class="text-xl font-bold text-slate-800 mb-4">Did You Know? Quick Facts</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-xl">
+                        <span class="text-2xl">⚡</span>
+                        <div>
+                            <h5 class="font-semibold text-slate-800 text-sm">Adrenaline Spikes at Night</h5>
+                            <p class="text-xs text-slate-500 mt-1">If you wake up sweating with a racing heart, it is not panic! It is an emergency splash of adrenaline sent by your brain trying to regulate an unstable system.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-xl">
+                        <span class="text-2xl">👄</span>
+                        <div>
+                            <h5 class="font-semibold text-slate-800 text-sm">Burning Mouth is Real</h5>
+                            <p class="text-xs text-slate-500 mt-1">Declining estrogen affects sensitive nerves in your tongue and gums, creating an intense spicy sensation even without food.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-xl">
+                        <span class="text-2xl">👩‍⚕️</span>
+                        <div>
+                            <h5 class="font-semibold text-slate-800 text-sm">Seek Out a Specialist</h5>
+                            <p class="text-xs text-slate-500 mt-1">Traditional medical training spends very little time on menopause. Finding a certified menopause specialist guarantees modern, evidence-based care.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="max-w-6xl mx-auto text-center mt-12 pb-12">
+    <div class="p-6 bg-rose-50 border border-rose-100 rounded-3xl max-w-2xl mx-auto">
+        <h3 class="font-bold text-rose-500 text-lg mb-2">Knowledge is Power!</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">
+            Menopause is completely natural and normal. By learning the physical changes and understanding how they can be alleviated with modern strategies, women can stay strong, active, and fully charged during this phase of life.
+        </p>
+    </div>
+</footer>
+
+<script>
+    // Global symptom data registry containing expected changes, explanation types, and matched reliefs
+    const symptomRegistry = [
+        {
+            id: "hot_flash",
+            emoji: "🌡️",
+            category: "thermo",
+            title: "Hot Flashes & Night Sweats",
+            analogy: "The Broken Thermostat",
+            why: "Your brain's thermal computer gets too sensitive, reading a 1° rise as extreme heat and turning on maximum emergency cooling.",
+            alleviation: "Layered organic clothing, cotton/bamboo sheets, limiting caffeine/spicy meals, low-dose HRT or selective cognitive therapies."
+        },
+        {
+            id: "brain_fog",
+            emoji: "🧠",
+            category: "brain",
+            title: "Memory Slipping & Brain Fog",
+            analogy: "The Low-Battery Processor",
+            why: "Estrogen feeds glucose directly to brain cells. When estrogen dips, the brain experiences temporary energy dips causing slow recall.",
+            alleviation: "Write notes, regular cardiovascular workouts (pumps blood to brain), prioritizing deep restorative sleep, complex omega-3 fats."
+        },
+        {
+            id: "joint_stiff",
+            emoji: "🦴",
+            category: "body",
+            title: "Joint Stiffness & Pain",
+            analogy: "Squeaky Car Door Hinges",
+            why: "Estrogen keeps joints hydrated and flexible. Without its lubricating power, joints easily rub and get achy.",
+            alleviation: "Low-impact weight lifting, daily stretching (yoga), omega-3 rich fish oils, and maintaining hydration."
+        },
+        {
+            id: "mood_swing",
+            emoji: "🎭",
+            category: "brain",
+            title: "Mood Fluctuations",
+            analogy: "The Rollercoaster Track",
+            why: "Rapidly fluctuating hormone signals trick neurotransmitters in the brain, sending sudden feelings of distress or irritation.",
+            alleviation: "Breathing techniques, daily walks in nature, Cognitive Behavioral Therapy (CBT), or natural herbs/supplements."
+        },
+        {
+            id: "sleep_dis",
+            emoji: "😴",
+            category: "thermo",
+            title: "Disrupted Sleep & Adrenaline",
+            analogy: "The Midnight Alarm Bug",
+            why: "Estrogen drops prompt adrenaline surges at 3 AM, waking the system immediately to a fight-or-flight alert state.",
+            alleviation: "Maintaining cool room temperatures (below 68°F), progressive muscle relaxation, limiting evening screen exposure."
+        },
+        {
+            id: "skin_dry",
+            emoji: "🧬",
+            category: "skin",
+            title: "Dry Skin & Collagen Drop",
+            analogy: "Cracked Desert Ground",
+            why: "Estrogen is responsible for healthy water-retention and collagen production. Lower hormone levels thin the protective skin layers.",
+            alleviation: "Ceramide-rich moisturizers, reducing super hot baths, drinking adequate water, and gentle facial sun block."
+        },
+        {
+            id: "heart_race",
+            emoji: "💓",
+            category: "thermo",
+            title: "Random Heart Racing",
+            analogy: "Unprovoked Revving Engine",
+            why: "Nerves leading to the heart are sensitive to estrogen shifts. Sudden adjustments feel like the pulse has jumped to maximum gear.",
+            alleviation: "Rest, slow deep nasal breathing, avoiding sugar spikes, limiting alcohol, and medical guidance to confirm baseline health."
+        },
+        {
+            id: "clumsiness",
+            emoji: "🤸‍♀️",
+            category: "body",
+            title: "Balance Shifts (Clumsiness)",
+            analogy: "GPS Signals Dropping",
+            why: "Estrogen decline momentarily slows down inner-ear balance signals to the cerebellum, making objects easier to bump into.",
+            alleviation: "Balance practice exercises (standing on one leg), wearing supportive non-slip shoes, and gentle posture work."
+        },
+        {
+            id: "mouth_burn",
+            emoji: "👅",
+            category: "skin",
+            title: "Burning Tongue & Mouth",
+            analogy: "Fictional Chili Burn",
+            why: "Hormone loss changes salivary chemistry and can trigger nerves inside the tongue to signal fire when nothing is there.",
+            alleviation: "Avoiding alcoholic mouthwashes, chewing sugar-free gum to promote saliva flow, and keeping hydrated."
+        },
+        {
+            id: "bone_loss",
+            emoji: "💪",
+            category: "body",
+            title: "Accelerated Bone Loss",
+            analogy: "Slightly Brittle Framing",
+            why: "Estrogen directs cells that construct fresh bone tissue. With low estrogen, old bone wears away faster than it rebuilds.",
+            alleviation: "High-weight resistance exercise, supplementing Vitamin D3 + Calcium + Vitamin K2, and doctor-approved HRT options."
+        },
+        {
+            id: "gut_bloat",
+            emoji: "🧪",
+            category: "skin",
+            title: "Digestive Sensitivity & Bloating",
+            analogy: "Slightly Confused Factory Workers",
+            why: "Hormonal variations affect gut bacteria levels, slowing digestive rates and creating extra gas build-ups from common foods.",
+            alleviation: "Adding quality fermented items (kefir/sauerkraut), eating slowly, avoiding fizzy beverages, and walking after dining."
+        },
+        {
+            id: "voice_drop",
+            emoji: "🗣️",
+            category: "body",
+            title: "Deepened Speaking Voice",
+            analogy: "Slightly Lowered Guitar Tuning",
+            why: "Vocal cord tissue contains estrogen receptors. Thinning tissues make vocal cords expand slightly and resonate at a lower register.",
+            alleviation: "Drinking lukewarm warm teas, doing vocal warming, and accepting natural tone transitions."
+        }
+    ];
+
+    // Track active selected symptoms for custom relief builder
+    let activeReliefSelections = [];
+
+    window.onload = function() {
+        renderSymptomsGrid('all');
+        renderReliefSelectors();
+        initializeCharts();
+    }
+
+    // Dynamic rendering of filtered symptoms
+    function renderSymptomsGrid(category) {
+        const grid = document.getElementById('symptomsGrid');
+        grid.innerHTML = '';
+
+        const filtered = category === 'all' 
+            ? symptomRegistry 
+            : symptomRegistry.filter(s => s.category === category);
+
+        filtered.forEach(s => {
+            const card = document.createElement('div');
+            card.className = "bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:border-rose-200 flex flex-col justify-between interactive-card";
+            card.innerHTML = `
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-3xl">${s.emoji}</span>
+                        <span class="text-[10px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-500">${s.category.toUpperCase()}</span>
+                    </div>
+                    <h3 class="font-bold text-slate-800 text-lg mb-1">${s.title}</h3>
+                    <h4 class="text-xs text-rose-500 font-semibold uppercase tracking-wider mb-3">Analogy: ${s.analogy}</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                        <strong>Why it happens:</strong> ${s.why}
+                    </p>
+                </div>
+                <div class="pt-3 border-t border-slate-100">
+                    <p class="text-xs text-slate-500">
+                        <strong class="text-emerald-600">Alleviation tip:</strong> ${s.alleviation}
+                    </p>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // Handles toggle state on filtering buttons
+    function filterSymptoms(category) {
+        const categories = ['all', 'thermo', 'brain', 'body', 'skin'];
+        categories.forEach(cat => {
+            const btn = document.getElementById(`btn-cat-${cat}`);
+            if (cat === category) {
+                btn.classList.add('tab-active');
+            } else {
+                btn.classList.remove('tab-active');
+            }
+        });
+        renderSymptomsGrid(category);
+    }
+
+    // Dynamic interactive timeline narrative transitions
+    function switchTimelinePhase(phase) {
+        const phases = ['pre', 'peri', 'post'];
+        phases.forEach(p => {
+            const btn = document.getElementById(`btn-${p}`);
+            if (p === phase) {
+                btn.classList.add('tab-active');
+            } else {
+                btn.classList.remove('tab-active');
+            }
+        });
+
+        const detailTitle = document.getElementById('timeline-detail-title');
+        const detailDesc = document.getElementById('timeline-detail-desc');
+        const detailBox = document.getElementById('timeline-detail-box');
+
+        if (phase === 'pre') {
+            detailBox.className = "p-5 bg-amber-50/50 border border-amber-100 rounded-2xl";
+            detailTitle.textContent = "Premenopause (Age 35-45)";
+            detailTitle.className = "font-bold text-amber-600 text-lg mb-1";
+            detailDesc.textContent = "During this chapter, the system baseline is stable. Both Estrogen and Progesterone cycle smoothly. The body framing, thermal thermostat, and energy levels work at peak, keeping skin hydrated and bones constantly rebuilding.";
+        } else if (phase === 'peri') {
+            detailBox.className = "p-5 bg-rose-50/50 border border-rose-100 rounded-2xl";
+            detailTitle.textContent = "Perimenopause (Age 45-51)";
+            detailTitle.className = "font-bold text-rose-600 text-lg mb-1";
+            detailDesc.textContent = "This is the 'transition update' phase. Estrogen declines wildly, causing system bugs (sudden heat spikes, brain processing lags, dry skin). Think of it like a tire rolling over bumpy pathways before clearing onto a new smooth highway.";
+        } else if (phase === 'post') {
+            detailBox.className = "p-5 bg-emerald-50/50 border border-emerald-100 rounded-2xl";
+            detailTitle.textContent = "Menopause & Postmenopause (Ages 51+)";
+            detailTitle.className = "font-bold text-emerald-600 text-lg mb-1";
+            detailDesc.textContent = "The updates have concluded. The hormone production settles into a lower but stable baseline. Fluctuating 'system glitches' stop, though lifestyle focus (bone protection, muscle fitness) remains super important to stay safe and vibrant.";
+        }
+    }
+
+    // Populates the plan builder's checkboxes
+    function renderReliefSelectors() {
+        const selectorContainer = document.getElementById('planSelectors');
+        selectorContainer.innerHTML = '';
+
+        // Select a subset of popular symptoms for easy plan creation
+        const coreSymptoms = symptomRegistry.slice(0, 6);
+
+        coreSymptoms.forEach(s => {
+            const label = document.createElement('label');
+            label.className = "flex items-center gap-3 p-3 bg-emerald-800/40 rounded-xl hover:bg-emerald-800/60 transition cursor-pointer select-none text-xs font-semibold";
+            label.innerHTML = `
+                <input type="checkbox" onchange="toggleReliefPlanItem('${s.id}')" class="rounded text-emerald-600 focus:ring-emerald-500 bg-emerald-950 border-emerald-700 w-4 h-4">
+                <span>${s.emoji} ${s.title}</span>
+            `;
+            selectorContainer.appendChild(label);
+        });
+    }
+
+    // Handles toggle state on Relief Plan Builder checkboxes
+    function toggleReliefPlanItem(id) {
+        const index = activeReliefSelections.indexOf(id);
+        if (index > -1) {
+            activeReliefSelections.splice(index, 1);
+        } else {
+            activeReliefSelections.push(id);
+        }
+        updateReliefPlanOutput();
+    }
+
+    // Compiles custom advice summaries
+    function updateReliefPlanOutput() {
+        const outputBox = document.getElementById('reliefPlanOutput');
+        if (activeReliefSelections.length === 0) {
+            outputBox.innerHTML = `<p class="italic text-emerald-300">No symptoms selected. Click on items on the left side to compile your custom daily advice.</p>`;
+            return;
+        }
+
+        outputBox.innerHTML = '';
+        activeReliefSelections.forEach(id => {
+            const item = symptomRegistry.find(s => s.id === id);
+            if (item) {
+                const planDiv = document.createElement('div');
+                planDiv.className = "mb-4 pb-3 border-b border-emerald-800/60 last:border-0";
+                planDiv.innerHTML = `
+                    <h5 class="font-bold text-emerald-300 flex items-center gap-1.5 text-xs uppercase tracking-wide">
+                        <span>${item.emoji}</span> ${item.title}
+                    </h5>
+                    <p class="text-xs text-emerald-100 mt-1">
+                        <strong>Daily Habit:</strong> ${item.alleviation}
+                    </p>
+                `;
+                outputBox.appendChild(planDiv);
+            }
+        });
+    }
+
+    // Copies current action plan contents
+    function copyReliefPlan() {
+        const outputBox = document.getElementById('reliefPlanOutput');
+        const text = outputBox.innerText;
+
+        if (activeReliefSelections.length === 0) {
+            alertMessage("Please select at least one symptom to copy a plan!");
+            return;
+        }
+
+        // Clean clipboard copy function
+        const tempElement = document.createElement('textarea');
+        tempElement.value = "=== MY MENOPAUSE ALLEVIATION PLAN ===\n\n" + text;
+        document.body.appendChild(tempElement);
+        tempElement.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempElement);
+
+        // Visual feedback on button
+        const btn = document.getElementById('btnCopyPlan');
+        const origText = btn.textContent;
+        btn.textContent = "✓ Plan Copied!";
+        btn.className = "text-xs bg-lime-500 hover:bg-lime-400 text-emerald-950 px-3 py-2 rounded-xl font-bold transition";
+        setTimeout(() => {
+            btn.textContent = origText;
+            btn.className = "text-xs bg-emerald-500 hover:bg-emerald-400 text-white px-3 py-2 rounded-xl font-bold transition";
+        }, 2000);
+    }
+
+    // Safe custom non-obtrusive alert alternative
+    function alertMessage(msg) {
+        const modal = document.createElement('div');
+        modal.className = "fixed bottom-4 right-4 bg-emerald-900 border border-emerald-700 text-emerald-100 text-xs px-4 py-3 rounded-xl shadow-lg z-50 flex items-center gap-2 transition duration-300 transform translate-y-10 opacity-0";
+        modal.innerHTML = `<span>🔔</span> <span>${msg}</span>`;
+        document.body.appendChild(modal);
+        
+        setTimeout(() => {
+            modal.classList.remove('translate-y-10', 'opacity-0');
+        }, 100);
+
+        setTimeout(() => {
+            modal.classList.add('translate-y-10', 'opacity-0');
+            setTimeout(() => {
+                document.body.removeChild(modal);
+            }, 300);
+        }, 2500);
+    }
+
+    // Sets up charts on load
+    function initializeCharts() {
+        // Timeline Curve Chart
+        const hormoneCtx = document.getElementById('hormoneChart').getContext('2d');
+        new Chart(hormoneCtx, {
+            type: 'line',
+            data: {
+                labels: ['Age 35', 'Age 40', 'Age 45', 'Age 50 (Peri)', 'Age 55 (Post)', 'Age 60+'],
+                datasets: [
+                    {
+                        label: 'Estrogen',
+                        data: [90, 85, 60, 25, 10, 8],
+                        borderColor: '#F43F5E',
+                        backgroundColor: 'rgba(244, 63, 94, 0.05)',
+                        borderWidth: 4,
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Progesterone',
+                        data: [80, 75, 40, 10, 5, 4],
+                        borderColor: '#F59E0B',
+                        backgroundColor: 'transparent',
+                        borderWidth: 3,
+                        borderDash: [5, 5],
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false // Display custom HTML legend instead
+                    },
+                    tooltip: {
+                        intersect: false,
+                        callbacks: {
+                            label: function(context) {
+                                return ` ${context.dataset.label}: ${context.raw}% capacity`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            },
+                            font: { size: 9 }
+                        },
+                        grid: { color: '#F1ECE0' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { size: 10, weight: 'bold' } }
+                    }
+                }
+            }
+        });
+
+        // Alleviation methods feedback Donut
+        const methodsCtx = document.getElementById('reliefMethodsChart').getContext('2d');
+        new Chart(methodsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Hormone Therapy (HRT)', 'Lifestyle & Diet Shift', 'Mind-Body Practices', 'Acupuncture & Natural Herbal Supports'],
+                datasets: [{
+                    data: [42, 28, 18, 12],
+                    backgroundColor: ['#F43F5E', '#10B981', '#6366F1', '#F59E0B'],
+                    borderWidth: 0,
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 10,
+                            padding: 15,
+                            font: { size: 10, weight: '600', family: 'Outfit' }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ` ${context.label}: ${context.raw}% found highly effective`;
+                            }
+                        }
+                    }
+                },
+                cutout: '65%'
+            }
+        });
+    }
+</script>
+
+<!-- ─── PLUG: Menopause Wellness App ──────────────────────────────── -->
+<footer style="margin-top:3rem;padding:2.5rem;background:linear-gradient(135deg,#1a1a2e,#2a1a3e);border-radius:24px;max-width:1000px;margin-left:auto;margin-right:auto;text-align:center;font-family:'Outfit',Arial,sans-serif;">
+    <div style="font-size:2.5rem;margin-bottom:0.75rem;">🌸</div>
+    <h3 style="font-family:'Fredoka',sans-serif;font-size:1.4rem;color:#e0d0f0;margin-bottom:0.5rem;">
+        Want the <span style="color:#f0a0b0;">full toolkit?</span>
+    </h3>
+    <p style="font-size:0.9rem;color:#b0a0c0;line-height:1.6;max-width:500px;margin:0 auto 1.25rem;">
+        This guide is just the beginning. The <strong style="color:#e0d0f0;">Menopause Wellness</strong> app gives you 15 isometric exercises, 13 brainwave therapy tones, a symptom decoder, guided breathing, sleep tracking, and more.
+    </p>
+    <a href="https://bit.ly/4eWViyw" target="_blank" rel="noopener" style="display:inline-block;padding:0.9rem 2.5rem;background:linear-gradient(135deg,#d4436b,#b8305a);color:white;border-radius:3rem;font-size:1.05rem;font-weight:700;text-decoration:none;box-shadow:0 8px 24px rgba(212,67,107,0.3);">
+        🌸 Try the Full App for $3 →
+    </a>
+    <p style="font-size:0.8rem;color:#8080a0;margin-top:0.75rem;">
+        First month just $3 with code <strong style="color:#f0a0b0;">MENO3</strong> • Normally $9/month
+    </p>
+</footer>
+
+</body>
+</html>

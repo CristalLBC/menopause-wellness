@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ad — Free Menopause Guide</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #e8e0d8; padding: 20px; flex-direction: column; gap: 30px; }
+  
+  .ad {
+    width: 1000px; height: 1500px;
+    border-radius: 24px; overflow: hidden;
+    position: relative; font-family: 'Georgia', 'Times New Roman', serif;
+  }
+  
+  /* ─── AD 1: "Finally, a guide that tells you what's happening" ─── */
+  .ad1 {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3e 50%, #16213e 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem; position: relative;
+  }
+  .ad1 .bg {
+    position: absolute; top: -80px; right: -60px; width: 400px; height: 400px;
+    border-radius: 50%; background: radial-gradient(circle, rgba(212,67,107,0.06), transparent);
+  }
+  .ad1 .badge {
+    background: rgba(212,67,107,0.15); border: 1px solid rgba(212,67,107,0.3);
+    color: #f0a0b0; padding: 0.4rem 1.2rem; border-radius: 2rem;
+    font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 1.5rem; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+  }
+  .ad1 .free-badge {
+    background: rgba(46,204,113,0.15); border: 1px solid rgba(46,204,113,0.3);
+    color: #80d8a0; padding: 0.3rem 1rem; border-radius: 2rem;
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em;
+    margin-bottom: 1rem; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+  }
+  .ad1 h1 {
+    font-size: 2.8rem; font-weight: 700; color: #e0d0f0; text-align: center;
+    line-height: 1.2; margin-bottom: 0.5rem; z-index: 1;
+  }
+  .ad1 h1 em { font-style: normal; color: #f0a0b0; }
+  .ad1 .sub {
+    font-size: 1.15rem; color: #b0a0c0; text-align: center; line-height: 1.6;
+    max-width: 550px; font-weight: 300; font-family: 'Segoe UI', Arial, sans-serif;
+    margin-bottom: 1.5rem; z-index: 1;
+  }
+  .ad1 .features {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 2rem;
+    width: 100%; max-width: 500px; z-index: 1;
+  }
+  .ad1 .feat {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px; padding: 0.7rem 1rem; text-align: center;
+  }
+  .ad1 .feat .icon { font-size: 1.4rem; }
+  .ad1 .feat .label { font-size: 0.75rem; color: #a0a0b0; font-family: 'Segoe UI', Arial, sans-serif; margin-top: 0.15rem; }
+  .ad1 .cta {
+    background: linear-gradient(135deg, #d4436b, #b8305a); color: white;
+    padding: 1rem 3rem; border-radius: 3rem; font-size: 1.1rem; font-weight: 700;
+    font-family: 'Segoe UI', Arial, sans-serif; z-index: 1; box-shadow: 0 8px 24px rgba(212,67,107,0.3);
+    text-align: center; width: 100%; max-width: 450px;
+  }
+  .ad1 .url { position: absolute; bottom: 1.5rem; font-size: 0.75rem; color: #606080; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1; }
+
+  /* ─── AD 2: "What if someone just explained it?" (warm/pastel) ─── */
+  .ad2 {
+    background: linear-gradient(135deg, #fdf6f0 0%, #f8ede4 50%, #fdf6f0 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem; position: relative;
+  }
+  .ad2 .bg1 { position: absolute; top: -40px; left: -30px; width: 250px; height: 250px; border-radius: 50%; background: radial-gradient(circle, rgba(212,67,107,0.05), transparent); }
+  .ad2 .bg2 { position: absolute; bottom: -60px; right: -40px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(46,204,113,0.04), transparent); }
+  .ad2 .badge {
+    background: #d4436b; color: white; padding: 0.3rem 1rem; border-radius: 2rem;
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 1rem; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1;
+  }
+  .ad2 h2 {
+    font-size: 2.6rem; font-weight: 700; color: #1a1a2e; text-align: center;
+    line-height: 1.2; margin-bottom: 0.5rem; z-index: 1;
+  }
+  .ad2 h2 em { font-style: normal; color: #d4436b; }
+  .ad2 .sub {
+    font-size: 1.1rem; color: #7a6a6a; text-align: center; line-height: 1.6;
+    max-width: 500px; font-family: 'Segoe UI', Arial, sans-serif; margin-bottom: 1.5rem; z-index: 1;
+  }
+  .ad2 .mockup {
+    width: 200px; height: 280px; background: white; border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06); margin-bottom: 1.5rem; z-index: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 1rem; border: 1px solid #f0e8e4;
+  }
+  .ad2 .mockup .m-icon { font-size: 1.8rem; }
+  .ad2 .mockup .m-title { font-size: 0.7rem; color: #d4436b; font-weight: 700; margin: 0.3rem 0; }
+  .ad2 .mockup .m-line { width: 80%; height: 6px; background: #f0e8e4; border-radius: 3px; margin: 0.2rem 0; }
+  .ad2 .mockup .m-line:nth-child(4) { width: 60%; }
+  .ad2 .mockup .m-line:nth-child(5) { width: 70%; }
+  .ad2 .price-tag {
+    background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.2);
+    color: #27ae60; padding: 0.4rem 1.2rem; border-radius: 2rem;
+    font-size: 0.9rem; font-weight: 700; font-family: 'Segoe UI', Arial, sans-serif;
+    margin-bottom: 1.5rem; z-index: 1;
+  }
+  .ad2 .cta {
+    background: #1a1a2e; color: white;
+    padding: 1rem 3rem; border-radius: 3rem; font-size: 1.1rem; font-weight: 700;
+    font-family: 'Segoe UI', Arial, sans-serif; z-index: 1; text-align: center; width: 100%; max-width: 450px;
+  }
+
+  /* ─── AD 3: "3AM Hot Flash" emotional hook ─── */
+  .ad3 {
+    background: linear-gradient(145deg, #0a1a2e, #121827);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 3rem; position: relative;
+  }
+  .ad3 .bg-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(212,67,107,0.05), transparent); }
+  .ad3 .hook {
+    font-size: 3rem; font-weight: 700; color: #e0d0f0; text-align: center;
+    line-height: 1.2; margin-bottom: 0.5rem; z-index: 1;
+  }
+  .ad3 .hook em { font-style: normal; color: #f0a0b0; }
+  .ad3 .pain {
+    font-size: 1.1rem; color: #8090a0; text-align: center; line-height: 1.5;
+    max-width: 480px; font-family: 'Segoe UI', Arial, sans-serif; margin-bottom: 1.5rem; z-index: 1;
+  }
+  .ad3 .answer {
+    font-size: 1.6rem; font-weight: 700; color: #f0c080; text-align: center;
+    margin-bottom: 1.5rem; font-family: 'Georgia', serif; z-index: 1;
+  }
+  .ad3 .cta {
+    background: linear-gradient(135deg, #d4436b, #b8305a); color: white;
+    padding: 0.9rem 2.5rem; border-radius: 3rem; font-size: 1.05rem; font-weight: 700;
+    font-family: 'Segoe UI', Arial, sans-serif; z-index: 1; box-shadow: 0 8px 24px rgba(212,67,107,0.3);
+    text-align: center;
+  }
+  .ad3 .url { position: absolute; bottom: 1.5rem; font-size: 0.7rem; color: #606080; font-family: 'Segoe UI', Arial, sans-serif; z-index: 1; }
+</style>
+</head>
+<body>
+
+<!-- AD 1: "Finally, a guide that tells you what's happening" -->
+<div class="ad ad1">
+  <div class="bg"></div>
+  <div class="free-badge">🎁 FREE DOWNLOAD</div>
+  <div class="badge">📖 Interactive Guide</div>
+  <h1>Finally, a Guide That<br><em>Tells You What's Happening</em></h1>
+  <div class="sub">34 body changes explained • Hormone timeline • Symptom explorer • Personalized relief plan — all in one interactive page.</div>
+  <div class="features">
+    <div class="feat"><div class="icon">📊</div><div class="label">Hormone Charts</div></div>
+    <div class="feat"><div class="icon">🔍</div><div class="label">Symptom Explorer</div></div>
+    <div class="feat"><div class="icon">📅</div><div class="label">Timeline by Age</div></div>
+    <div class="feat"><div class="icon">📋</div><div class="label">Relief Plan Builder</div></div>
+  </div>
+  <div class="cta">🌸 Download Free →</div>
+  <div class="url">Free • No email required? • menopause-wellness.onrender.com</div>
+</div>
+
+<!-- AD 2: "What if someone just explained it?" warm/pastel -->
+<div class="ad ad2">
+  <div class="bg1"></div>
+  <div class="bg2"></div>
+  <div class="badge">FREE</div>
+  <h2>What If Someone Just<br><em>Explained</em> It All?</h2>
+  <div class="sub">The menopause guide you deserved from the start. Interactive. Beautiful. Free.</div>
+  <div class="mockup">
+    <div class="m-icon">📊</div>
+    <div class="m-title">Hormone Timeline</div>
+    <div class="m-line"></div>
+    <div class="m-line"></div>
+    <div class="m-line"></div>
+  </div>
+  <div class="price-tag">✨ $0 — Yours Free</div>
+  <div class="cta">📖 Get the Ultimate Guide</div>
+</div>
+
+<!-- AD 3: "3AM Heart Racing" emotional hook -->
+<div class="ad ad3">
+  <div class="bg-glow"></div>
+  <div class="hook">Why Do I Wake Up at<br><em>3 AM Every Night?</em></div>
+  <div class="pain">Heart racing. Sheets soaked. Mind spinning. You're not broken — your hormones are on a rollercoaster. The guide explains exactly why, and what helps.</div>
+  <div class="answer">💡 The answer is in this free guide</div>
+  <div class="cta">🌙 Download Free →</div>
+  <div class="url">menopause-wellness.onrender.com/free-guide</div>
+</div>
+
+</body>
+</html>
