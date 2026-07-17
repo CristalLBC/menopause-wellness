@@ -1126,6 +1126,69 @@ def privacy():
     return render_template('privacy.html')
 
 
+# ─── SEO: Robots & Sitemap ──────────────────────────────────────────
+
+@app.route('/robots.txt')
+def robots_txt():
+    return """User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /register
+Disallow: /activate
+Disallow: /logout
+Disallow: /onboarding
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /admin
+
+Sitemap: https://menopause-wellness.onrender.com/sitemap.xml
+""", 200, {'Content-Type': 'text/plain'}
+
+
+@app.route('/sitemap.xml')
+def sitemap_xml():
+    pages = [
+        {'loc': '/', 'priority': '1.0'},
+        {'loc': '/start', 'priority': '0.9'},
+        {'loc': '/exercises', 'priority': '0.9'},
+        {'loc': '/workout', 'priority': '0.8'},
+        {'loc': '/program', 'priority': '0.8'},
+        {'loc': '/articles', 'priority': '0.8'},
+        {'loc': '/symptoms', 'priority': '0.7'},
+        {'loc': '/stages', 'priority': '0.7'},
+        {'loc': '/perimenopause', 'priority': '0.7'},
+        {'loc': '/breathing', 'priority': '0.7'},
+        {'loc': '/tones', 'priority': '0.7'},
+        {'loc': '/decoder', 'priority': '0.7'},
+        {'loc': '/infographic', 'priority': '0.7'},
+        {'loc': '/pelvic-health', 'priority': '0.7'},
+        {'loc': '/doctor-prep', 'priority': '0.7'},
+        {'loc': '/sleep', 'priority': '0.7'},
+        {'loc': '/mood', 'priority': '0.7'},
+        {'loc': '/journal', 'priority': '0.6'},
+        {'loc': '/community', 'priority': '0.6'},
+        {'loc': '/free-guide', 'priority': '0.8'},
+        {'loc': '/printable-exercises', 'priority': '0.7'},
+        {'loc': '/privacy', 'priority': '0.3'},
+        {'loc': '/disclaimer', 'priority': '0.3'},
+    ]
+    today = date.today().isoformat()
+    urls = ''
+    for p in pages:
+        urls += f"""  <url>
+    <loc>https://menopause-wellness.onrender.com{p['loc']}</loc>
+    <lastmod>{today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>{p['priority']}</priority>
+  </url>
+"""
+    xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{urls}</urlset>
+"""
+    return xml, 200, {'Content-Type': 'application/xml'}
+
+
 # ─── Initialize ───────────────────────────────────────────────────────
 @app.cli.command('init-db')
 def init_db():
