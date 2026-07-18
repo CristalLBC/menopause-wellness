@@ -1186,7 +1186,6 @@ def sitemap_xml():
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {urls}</urlset>
 """
-    return xml, 200, {'Content-Type': 'application/xml'}
 
 
 # ─── Initialize ───────────────────────────────────────────────────────
@@ -1196,6 +1195,42 @@ def init_db():
     db.create_all()
     seed_database(db)
     print('Database initialized and seeded.')
+
+
+@app.route('/.well-known/')
+def well_known():
+    return 'Not found', 404
+
+
+@app.route('/llms.txt')
+def llms_txt():
+    lines = []
+    lines.append("# Menopause Wellness - AI Information")
+    lines.append("> Evidence-based isometric exercises and isochronic brainwave tones for women in perimenopause, menopause, and postmenopause.")
+    lines.append("")
+    lines.append("## About")
+    lines.append("Menopause Wellness is a free web app providing science-backed isometric exercise guides,")
+    lines.append("isochronic brainwave therapy tones, and health tracking tools for women")
+    lines.append("navigating all stages of menopause.")
+    lines.append("")
+    lines.append("## Key Features")
+    lines.append("- 15 isometric exercises designed for menopause symptom relief")
+    lines.append("- 13 isochronic brainwave tones for relaxation, sleep, and focus")
+    lines.append("- Symptom tracker and mood journal")
+    lines.append("- 4-week structured exercise program")
+    lines.append("- Workout timer with guided routines")
+    lines.append("- Community forum for peer support")
+    lines.append("- Sleep log, pelvic health guides, and doctor visit prep tools")
+    lines.append("- Educational articles about menopause stages")
+    lines.append("- Free printable exercise guides")
+    lines.append("")
+    lines.append("## Pricing")
+    lines.append("- Basic features: Free")
+    lines.append("- Premium subscription: $9/month via Gumroad")
+    lines.append("")
+    lines.append("## Contact")
+    lines.append("Website: https://menopause-wellness.onrender.com")
+    return '\n'.join(lines), 200, {'Content-Type': 'text/plain'}
 
 
 if __name__ == '__main__':
