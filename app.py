@@ -1,6 +1,7 @@
-import os, json, markdown
+import os, json, markdown, csv, io, secrets
 from datetime import date, datetime, timedelta, time
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, session, Response, abort
+from markupsafe import escape
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from models import db, User, Exercise, WorkoutLog, MoodEntry, JournalEntry, SymptomEntry, \
     ProgramProgress, Article, CommunityPost, CommunityComment, SYMPTOM_TYPES, SYMPTOM_LABELS, \
@@ -251,6 +252,86 @@ def printable_exercises():
     """Printable 5-exercise guide — no email required, linked from free guide."""
     exercises = Exercise.query.order_by(Exercise.order).limit(5).all()
     return render_template('printable_exercises.html', exercises=exercises)
+
+
+# ─── Lead magnet subscribers (the emails from /free-guide) ────────────
+# Reachable only with the ADMIN_KEY value, so the public can never read the list.
+ADMIN_KEY = os.environ.get('ADMIN_KEY', '')
+
+
+def _admin_ok():
+    key = request.args.get('key', '')
+    return bool(ADMIN_KEY) and secrets.compare_digest(key, ADMIN_KEY)
+
+
+@app.route('/admin/subscribers')
+def admin_subscribers():
+    """Read the emails captured by the free guide."""
+    if not _admin_ok():
+        abort(404)
+    subs = Subscriber.query.order_by(Subscriber.created_at.desc()).all()
+    emails = "\n".join(s.email for s in subs)
+    rows = "".join(
+        "<tr><td style='padding:6px 10px;color:#888'>%s</td>"
+        "<td style='padding:6px 10px'><b>%s</b></td>"
+        "<td style='padding:6px 10px'>%s</td>"
+        "<td style='padding:6px 10px;color:#888'>%s</td>"
+        "<td style='padding:6px 10px;color:#888'>%s</td></tr>" % (
+            s.id,
+            escape(s.email),
+            escape(s.name or ''),
+            escape(s.source or ''),
+            s.created_at.strftime('%b %d, %Y %I:%M %p') if s.created_at else '',
+        )
+        for s in subs
+    ) or "<tr><td colspan='5' style='padding:24px;color:#888'>No emails captured yet. Every signup on /free-guide lands here automatically.</td></tr>"
+
+    html = """<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>Free Guide Signups</title>
+<style>
+ body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#fdf7f9;color:#3a2b31;margin:0;padding:32px}
+ .wrap{max-width:900px;margin:0 auto}
+ h1{color:#d4436b;margin:0 0 4px}
+ .count{font-size:44px;font-weight:800;color:#d4436b;line-height:1}
+ .sub{color:#8a7379;margin-bottom:24px}
+ table{width:100%%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;
+       box-shadow:0 2px 10px rgba(212,67,107,.08)}
+ th{background:#d4436b;color:#fff;text-align:left;padding:10px;font-size:13px}
+ td{font-size:14px;border-top:1px solid #f3e6ea}
+ .btn{display:inline-block;background:#d4436b;color:#fff;text-decoration:none;padding:11px 18px;
+      border-radius:8px;font-weight:600;margin:18px 0}
+ textarea{width:100%%;height:150px;border:1px solid #edd;border-radius:8px;padding:12px;font-size:13px}
+ h2{font-size:15px;color:#8a7379;margin-top:28px;text-transform:uppercase;letter-spacing:.5px}
+</style></head><body><div class="wrap">
+ <h1>Free Guide Signups</h1>
+ <div class="count">%d</div>
+ <div class="sub">emails captured &middot; newest first</div>
+ <a class="btn" href="/admin/subscribers.csv?key=%s">Download as spreadsheet (CSV)</a>
+ <table><tr><th>#</th><th>Email</th><th>Name</th><th>Source</th><th>Signed up</th></tr>%s</table>
+ <h2>Copy all emails</h2>
+ <textarea readonly>%s</textarea>
+ <h2>How to use this list</h2>
+ <p style="color:#8a7379;font-size:14px">Paste the emails into your email tool to send the guide or a follow-up.
+ You can also ask the assistant to write a welcome email or a follow-up sequence for this list.</p>
+</div></body></html>""" % (len(subs), escape(ADMIN_KEY), rows, escape(emails))
+
+    return html
+
+
+@app.route('/admin/subscribers.csv')
+def admin_subscribers_csv():
+    """Download the captured emails as a spreadsheet file."""
+    if not _admin_ok():
+        abort(404)
+    subs = Subscriber.query.order_by(Subscriber.created_at.desc()).all()
+    buf = io.StringIO()
+    writer = csv.writer(buf)
+    writer.writerow(['id', 'email', 'name', 'source', 'signed_up'])
+    for s in subs:
+        writer.writerow([s.id, s.email, s.name or '', s.source or '',
+                         s.created_at.strftime('%Y-%m-%d %H:%M') if s.created_at else ''])
+    return Response(buf.getvalue(), mimetype='text/csv',
+                    headers={'Content-Disposition': 'attachment; filename=free-guide-signups.csv'})
 
 
 @app.before_request
